@@ -1,0 +1,68 @@
+#NOME DA APLICAÇÃO???
+
+#PROPÓSITO
+-Ser um sistema de vendas que atenda todo o nicho de empresas de mercado, farmácia, posto de gasolina, bar
+
+#QUAIS AS FUNCIOALIDADES
+-Vai ser uma aplicação de vendas, controle de caixa, fluxo de caixa, controle de estoque, com entidades,
+onde via ser possível criar uma entidade "empresa", que vai ser login e senha para o gestor, e o gestor
+vai poder gerenciar novos usuarios e definir a função deles, tudo com autenticação individual de cada
+um deles
+
+#RECURSOS 
+-modulos de estoque, frente de caixa, contas a pagar, contas a receber, relatórios,
+vendas, clientes, fornecedor, catálogo, venda em e-comerce, RCM, gerar boletos, gerar carnê, comissão,
+importação e exportação de dados, impressão de nfe
+
+#QUAISA AS TECNOLOGIAS USADAS
+-vai ser um software web, em nosso servidor, pode ser custumizado para cada empresa??? | vai ter aplciativo
+para windows e mobile
+
+#BACK END
+ASP.NET CORE API, C#
+
+#FRONT END
+
+#BANCO DE DADOS
+-banco de dados em postgresql
+
+#APLICATIVO DESKTOP
+
+#APLICATIVO MOBILE
+
+#DOCUMENTAÇÃO
+-Vamos ter que documentar toda a API para facilidar a manutenção e a integração com outros aplicativos e o
+front-end
+
+#SEGURANÇA (AUTENTICAÇÃO, PERMISSÕES, COOKIES)
+
+#USABILIDADES
+
+#MODELAR OS DADOS(FORMA DE SAIDA)
+
+#ARQUITETURA 
+MVC
+
+#TESTES (UNITÁRIOS, INTEGRAÇÃO, ACEITAÇÕES)
+
+#ESCALABILIDADE(THREDS)
+
+#OTIMIZAÇÃO
+
+#PRASOS
+
+#TODO
+1-Discutir os requisitos e funcionalidades do projeto
+
+2-Iniciar o projeto
+
+3-Desenhar o banco de dados 
+
+4-Criar a parte de autenticação de usuário separado por entidade
+
+5-Criar parte de controle de estoque com premisionamento de cada usuário
+
+6- Trabalhar na documentação da aplicação
+
+7-otimizar o código para não ter dor de cabeça
+
