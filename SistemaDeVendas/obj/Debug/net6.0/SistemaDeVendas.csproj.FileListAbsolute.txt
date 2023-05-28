@@ -44,3 +44,11 @@ C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extens
 C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
 C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Npgsql.dll
 C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Humanizer.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\System.CodeDom.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\System.Text.Json.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

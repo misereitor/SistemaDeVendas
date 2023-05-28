@@ -7,14 +7,19 @@ namespace SistemaDeVendas.Repositorios
 {
     public class UsuarioRepositorio : IUsuariosRepositorio
     {
-        private readonly ConexaoDBContex _dbContext = new ConexaoDBContex();
+        private readonly ConexaoDBContext _dbContext;
+
+        public UsuarioRepositorio(ConexaoDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public async Task<List<UsuarioModel>> BuscarTodosOsUsuarios()
         {
             List<UsuarioModel> listaDeUsuarios = new List<UsuarioModel>();
             try
             {
-                listaDeUsuarios = await  _dbContext.usuarioModels.ToListAsync();
+                listaDeUsuarios = await  _dbContext.UsuarioModels.ToListAsync();
             }
             catch(Exception ex) 
             {
@@ -28,7 +33,7 @@ namespace SistemaDeVendas.Repositorios
             UsuarioModel? usuarioPorId = null;
             try
             {
-                usuarioPorId = await _dbContext.usuarioModels.FirstOrDefaultAsync(x => x.Id == id);
+                usuarioPorId = await _dbContext.UsuarioModels.FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -36,7 +41,7 @@ namespace SistemaDeVendas.Repositorios
             }
             if (usuarioPorId == null)
             {
-                throw new Exception("Usuário não encontrado"); // Ou retorne um valor padrão, como null ou um usuário "vazio"
+                throw new Exception("Usuário não encontrado");
             }
             return usuarioPorId;
         }
@@ -55,13 +60,8 @@ namespace SistemaDeVendas.Repositorios
 
         public async Task<UsuarioModel> AlterarUsuario(UsuarioModel usuario, int id)
         {
-            UsuarioModel usuarioPorId = await BuscarUsuarioPorId(id);
-            if (usuarioPorId == null)
-            {
-                throw new Exception($"Usuario do ID: {id} não foi encontrado!");
-            }
-            usuarioPorId = usuario;
-            _dbContext.usuarioModels.Update(usuarioPorId);
+            UsuarioModel usuarioPorId = await BuscarUsuarioPorId(id) ?? throw new Exception($"Usuario do ID: {id} não foi encontrado!");
+            _dbContext.Entry(usuarioPorId).CurrentValues.SetValues(usuario);
             await _dbContext.SaveChangesAsync();
             return usuarioPorId;
         }
@@ -70,13 +70,13 @@ namespace SistemaDeVendas.Repositorios
         public async Task<bool> DeletarUsuario(int id)
         {
             UsuarioModel usuarioPorId = await BuscarUsuarioPorId(id);
-            if (usuarioPorId == null)
+            if (usuarioPorId != null)
             {
-                throw new Exception($"Usuario do ID: {id} não foi encontrado!");
+                _dbContext.UsuarioModels.Remove(usuarioPorId);
+                await _dbContext.SaveChangesAsync();
+                return true;
             }
-            _dbContext.usuarioModels.Remove(usuarioPorId);
-            await _dbContext.SaveChangesAsync();
-            return true;
+            throw new Exception($"Usuario do ID: {id} não foi encontrado!");
         }
     }
 }

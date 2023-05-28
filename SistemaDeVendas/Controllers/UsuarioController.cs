@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeVendas.Models;
+using SistemaDeVendas.Repositorios.Interfaces;
 
 namespace SistemaDeVendas.Controllers
 {
@@ -8,29 +9,57 @@ namespace SistemaDeVendas.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private readonly IUsuariosRepositorio _usuariosRepositorio;
+
+        public UsuarioController(IUsuariosRepositorio usuariosRepositorio)
+        {
+            _usuariosRepositorio = usuariosRepositorio;
+        }
 
         [HttpGet]
-        public ActionResult<List<UsuarioModel>> BuscarTodosOsUsuarios()
+        public async Task<ActionResult<List<UsuarioModel>>> BuscarTodosOsUsuarios()
         {
-            return Ok();
+            List<UsuarioModel> usuarios = await _usuariosRepositorio.BuscarTodosOsUsuarios();
+            return Ok(usuarios);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UsuarioModel>> BuscarUsuarioPorID(int id)
+        {
+            UsuarioModel usuario = await _usuariosRepositorio.BuscarUsuarioPorId(id);
+            return Ok(usuario);
         }
 
         [HttpPost]
-        public ActionResult<UsuarioModel> CadastrarUsuario(UsuarioModel usuario)
+        public async Task<ActionResult<UsuarioModel>> CadastrarUsuario([FromBody] UsuarioModel usuario)
         {
+            if (usuario == null)
+            {
+                Console.WriteLine("Usuário não pode ser nulo");
+                return BadRequest();
+            }
+            UsuarioModel novoUsuario = await _usuariosRepositorio.CriarUsuario(usuario);
+            return Ok(novoUsuario);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UsuarioModel>> AlterarUsuario([FromBody] UsuarioModel usuario, int id)
+        {
+            if (usuario == null)
+            {
+                Console.WriteLine("Usuário não pode ser nulo");
+                return BadRequest();
+            }
+            usuario.Id = id;
+            await _usuariosRepositorio.AlterarUsuario(usuario, id);
             return Ok();
         }
 
-        [HttpPut]
-        public  ActionResult<UsuarioModel> AlterarUsuario(UsuarioModel usuario, int id)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<UsuarioModel>> DeletarUsuario(int id)
         {
-            return Ok();
-        }
-
-        [HttpDelete]
-        public ActionResult<UsuarioModel> DeletarUsuario(int id)
-        {
-            return Ok();
+            bool usuarioDeletado = await _usuariosRepositorio.DeletarUsuario(id);
+            return Ok(usuarioDeletado);
         }
     }
 }
