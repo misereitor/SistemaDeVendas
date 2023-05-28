@@ -30,3 +30,17 @@ C:\Treinamento\SistemaDeVendas\SistemaDeVendas\obj\Debug\net6.0\refint\SistemaDe
 C:\Treinamento\SistemaDeVendas\SistemaDeVendas\obj\Debug\net6.0\SistemaDeVendas.pdb
 C:\Treinamento\SistemaDeVendas\SistemaDeVendas\obj\Debug\net6.0\SistemaDeVendas.genruntimeconfig.cache
 C:\Treinamento\SistemaDeVendas\SistemaDeVendas\obj\Debug\net6.0\ref\SistemaDeVendas.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Npgsql.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

@@ -1,7 +1,12 @@
-﻿namespace SistemaDeVendas.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SistemaDeVendas.Models
 {
+    [Table("usuario")]
     public class UsuarioModel
     {
+        [Key]
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
@@ -12,9 +17,6 @@
         public bool Ativo { get; set; }
         public int Permissao { get; set; }
 
-        public UsuarioModel()
-        {
-        }
         public UsuarioModel(int id, string nome, string email, string senha, string empresa, int cnpj, string funcao, bool ativo, int permissao)
         {
             Id = id;
@@ -26,6 +28,10 @@
             Funcao = funcao;
             Ativo = ativo;
             Permissao = permissao;
+        }
+
+        public UsuarioModel()
+        {
         }
     }
 }

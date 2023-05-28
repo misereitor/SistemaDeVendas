@@ -22,13 +22,13 @@ namespace SistemaDeVendas.Controllers
         }
 
         [HttpPut]
-        public  ActionResult<UsuarioModel> AlterarUsuario(UsuarioModel usuario)
+        public  ActionResult<UsuarioModel> AlterarUsuario(UsuarioModel usuario, int id)
         {
             return Ok();
         }
 
         [HttpDelete]
-        public ActionResult<UsuarioModel> DeletarUsuario(UsuarioModel usuario)
+        public ActionResult<UsuarioModel> DeletarUsuario(int id)
         {
             return Ok();
         }
