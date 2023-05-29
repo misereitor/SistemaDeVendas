@@ -28,6 +28,23 @@ namespace SistemaDeVendas.Repositorios
             return listaDeUsuarios;
         }
 
+        public async Task<UsuarioModel> BuscaUsuarioPorEmailESenha(string email, string senha)
+        {
+            UsuarioModel? usuario = new UsuarioModel();
+            try
+            {
+                usuario = await _dbContext.UsuarioModels.FirstOrDefaultAsync(u => u.Email == email && u.Senha == senha);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro de SQL: " + ex.Message);
+            }
+            if (usuario == null)
+            {
+                throw new Exception("Usuário não encontrado");
+            }
+            return usuario;
+        }
         public async Task<UsuarioModel> BuscarUsuarioPorId(int id)
         {
             UsuarioModel? usuarioPorId = null;

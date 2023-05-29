@@ -19,7 +19,7 @@ namespace SistemaDeVendas.Models
         public string Email { get; set; }
         public string? IE { get; set; }
         public string? IM { get; set; }
-        public int EnderecoEntregaId { get; set; }
+        public int? EnderecoEntregaId { get; set; }
         public EnderecoModel? EnderecoEntrega { get; set; }
         public int? EnderecoFaturamentoId { get; set; }
         public EnderecoModel? EnderecoFaturamento { get; set; }

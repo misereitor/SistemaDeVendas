@@ -8,10 +8,6 @@ namespace SistemaDeVendas.Models
     [Table("usuario")]
     public class UsuarioModel
     {
-        public UsuarioModel()
-        {
-            Empresas = new List<EmpresaModel>();
-        }
 
         [Key]
         public int Id { get; set; }
@@ -27,6 +23,8 @@ namespace SistemaDeVendas.Models
         [Required]
         [MaxLength(64)]
         public string Senha { get; set; }
+
+        public EnderecoModel Endereco { get; set; }
 
         public ICollection<EmpresaModel>? Empresas { get; set; }
 
@@ -51,5 +49,30 @@ namespace SistemaDeVendas.Models
         public decimal CPF { get; set; }
 
         public byte[]? Foto { get; set; }
+
+        public UsuarioModel(int id, string nome, string email, string senha, EnderecoModel endereco, ICollection<EmpresaModel>? empresas, string? funcao, bool? ativo, CargoUsuario perfil, bool? pDV, bool? aDMPDV, bool? vendedor, float? comissao, decimal? telefone, decimal cPF, byte[]? foto)
+        {
+            Id = id;
+            Nome = nome;
+            Email = email;
+            Senha = senha;
+            Endereco = endereco;
+            Empresas = empresas;
+            Funcao = funcao;
+            Ativo = ativo;
+            Perfil = perfil;
+            PDV = pDV;
+            ADMPDV = aDMPDV;
+            Vendedor = vendedor;
+            Comissao = comissao;
+            Telefone = telefone;
+            CPF = cPF;
+            Foto = foto;
+        }
+
+        public UsuarioModel()
+        {
+        }
     }
+
 }
