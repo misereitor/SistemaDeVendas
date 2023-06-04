@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SistemaDeVendas.Models;
+using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
 using SistemaDeVendas.Repositorios.Interfaces;
 using SistemaDeVendas.Services;

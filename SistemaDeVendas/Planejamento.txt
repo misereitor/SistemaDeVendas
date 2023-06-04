@@ -52,11 +52,11 @@ MVC
 #PRASOS
 
 #TODO
-1-Discutir os requisitos e funcionalidades do projeto
+1-Discutir os requisitos e funcionalidades do projeto(Feito)
 
-2-Iniciar o projeto
+2-Iniciar o projeto(Feito)
 
-3-Desenhar o banco de dados 
+3-Desenhar o banco de dados (Iniciado)
 
 4-Criar a parte de autenticação de usuário separado por entidade
 

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SistemaDeVendas.Models
+namespace SistemaDeVendas.Models.GeralModel
 {
     [Table("endereco")]
     public class EnderecoModel
@@ -12,18 +12,14 @@ namespace SistemaDeVendas.Models
         public string Cidade { get; set; }
         public string Estado { get; set; }
         public string CEP { get; set; }
-        public int EmpresaId { get; set; }
-        public int UsuarioId { get; set; }
 
-        public EnderecoModel(int id, string rua, string cidade, string estado, string cEP, int empresaId, int usuarioId)
+        public EnderecoModel(int id, string rua, string cidade, string estado, string cEP)
         {
             Id = id;
             Rua = rua;
             Cidade = cidade;
             Estado = estado;
             CEP = cEP;
-            EmpresaId = empresaId;
-            UsuarioId = usuarioId;
         }
 
         public EnderecoModel()

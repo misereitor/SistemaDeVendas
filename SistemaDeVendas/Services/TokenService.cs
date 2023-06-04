@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
 using Microsoft.IdentityModel.Tokens;
 using SistemaDeVendas.Auth;
-using SistemaDeVendas.Models;
+using SistemaDeVendas.Models.UsuariosModels;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

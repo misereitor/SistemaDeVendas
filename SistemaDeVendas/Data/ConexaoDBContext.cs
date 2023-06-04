@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data.Map;
-using SistemaDeVendas.Models;
+using SistemaDeVendas.Models.EmpresaModels;
+using SistemaDeVendas.Models.GeralModel;
+using SistemaDeVendas.Models.UsuariosModels;
 
 namespace SistemaDeVendas.Data
 {

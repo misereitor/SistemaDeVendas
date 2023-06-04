@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SistemaDeVendas.Models;
+using SistemaDeVendas.Models.EmpresaModels;
+using SistemaDeVendas.Models.UsuariosModels;
 
 namespace SistemaDeVendas.Data.Map
 {

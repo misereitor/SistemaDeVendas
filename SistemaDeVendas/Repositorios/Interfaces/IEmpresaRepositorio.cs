@@ -1,4 +1,4 @@
-﻿using SistemaDeVendas.Models;
+﻿using SistemaDeVendas.Models.EmpresaModels;
 
 namespace SistemaDeVendas.Repositorios.Interfaces
 {
