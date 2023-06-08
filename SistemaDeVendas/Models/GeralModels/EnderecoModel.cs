@@ -13,15 +13,6 @@ namespace SistemaDeVendas.Models.GeralModel
         public string Estado { get; set; }
         public string CEP { get; set; }
 
-        public EnderecoModel(int id, string rua, string cidade, string estado, string cEP)
-        {
-            Id = id;
-            Rua = rua;
-            Cidade = cidade;
-            Estado = estado;
-            CEP = cEP;
-        }
-
         public EnderecoModel()
         {
         }

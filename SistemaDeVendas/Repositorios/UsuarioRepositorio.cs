@@ -19,7 +19,7 @@ namespace SistemaDeVendas.Repositorios
             List<UsuarioModel> listaDeUsuarios = new List<UsuarioModel>();
             try
             {
-                listaDeUsuarios = await  _dbContext.UsuarioModels.ToListAsync();
+                listaDeUsuarios = await  _dbContext.Usuarios.ToListAsync();
             }
             catch(Exception ex) 
             {
@@ -33,7 +33,7 @@ namespace SistemaDeVendas.Repositorios
             UsuarioModel? usuario = new UsuarioModel();
             try
             {
-                usuario = await _dbContext.UsuarioModels.FirstOrDefaultAsync(u => u.Email == email && u.Senha == senha);
+                usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.Email == email && u.Senha == senha);
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace SistemaDeVendas.Repositorios
             UsuarioModel? usuarioPorId = null;
             try
             {
-                usuarioPorId = await _dbContext.UsuarioModels.FirstOrDefaultAsync(x => x.Id == id);
+                usuarioPorId = await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace SistemaDeVendas.Repositorios
             UsuarioModel usuarioPorId = await BuscarUsuarioPorId(id);
             if (usuarioPorId != null)
             {
-                _dbContext.UsuarioModels.Remove(usuarioPorId);
+                _dbContext.Usuarios.Remove(usuarioPorId);
                 await _dbContext.SaveChangesAsync();
                 return true;
             }

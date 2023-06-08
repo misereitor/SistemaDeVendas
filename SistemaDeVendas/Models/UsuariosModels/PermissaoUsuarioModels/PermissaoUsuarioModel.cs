@@ -1,4 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.Catalogo;
+using SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.Compras;
+using SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.Estoque;
+using SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.Faturamento;
+using SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.Financeiro;
+using SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.PDV;
+using SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.Pessoas;
+using SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.Relatorios;
+using SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.Vendas;
 
 namespace SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels
 {

@@ -19,7 +19,7 @@ namespace SistemaDeVendas.Services
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, usuario.Nome),
-                    new Claim(ClaimTypes.Role, usuario.Perfil.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, usuario.Usuario),
                     new Claim(ClaimTypes.Email, usuario.Email)
                 }),
                 Expires = DateTime.UtcNow.AddHours(8),

@@ -7,5 +7,6 @@
         public bool? PodeCriar { get; set; }
         public bool? PodeAlterar { get; set; }
         public bool? PodeExcluir { get; set; }
+
     }
 }

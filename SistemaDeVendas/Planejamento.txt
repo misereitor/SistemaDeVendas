@@ -68,3 +68,13 @@ MVC
 
 8-Regras fiscais
 
+
+
+
+
+
+#Funcionamento
+1-Vai ser um sistema instalado no servidor do cliente, podendo ser servidor/estação ou um servidor com outras estações. servidor podendo ser windows ou linux
+2.1-vamos criar licenças no sistema, onde o servidor checa a validade de acesso do sistema em nosso servidor, quie será gerenciado pelo nosso financeiro.
+2.2-vai ser um serviço via token onde o servidor do cliente irá sincronizar com o nosso, onde vai informar se o sistema está ativo ou não.
+2-Vai ser criado um usuário Master, ondem somente o técnicos teram acesso. Esse usuário vai poder cirar a empresa e um usuário admin para a empresa(Usuario mastar cria a empresa e o usuário admin amarrado a empresa.)

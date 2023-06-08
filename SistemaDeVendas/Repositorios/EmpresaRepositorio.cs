@@ -30,7 +30,7 @@ namespace SistemaDeVendas.Repositorios
             List<EmpresaModel> empresas = new List<EmpresaModel>();
             try
             {
-                empresas = await _dbContext.EmpresaModel.ToListAsync();
+                empresas = await _dbContext.Empresas.ToListAsync();
             }
             catch(Exception ex)
             {
@@ -43,7 +43,7 @@ namespace SistemaDeVendas.Repositorios
             EmpresaModel? empresa = null;
             try
             {
-                empresa = await _dbContext.EmpresaModel.FirstOrDefaultAsync(x => x.Id == id);
+                empresa = await _dbContext.Empresas.FirstOrDefaultAsync(x => x.Id == id);
             }
             catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace SistemaDeVendas.Repositorios
             EmpresaModel empresaPorId = await BuscarEmpresaPorId(id) ?? throw new Exception($"Usuario do ID: {id} não foi encontrado!");
             try
             {
-                _dbContext.EmpresaModel.Remove(empresaPorId);
+                _dbContext.Empresas.Remove(empresaPorId);
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)

@@ -9,59 +9,50 @@ namespace SistemaDeVendas.Data.Map
     {
         public void Configure(EntityTypeBuilder<EmpresaModel> builder)
         {
-            builder.ToTable("empresa"); // Define o nome da tabela
+            builder.ToTable("empresa");
 
-            builder.HasKey(e => e.Id); // Define a chave primária
+            builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Id).HasColumnName("Id").IsRequired();
-            builder.Property(e => e.NomeFantasia).HasColumnName("NomeFantasia").IsRequired();
-            builder.Property(e => e.RazaoSocial).HasColumnName("RazaoSocial").IsRequired();
-            builder.Property(e => e.Logo).HasColumnName("Logo").IsRequired();
-            builder.Property(e => e.CNPJ).HasColumnName("CNPJ").IsRequired();
-            builder.Property(e => e.Ativo).HasColumnName("Ativo").IsRequired();
-            builder.Property(e => e.AreaDeAtuacao).HasColumnName("AreaDeAtuacao").IsRequired();
-            builder.Property(e => e.Telefone).HasColumnName("Telefone").IsRequired();
-            builder.Property(e => e.Email).HasColumnName("Email").IsRequired();
-            builder.Property(e => e.IE).HasColumnName("IE").IsRequired();
-            builder.Property(e => e.IM).HasColumnName("IM").IsRequired();
-            builder.Property(e => e.EnderecoEntregaId).HasColumnName("EnderecoEntregaId").IsRequired();
-            builder.Property(e => e.EnderecoFaturamentoId).HasColumnName("EnderecoFaturamentoId").IsRequired();
-            builder.Property(e => e.EnderecoCorrespondenciaId).HasColumnName("EnderecoCorrespondenciaId").IsRequired();
+            // Relacionamento 1:N entre EmpresaModel e EnderecoModel para os diferentes tipos de endereço
+            builder.HasMany(e => e.EnderecoEntrega)
+                .WithOne()
+                .HasForeignKey("EmpresaModel_EnderecoEntregaId")
+                .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(e => e.EnderecoFaturamento)
+                .WithOne()
+                .HasForeignKey("EmpresaModel_EnderecoFaturamentoId")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(e => e.EnderecoCorrespondencia)
+                .WithOne()
+                .HasForeignKey("EmpresaModel_EnderecoCorrespondenciaId")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Relacionamento N:N entre EmpresaModel e UsuarioModel
             builder.HasMany(e => e.Usuarios)
                 .WithMany(u => u.Empresas)
-                .UsingEntity<Dictionary<string, object>>(
-                    "EmpresaUsuario",
-                    j => j
-                        .HasOne<UsuarioModel>()
-                        .WithMany()
-                        .HasForeignKey("Usuarios")
-                        .OnDelete(DeleteBehavior.Cascade),
-                    j => j
-                        .HasOne<EmpresaModel>()
-                        .WithMany()
-                        .HasForeignKey("Empresas")
-                        .OnDelete(DeleteBehavior.Cascade),
-                    j =>
-                    {
-                        j.HasKey("Usuarios", "Empresas");
-                        j.HasData(new { Usuarios = 1, Empresas = 1 });
-                    });
+                .UsingEntity(j => j.ToTable("EmpresaUsuario"));
 
-            builder.HasOne(e => e.EnderecoEntrega)
+            builder.HasOne(e => e.ParametroDeVenda)
                 .WithOne()
-                .HasForeignKey<EmpresaModel>(e => e.EnderecoEntregaId)
+                .HasForeignKey<ParametrosdeVendasModel>(p => p.Id)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(e => e.EnderecoFaturamento)
-                .WithOne()
-                .HasForeignKey<EmpresaModel>(e => e.EnderecoFaturamentoId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Configurações das colunas
+            builder.Property(e => e.NomeFantasia).IsRequired();
+            builder.Property(e => e.RazaoSocial).IsRequired();
+            builder.Property(e => e.Logo);
+            builder.Property(e => e.CNPJ).IsRequired();
+            builder.Property(e => e.Ativo).HasDefaultValue(false);
+            builder.Property(e => e.AreaDeAtuacao);
+            builder.Property(e => e.Telefone);
+            builder.Property(e => e.Email);
+            builder.Property(e => e.IE);
+            builder.Property(e => e.IM);
 
-            builder.HasOne(e => e.EnderecoCorrespondencia)
-                .WithOne()
-                .HasForeignKey<EmpresaModel>(e => e.EnderecoCorrespondenciaId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Índice para o CNPJ
+            builder.HasIndex(e => e.CNPJ).IsUnique();
         }
     }
 }

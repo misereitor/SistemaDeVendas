@@ -1,7 +1,7 @@
 ﻿using SistemaDeVendas.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels
+namespace SistemaDeVendas.Models.UsuariosModels.PermissaoUsuarioModels.Faturamento
 {
     public class PermissaoFaturamentoModel
     {

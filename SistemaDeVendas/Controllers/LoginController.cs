@@ -21,7 +21,7 @@ namespace SistemaDeVendas.Controllers
         [Route("login")]
         public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] UsuarioModel usuario)
         {
-            var user = await _usuarioRepositorio.BuscaUsuarioPorEmailESenha(usuario.Email, usuario.Senha);
+            UsuarioModel user = await _usuarioRepositorio.BuscaUsuarioPorEmailESenha(usuario.Email, usuario.Senha);
 
             if (user == null)
             {
