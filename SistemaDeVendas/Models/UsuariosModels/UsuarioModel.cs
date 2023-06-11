@@ -2,6 +2,7 @@
 using SistemaDeVendas.Models.EmpresaModels;
 using SistemaDeVendas.Models.GeralModel;
 using SistemaDeVendas.Models.GeralModels;
+using SistemaDeVendas.Models.Permissoes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,11 +50,14 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public bool Vendedor { get; set; }
         [DefaultValue(false)]
         public bool Comprador { get; set; }
+        public GrupoPermissaoUsuarios? Grupo { get; set; }
         public float? Comissao { get; set; }
         public string? Telefone { get; set; }
         public string? Celular { get; set; }
+        public TipoPessoa TipoPessoa { get; set; }
         public string? CPF { get; set; }
         public string? CNPJ { get; set; }
+        public string? IE { get; set; }
         public string? RG { get; set; }
         public byte[]? Foto { get; set; }
         public UsuarioModel()

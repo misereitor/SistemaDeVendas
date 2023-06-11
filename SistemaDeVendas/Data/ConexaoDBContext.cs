@@ -24,11 +24,15 @@ namespace SistemaDeVendas.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new EmpresaMap());
-            modelBuilder.ApplyConfiguration(new ParametrosDeVendasModelMap());
-            modelBuilder.ApplyConfiguration(new EnderecoMap());
-            modelBuilder.ApplyConfiguration(new UsuarioMap());
+            modelBuilder.ApplyConfiguration(new ContatosModelMap());
             modelBuilder.ApplyConfiguration(new DadosBancariosMap());
+            modelBuilder.ApplyConfiguration(new DocumentoUsuarioModelMap());
+            modelBuilder.ApplyConfiguration(new EmpresaModelMap());
+            modelBuilder.ApplyConfiguration(new EnderecoModelMap());
+            modelBuilder.ApplyConfiguration(new GrupoPermissaoUsuarioMap());
+            modelBuilder.ApplyConfiguration(new ParametrosDeVendasModelMap());
+            modelBuilder.ApplyConfiguration(new PermissaoModelMap());
+            modelBuilder.ApplyConfiguration(new UsuarioModelMap());
         }
     }
 }

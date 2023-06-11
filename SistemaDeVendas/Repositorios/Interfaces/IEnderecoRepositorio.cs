@@ -19,5 +19,6 @@ namespace SistemaDeVendas.Repositorios.Interfaces
         Task<bool> DeletaEnderecoEntregaEmpresa(int idEmpresa, int idEmderecoEntrega);
         Task<bool> DeletaEnderecoFaturamentoEmpresa(int idEmpresa, int idEmderecoFaturamento);
         Task<bool> DeletaEnderecoCorrespondenciaEmpresa(int idEmpresa, int idEmderecoCorrespondencia);
+        Task<bool> DeletaEnderecoUsuario(int idUsuario);
     }
 }

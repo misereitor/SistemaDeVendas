@@ -240,5 +240,18 @@ namespace SistemaDeVendas.Repositorios
             await _dbContext.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> DeletaEnderecoUsuario(int idUsuario)
+        {
+            UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(idUsuario);
+            if (usuario == null)
+            {
+                throw new Exception("Usuario não encontrada");
+            }
+            usuario.Endereco = null;
+            _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

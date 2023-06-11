@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeVendas.Models.UsuariosModels;
@@ -17,7 +18,7 @@ namespace SistemaDeVendas.Controllers
         {
             _usuariosRepositorio = usuariosRepositorio;
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<UsuarioModel>>> BuscarTodosOsUsuarios()
         {
@@ -33,7 +34,7 @@ namespace SistemaDeVendas.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UsuarioModel>> CadastrarUsuario([FromBody] UsuarioModel usuario)
+        public async Task<ActionResult<UsuarioModel>> CriarUsuario([FromBody] UsuarioModel usuario)
         {
             if (usuario == null)
             {

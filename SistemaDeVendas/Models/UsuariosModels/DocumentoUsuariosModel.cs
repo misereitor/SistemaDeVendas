@@ -15,5 +15,6 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public TipoDocumentoUsuarios Tipo { get; set; }
         [Required]
         public byte[] FotoDocumento { get; set; }
+        public int? UsuarioId { get; set; }
     }
 }

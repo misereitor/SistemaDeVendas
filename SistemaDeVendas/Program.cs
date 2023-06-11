@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SistemaDeVendas.Auth;
+using SistemaDeVendas.Auth.Politicas;
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
@@ -54,6 +55,12 @@ namespace SistemaDeVendas
             //Validações
             builder.Services.AddValidatorsFromAssemblyContaining<UsuarioModelValidador>();
             builder.Services.AddValidatorsFromAssemblyContaining<SenhaValidador>();
+
+            //Politicas
+            builder.Services.AddAuthorization(options =>
+            {
+                Autorizacao.PoliticasAutorizacao(options);
+            });
 
             var app = builder.Build();
 

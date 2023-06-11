@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SistemaDeVendas.Data;
@@ -11,9 +12,11 @@ using SistemaDeVendas.Data;
 namespace SistemaDeVendas.Migrations
 {
     [DbContext(typeof(ConexaoDBContext))]
-    partial class ConexaoDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230611175725_RenameDocumentoUsuariosModelTable")]
+    partial class RenameDocumentoUsuariosModelTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
