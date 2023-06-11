@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeVendas.Models.UsuariosModels;
+using SistemaDeVendas.Repositorios;
 using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Validacoes;
 
 namespace SistemaDeVendas.Controllers
 {
@@ -10,7 +13,6 @@ namespace SistemaDeVendas.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuariosRepositorio _usuariosRepositorio;
-
         public UsuarioController(IUsuariosRepositorio usuariosRepositorio)
         {
             _usuariosRepositorio = usuariosRepositorio;

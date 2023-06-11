@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SistemaDeVendas.Models.LoginModel;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
 using SistemaDeVendas.Repositorios.Interfaces;
@@ -10,22 +11,21 @@ namespace SistemaDeVendas.Controllers
     [Route("v1")]
     public class LoginController : ControllerBase
     {
-        private readonly UsuarioRepositorio _usuarioRepositorio;
+        private readonly ILoginRepositorio _loginRepositorio;
 
-        public LoginController(UsuarioRepositorio usuarioRepositorio)
+        public LoginController(ILoginRepositorio loginRepositorio)
         {
-            _usuarioRepositorio = usuarioRepositorio;
+            _loginRepositorio = loginRepositorio;
         }
 
-        [HttpPost]
-        [Route("login")]
-        public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] UsuarioModel usuario)
+        [HttpPost("login")]
+        public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] LoginRequest loginRequest)
         {
-            UsuarioModel user = await _usuarioRepositorio.BuscaUsuarioPorEmailESenha(usuario.Email, usuario.Senha);
+            UsuarioModel user = await _loginRepositorio.BuscaUsuarioPorUsuarioESenha(loginRequest.Usuario, loginRequest.Senha);
 
             if (user == null)
             {
-                return NotFound("Usuario e/ou senha invalidos");
+                return NotFound("Usuário e/ou senha inválidos");
             }
 
             var token = TokenService.GerarToken(user);
@@ -34,7 +34,6 @@ namespace SistemaDeVendas.Controllers
             {
                 user.Id,
                 user.Nome,
-                user.Email,
                 Token = token
             };
         }

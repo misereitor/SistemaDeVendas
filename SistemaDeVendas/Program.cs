@@ -1,10 +1,13 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SistemaDeVendas.Auth;
 using SistemaDeVendas.Data;
+using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
 using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Validacoes;
 using System.Text;
 
 namespace SistemaDeVendas
@@ -40,7 +43,18 @@ namespace SistemaDeVendas
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<ConexaoDBContext>(options =>
                 options.UseNpgsql(connectionString));
+
+            //injeções 
             builder.Services.AddTransient<IUsuariosRepositorio, UsuarioRepositorio>();
+            builder.Services.AddTransient<ILoginRepositorio, LoginRepositorio>();
+            builder.Services.AddTransient<IEmpresaRepositorio, EmpresaRepositorio>();
+            builder.Services.AddTransient<IEnderecoRepositorio, EnderecoRepositorio>();
+            builder.Services.AddScoped<IUsuarioValidadorRepositorio, UsuarioValidadorRepositorio>();
+
+            //Validações
+            builder.Services.AddValidatorsFromAssemblyContaining<UsuarioModelValidador>();
+            builder.Services.AddValidatorsFromAssemblyContaining<SenhaValidador>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

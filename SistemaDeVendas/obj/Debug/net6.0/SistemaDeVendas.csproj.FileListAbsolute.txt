@@ -59,3 +59,7 @@ C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.Identi
 C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\DocumentValidator.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\FluentValidation.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Treinamento\SistemaDeVendas\SistemaDeVendas\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll

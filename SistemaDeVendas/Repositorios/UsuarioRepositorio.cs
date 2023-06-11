@@ -2,16 +2,19 @@
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Validacoes;
 
 namespace SistemaDeVendas.Repositorios
 {
     public class UsuarioRepositorio : IUsuariosRepositorio
     {
         private readonly ConexaoDBContext _dbContext;
+        private readonly UsuarioModelValidador _validador;
 
-        public UsuarioRepositorio(ConexaoDBContext dbContext)
+        public UsuarioRepositorio(ConexaoDBContext dbContext, UsuarioModelValidador validador)
         {
             _dbContext = dbContext;
+            _validador= validador;
         }
 
         public async Task<List<UsuarioModel>> BuscarTodosOsUsuarios()
@@ -26,24 +29,6 @@ namespace SistemaDeVendas.Repositorios
                 Console.WriteLine("Erro de SQL: " + ex.Message);
             }
             return listaDeUsuarios;
-        }
-
-        public async Task<UsuarioModel> BuscaUsuarioPorEmailESenha(string email, string senha)
-        {
-            UsuarioModel? usuario = new UsuarioModel();
-            try
-            {
-                usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.Email == email && u.Senha == senha);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
-            }
-            if (usuario == null)
-            {
-                throw new Exception("Usuário não encontrado");
-            }
-            return usuario;
         }
         public async Task<UsuarioModel> BuscarUsuarioPorId(int id)
         {
@@ -64,6 +49,12 @@ namespace SistemaDeVendas.Repositorios
         }
         public async Task<UsuarioModel> CriarUsuario(UsuarioModel usuario)
         {
+            var validationResult = await _validador.ValidateAsync(usuario);
+            if (!validationResult.IsValid)
+            {
+                string errors = string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage));
+                throw new Exception(errors);
+            }
             try
             {
                 await _dbContext.AddAsync(usuario);
@@ -71,6 +62,7 @@ namespace SistemaDeVendas.Repositorios
             }catch (Exception ex)
             {
                 Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw;
             }
             return usuario;
         }

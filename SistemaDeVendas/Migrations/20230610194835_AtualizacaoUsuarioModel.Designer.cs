@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SistemaDeVendas.Data;
@@ -11,9 +12,11 @@ using SistemaDeVendas.Data;
 namespace SistemaDeVendas.Migrations
 {
     [DbContext(typeof(ConexaoDBContext))]
-    partial class ConexaoDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230610194835_AtualizacaoUsuarioModel")]
+    partial class AtualizacaoUsuarioModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,14 +313,14 @@ namespace SistemaDeVendas.Migrations
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
 
-                    b.Property<string>("CNPJ")
-                        .HasColumnType("text");
+                    b.Property<decimal>("CNPJ")
+                        .HasColumnType("numeric");
 
-                    b.Property<string>("CPF")
-                        .HasColumnType("text");
+                    b.Property<decimal>("CPF")
+                        .HasColumnType("numeric");
 
-                    b.Property<string>("Celular")
-                        .HasColumnType("text");
+                    b.Property<decimal?>("Celular")
+                        .HasColumnType("numeric");
 
                     b.Property<float?>("Comissao")
                         .HasColumnType("real");
@@ -359,8 +362,8 @@ namespace SistemaDeVendas.Migrations
                         .HasColumnType("boolean")
                         .HasDefaultValue(false);
 
-                    b.Property<string>("RG")
-                        .HasColumnType("text");
+                    b.Property<decimal>("RG")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Senha")
                         .IsRequired()
@@ -373,8 +376,8 @@ namespace SistemaDeVendas.Migrations
                     b.Property<string>("Site")
                         .HasColumnType("text");
 
-                    b.Property<string>("Telefone")
-                        .HasColumnType("text");
+                    b.Property<decimal?>("Telefone")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Usuario")
                         .IsRequired()
