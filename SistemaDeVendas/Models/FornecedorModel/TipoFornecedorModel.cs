@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SistemaDeVendas.Models.UsuariosModels
+namespace SistemaDeVendas.Models.FornecedorModel
 {
     public class TipoFornecedorModel
     {

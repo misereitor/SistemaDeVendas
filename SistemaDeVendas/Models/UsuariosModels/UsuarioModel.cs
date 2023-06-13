@@ -50,7 +50,7 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public bool Vendedor { get; set; }
         [DefaultValue(false)]
         public bool Comprador { get; set; }
-        public GrupoPermissaoUsuarios? Grupo { get; set; }
+        public GrupoPermissoesModel? Grupo { get; set; }
         public float? Comissao { get; set; }
         public string? Telefone { get; set; }
         public string? Celular { get; set; }
@@ -60,6 +60,10 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public string? IE { get; set; }
         public string? RG { get; set; }
         public byte[]? Foto { get; set; }
+        public int EnderecoId { get; internal set; }
+        public int GrupoId { get; internal set; }
+        public EmpresaModel Empresa { get; internal set; }
+
         public UsuarioModel()
         {
             DadosBancarios = new List<DadosBancariosModel>();

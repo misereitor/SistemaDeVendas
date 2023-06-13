@@ -8,14 +8,15 @@ namespace SistemaDeVendas.Data.Map
     {
         public void Configure(EntityTypeBuilder<DocumentoUsuariosModel> builder)
         {
+            builder.ToTable("documento_usuarios");
+
             builder.HasKey(d => d.Id);
+            builder.Property(d => d.Id).HasColumnName("id");
 
-            builder.Property(d => d.Tipo)
-                .IsRequired();
+            builder.Property(d => d.Tipo).HasColumnName("tipo").IsRequired();
+            builder.Property(d => d.FotoDocumento).HasColumnName("foto_documento").IsRequired();
 
-            builder.Property(d => d.FotoDocumento);
-
-            builder.Property(d => d.UsuarioId);
+            builder.HasOne(d => d.Usuario).WithMany(u => u.Documentos).HasForeignKey(d => d.UsuarioId);
         }
     }
 }

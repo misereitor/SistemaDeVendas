@@ -8,23 +8,15 @@ namespace SistemaDeVendas.Data.Map
     {
         public void Configure(EntityTypeBuilder<PermissaoModel> builder)
         {
+            builder.ToTable("permissao");
+
             builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).HasColumnName("id");
 
-            builder.Property(p => p.Nome)
-                .IsRequired();
-
-            builder.Property(p => p.PodeAcessar);
-
-            builder.Property(p => p.PodeCriar);
-
-            builder.Property(p => p.PodeAlterar);
-
-            builder.Property(p => p.PodeExcluir);
-
-            builder.Property(p => p.GrupoId);
-
-            builder.HasOne(p => p.Grupo)
-                .WithMany(g => g.Permissoes);
+            builder.Property(p => p.PodeAcessar).HasColumnName("pode_acessar").IsRequired().HasDefaultValue(false);
+            builder.Property(p => p.PodeCriar).HasColumnName("pode_criar").IsRequired().HasDefaultValue(false);
+            builder.Property(p => p.PodeAlterar).HasColumnName("pode_alterar").IsRequired().HasDefaultValue(false);
+            builder.Property(p => p.PodeExcluir).HasColumnName("pode_excluir").IsRequired().HasDefaultValue(false);
         }
     }
 }

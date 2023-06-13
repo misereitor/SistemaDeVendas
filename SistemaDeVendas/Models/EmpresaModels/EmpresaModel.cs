@@ -1,5 +1,7 @@
 ﻿using SistemaDeVendas.Enums;
 using SistemaDeVendas.Models.GeralModel;
+using SistemaDeVendas.Models.GeralModels;
+using SistemaDeVendas.Models.Permissoes;
 using SistemaDeVendas.Models.UsuariosModels;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -28,10 +30,14 @@ namespace SistemaDeVendas.Models.EmpresaModels
         public ICollection<EnderecoModel> EnderecoFaturamento { get; set; }
         public ICollection<EnderecoModel> EnderecoCorrespondencia { get; set; }
         public ICollection<UsuarioModel> Usuarios { get; set; }
+        public ICollection<DadosBancariosModel> DadosBancarios { get; set; }
         public ParametrosdeVendasModel ParametroDeVenda { get; set; }
+        public List<GrupoPermissoesModel> GrupoPermissoes { get; set; }
 
         public EmpresaModel()
         {
+            DadosBancarios = new List<DadosBancariosModel>();
+            GrupoPermissoes = new List<GrupoPermissoesModel>();
             Usuarios = new List<UsuarioModel>();
             EnderecoEntrega = new List<EnderecoModel>();
             EnderecoFaturamento = new List<EnderecoModel>();

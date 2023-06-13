@@ -67,21 +67,6 @@ namespace SistemaDeVendas.Migrations
                     b.ToTable("EmpresaEnderecoFaturamento");
                 });
 
-            modelBuilder.Entity("EmpresaModelUsuarioModel", b =>
-                {
-                    b.Property<int>("EmpresasId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UsuariosId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("EmpresasId", "UsuariosId");
-
-                    b.HasIndex("UsuariosId");
-
-                    b.ToTable("EmpresaModelUsuarioModel");
-                });
-
             modelBuilder.Entity("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", b =>
                 {
                     b.Property<int>("Id")
@@ -226,7 +211,7 @@ namespace SistemaDeVendas.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ParametrosDeVendas");
+                    b.ToTable("ParametrosdeVendas");
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.GeralModel.EnderecoModel", b =>
@@ -283,7 +268,7 @@ namespace SistemaDeVendas.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContatosModel");
+                    b.ToTable("Contatos");
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.GeralModels.DadosBancariosModel", b =>
@@ -315,203 +300,243 @@ namespace SistemaDeVendas.Migrations
                         .HasColumnType("numeric")
                         .HasColumnName("digito_conta");
 
-                    b.Property<int?>("UsuarioModelId")
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UsuarioId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioModelId");
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("dados_bancarios", (string)null);
                 });
 
-            modelBuilder.Entity("SistemaDeVendas.Models.Permissoes.GrupoPermissaoUsuarios", b =>
+            modelBuilder.Entity("SistemaDeVendas.Models.Permissoes.GrupoPermissoesModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("nome");
+
+                    b.Property<string>("PermissoesJson")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("permissoes_json");
 
                     b.HasKey("Id");
 
-                    b.ToTable("GrupoPermissaoUsuarios");
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("grupo_permissoes", (string)null);
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.Permissoes.PermissaoModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("GrupoId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<bool>("PodeAcessar")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("pode_acessar");
 
                     b.Property<bool>("PodeAlterar")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("pode_alterar");
 
                     b.Property<bool>("PodeCriar")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("pode_criar");
 
                     b.Property<bool>("PodeExcluir")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("pode_excluir");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GrupoId");
-
-                    b.ToTable("PermissaoModel");
+                    b.ToTable("permissao", (string)null);
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.UsuariosModels.DocumentoUsuariosModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<byte[]>("FotoDocumento")
                         .IsRequired()
-                        .HasColumnType("bytea");
+                        .HasColumnType("bytea")
+                        .HasColumnName("foto_documento");
 
                     b.Property<int>("Tipo")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("tipo");
 
                     b.Property<int?>("UsuarioId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("UsuarioModelId")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioModelId");
+                    b.HasIndex("UsuarioId");
 
-                    b.ToTable("DocumentoUsuariosModel");
+                    b.ToTable("documento_usuarios", (string)null);
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("ADMPDV")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("adm_pdv");
 
                     b.Property<bool>("Ativo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasDefaultValue(true);
+                        .HasDefaultValue(true)
+                        .HasColumnName("ativo");
 
                     b.Property<string>("CNPJ")
-                        .HasMaxLength(18)
-                        .HasColumnType("character varying(18)");
+                        .HasColumnType("text")
+                        .HasColumnName("cnpj");
 
                     b.Property<string>("CPF")
-                        .HasMaxLength(14)
-                        .HasColumnType("character varying(14)");
+                        .HasColumnType("text")
+                        .HasColumnName("cpf");
 
                     b.Property<string>("Celular")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text")
+                        .HasColumnName("celular");
 
                     b.Property<float?>("Comissao")
-                        .HasColumnType("real");
+                        .HasColumnType("real")
+                        .HasColumnName("comissao");
 
                     b.Property<bool>("Comprador")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("comprador");
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("data_nascimento");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("email");
 
-                    b.Property<int?>("EnderecoId")
+                    b.Property<int>("EnderecoId")
                         .HasColumnType("integer");
 
                     b.Property<byte[]>("Foto")
-                        .HasColumnType("bytea");
+                        .HasColumnType("bytea")
+                        .HasColumnName("foto");
 
-                    b.Property<int?>("GrupoId")
+                    b.Property<int>("GrupoId")
                         .HasColumnType("integer");
 
                     b.Property<string>("IE")
-                        .HasMaxLength(18)
-                        .HasColumnType("character varying(18)");
+                        .HasColumnType("text")
+                        .HasColumnName("ie");
 
                     b.Property<bool>("Master")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("master");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("nome");
 
                     b.Property<string>("Observacao")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("observacao");
 
                     b.Property<bool>("OperadorPDV")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("operador_pdv");
 
                     b.Property<string>("RG")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text")
+                        .HasColumnName("rg");
 
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("senha");
 
                     b.Property<int>("Sexo")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("sexo");
 
                     b.Property<string>("Site")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("site");
 
                     b.Property<string>("Telefone")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text")
+                        .HasColumnName("telefone");
 
                     b.Property<int>("TipoPessoa")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("tipo_pessoa");
 
                     b.Property<string>("Usuario")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasColumnType("character varying(30)")
+                        .HasColumnName("usuario");
 
                     b.Property<bool>("Vendedor")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasColumnName("vendedor");
 
                     b.HasKey("Id");
 
@@ -519,7 +544,26 @@ namespace SistemaDeVendas.Migrations
 
                     b.HasIndex("GrupoId");
 
-                    b.ToTable("usuario");
+                    b.ToTable("usuario", (string)null);
+                });
+
+            modelBuilder.Entity("UsuarioEmpresa", b =>
+                {
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("UsuarioId", "EmpresaId");
+
+                    b.HasIndex("EmpresaId", "UsuarioId")
+                        .IsUnique();
+
+                    b.HasIndex("UsuarioId", "EmpresaId")
+                        .IsUnique();
+
+                    b.ToTable("usuario_empresa", (string)null);
                 });
 
             modelBuilder.Entity("EmpresaEnderecoCorrespondencia", b =>
@@ -567,21 +611,6 @@ namespace SistemaDeVendas.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EmpresaModelUsuarioModel", b =>
-                {
-                    b.HasOne("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", null)
-                        .WithMany()
-                        .HasForeignKey("EmpresasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", null)
-                        .WithMany()
-                        .HasForeignKey("UsuariosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", b =>
                 {
                     b.HasOne("SistemaDeVendas.Models.EmpresaModels.ParametrosdeVendasModel", "ParametroDeVenda")
@@ -595,47 +624,78 @@ namespace SistemaDeVendas.Migrations
 
             modelBuilder.Entity("SistemaDeVendas.Models.GeralModels.DadosBancariosModel", b =>
                 {
-                    b.HasOne("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", null)
+                    b.HasOne("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", null)
                         .WithMany("DadosBancarios")
-                        .HasForeignKey("UsuarioModelId");
-                });
-
-            modelBuilder.Entity("SistemaDeVendas.Models.Permissoes.PermissaoModel", b =>
-                {
-                    b.HasOne("SistemaDeVendas.Models.Permissoes.GrupoPermissaoUsuarios", "Grupo")
-                        .WithMany("Permissoes")
-                        .HasForeignKey("GrupoId")
+                        .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Grupo");
+                    b.HasOne("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", null)
+                        .WithMany("DadosBancarios")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.Permissoes.GrupoPermissoesModel", b =>
+                {
+                    b.HasOne("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", null)
+                        .WithMany("GrupoPermissoes")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.UsuariosModels.DocumentoUsuariosModel", b =>
                 {
-                    b.HasOne("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", null)
+                    b.HasOne("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", "Usuario")
                         .WithMany("Documentos")
-                        .HasForeignKey("UsuarioModelId");
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", b =>
                 {
                     b.HasOne("SistemaDeVendas.Models.GeralModel.EnderecoModel", "Endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoId");
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("SistemaDeVendas.Models.Permissoes.GrupoPermissaoUsuarios", "Grupo")
+                    b.HasOne("SistemaDeVendas.Models.Permissoes.GrupoPermissoesModel", "Grupo")
                         .WithMany()
-                        .HasForeignKey("GrupoId");
+                        .HasForeignKey("GrupoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Endereco");
 
                     b.Navigation("Grupo");
                 });
 
-            modelBuilder.Entity("SistemaDeVendas.Models.Permissoes.GrupoPermissaoUsuarios", b =>
+            modelBuilder.Entity("UsuarioEmpresa", b =>
                 {
-                    b.Navigation("Permissoes");
+                    b.HasOne("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", null)
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", null)
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", b =>
+                {
+                    b.Navigation("DadosBancarios");
+
+                    b.Navigation("GrupoPermissoes");
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", b =>
