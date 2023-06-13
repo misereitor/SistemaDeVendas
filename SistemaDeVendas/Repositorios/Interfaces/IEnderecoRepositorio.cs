@@ -12,10 +12,10 @@ namespace SistemaDeVendas.Repositorios.Interfaces
         Task<ICollection<EnderecoModel>> BuscaEnderecoFaturamentoEmpresa(int idEmpresa);
         Task<ICollection<EnderecoModel>> BuscaEnderecoCorrespondenciaEmpresa(int idEmpresa);
         Task<EnderecoModel> BuscaEnderecoDoUsuario(int IdUsuario);
-        Task<EnderecoModel> AlteraEnderecoEntregaEmpresa(int idEmpresa, int idEndereco, EnderecoModel enderecoEntrega);
+        Task<EnderecoModel> AlteraEnderecoEntregaEmpresa(int idEmpresa, int idEndereco, EnderecoModel enderecoFaturamento);
         Task<EnderecoModel> AlteraEnderecoFaturamentoEmpresa(int idEmpresa, int idEndereco, EnderecoModel enderecoFaturamento);
         Task<EnderecoModel> AlteraEnderecoCorrespondenciaEmpresa(int idEmpresa, int idEndereco, EnderecoModel enderecoCorrespondencia);
-        Task<EnderecoModel> AlteraEnderecoDoUsuario(int IdUsuario, int idEndereco, EnderecoModel endereco);
+        Task<EnderecoModel> AlteraEnderecoDoUsuario(int IdUsuario, EnderecoModel endereco);
         Task<bool> DeletaEnderecoEntregaEmpresa(int idEmpresa, int idEmderecoEntrega);
         Task<bool> DeletaEnderecoFaturamentoEmpresa(int idEmpresa, int idEmderecoFaturamento);
         Task<bool> DeletaEnderecoCorrespondenciaEmpresa(int idEmpresa, int idEmderecoCorrespondencia);

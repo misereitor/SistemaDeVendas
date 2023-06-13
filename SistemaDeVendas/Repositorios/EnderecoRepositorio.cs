@@ -130,7 +130,7 @@ namespace SistemaDeVendas.Repositorios
             await _dbContext.SaveChangesAsync();
             return endereco;
         }
-        public async Task<EnderecoModel> AlteraEnderecoDoUsuario(int IdUsuario, int idEndereco, EnderecoModel endereco)
+        public async Task<EnderecoModel> AlteraEnderecoDoUsuario(int IdUsuario, EnderecoModel endereco)
         {
             UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
             if (usuario == null)

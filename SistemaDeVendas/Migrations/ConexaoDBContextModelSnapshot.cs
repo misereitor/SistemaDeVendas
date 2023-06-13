@@ -459,6 +459,10 @@ namespace SistemaDeVendas.Migrations
                     b.Property<int?>("GrupoId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("IE")
+                        .HasMaxLength(18)
+                        .HasColumnType("character varying(18)");
+
                     b.Property<bool>("Master")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")

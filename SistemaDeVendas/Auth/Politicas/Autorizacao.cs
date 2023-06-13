@@ -13,9 +13,6 @@ namespace SistemaDeVendas.Auth.Politicas
         {
             options.AddPolicy("Master", policy =>
             {
-                // Defina suas regras de autorização aqui
-                // Por exemplo, verifique se o usuário tem um determinado papel ou uma reivindicação específica
-                
                 policy.RequireRole("Master");
                 policy.RequireAssertion(context =>
                 {

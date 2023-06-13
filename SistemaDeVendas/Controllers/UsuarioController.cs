@@ -18,7 +18,7 @@ namespace SistemaDeVendas.Controllers
         {
             _usuariosRepositorio = usuariosRepositorio;
         }
-        [Authorize]
+        
         [HttpGet]
         public async Task<ActionResult<List<UsuarioModel>>> BuscarTodosOsUsuarios()
         {

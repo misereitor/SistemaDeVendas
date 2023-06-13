@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SistemaDeVendas.Models.Permissoes
 {
@@ -7,12 +8,13 @@ namespace SistemaDeVendas.Models.Permissoes
         [Key]
         public int Id { get; set; }
         [Required]
-        public string Nome { get; set; }
+        [DefaultValue(false)]
         public bool PodeAcessar { get; set; }
+        [DefaultValue(false)]
         public bool PodeCriar { get; set; }
+        [DefaultValue(false)]
         public bool PodeAlterar { get; set; }
+        [DefaultValue(false)]
         public bool PodeExcluir { get; set; }
-        public int GrupoId { get; set; }
-        public GrupoPermissaoUsuarios Grupo { get; set; }
     }
 }
