@@ -8,6 +8,7 @@ using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
 using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.TratamentoDeErros;
 using SistemaDeVendas.Validacoes;
 using System.Text;
 
@@ -60,9 +61,16 @@ namespace SistemaDeVendas
             builder.Services.AddAuthorization(options =>
             {
                 Autorizacao.PoliticasAutorizacao(options);
+                options.AddPolicy("Master", policy =>
+                {
+                    policy.RequireRole("Master");
+                });
             });
 
+
             var app = builder.Build();
+            //Tratamento de erros
+            app.UseMiddleware<ShowException>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -70,6 +78,7 @@ namespace SistemaDeVendas
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
 
             app.UseHttpsRedirection();
             app.UseAuthentication();

@@ -16,7 +16,7 @@ namespace SistemaDeVendas.Auth.Politicas
                 policy.RequireRole("Master");
                 policy.RequireAssertion(context =>
                 {
-                    var usuario = context.User;
+                    ClaimsPrincipal usuario = context.User;
                     bool master = UsuarioEMaster(usuario);
                     return master;
                 });
@@ -24,7 +24,9 @@ namespace SistemaDeVendas.Auth.Politicas
         }
         private static bool UsuarioEMaster(ClaimsPrincipal usuario)
         {
-            return usuario.IsInRole("Master");
+            bool isMaster = usuario.IsInRole("Master");
+            Console.WriteLine(isMaster);
+            return isMaster;
         }
     }
 }

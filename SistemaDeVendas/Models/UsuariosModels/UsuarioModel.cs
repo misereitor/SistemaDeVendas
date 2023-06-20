@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.RegularExpressions;
 
 namespace SistemaDeVendas.Models.UsuariosModels
 {
@@ -29,10 +30,11 @@ namespace SistemaDeVendas.Models.UsuariosModels
         [MaxLength(20)]
         public string Senha { get; set; }
         [Required]
-        public Sexo Sexo { get; set; }
-        public EnderecoModel? Endereco { get; set; }
+        public UsuarioSexo Sexo { get; set; }
+        public EnderecoModel Endereco { get; set; }
         [Required]
-        public DateTime DataNascimento { get; set; }
+        public DateOnly DataNascimento { get; set; }
+        public DateTimeOffset DataCriacao { get; set; } = DateTimeOffset.UtcNow;
         public string? Site { get; set; }
         public string? Observacao { get; set; }
         public ICollection<DadosBancariosModel> DadosBancarios { get; set; }
@@ -40,8 +42,8 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public ICollection<EmpresaModel> Empresas { get; set; }
         [DefaultValue(true)]
         public bool Ativo { get; set; }
-        [DefaultValue(false)]
-        public bool Master { get; set; }
+        [DefaultValue(UsuarioRoles.Usuario)]
+        public UsuarioRoles Roles { get; set; }
         [DefaultValue(false)]
         public bool OperadorPDV { get; set; }
         [DefaultValue(false)]
@@ -50,7 +52,7 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public bool Vendedor { get; set; }
         [DefaultValue(false)]
         public bool Comprador { get; set; }
-        public GrupoPermissoesModel? Grupo { get; set; }
+        public GrupoPermissoesModel Grupo { get; set; }
         public float? Comissao { get; set; }
         public string? Telefone { get; set; }
         public string? Celular { get; set; }
@@ -60,15 +62,22 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public string? IE { get; set; }
         public string? RG { get; set; }
         public byte[]? Foto { get; set; }
-        public int EnderecoId { get; internal set; }
-        public int GrupoId { get; internal set; }
-        public EmpresaModel Empresa { get; internal set; }
+        public int? EnderecoId { get; internal set; }
+        public int? GrupoId { get; internal set; }
+        public int? EmpresaId { get; internal set; }
 
         public UsuarioModel()
         {
+            Grupo = new GrupoPermissoesModel();
+            Endereco = new EnderecoModel();
             DadosBancarios = new List<DadosBancariosModel>();
             Documentos = new List<DocumentoUsuariosModel>();
             Empresas = new List<EmpresaModel>();
+
+            Nome = string.Empty;
+            Email = string.Empty;
+            Senha = string.Empty;
+            Usuario = string.Empty;
         }
     }
 }

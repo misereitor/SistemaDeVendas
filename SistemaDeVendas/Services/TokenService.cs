@@ -20,8 +20,9 @@ namespace SistemaDeVendas.Services
                 {
                     new Claim(ClaimTypes.Name, usuario.Nome),
                     new Claim(ClaimTypes.NameIdentifier, usuario.Usuario),
-                    new Claim(ClaimTypes.Email, usuario.Email)
-                }),
+                    new Claim(ClaimTypes.Email, usuario.Email),
+                    new Claim(ClaimTypes.Role, usuario.Roles.ToString())
+        }),
                 Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials
                     (

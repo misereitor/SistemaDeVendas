@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.TratamentoDeErros;
 
 namespace SistemaDeVendas.Repositorios
 {
@@ -19,7 +20,7 @@ namespace SistemaDeVendas.Repositorios
         }
         public async Task<UsuarioModel> BuscaUsuarioPorUsuarioESenha(string usuario, string senha)
         {
-            UsuarioModel? user = new UsuarioModel();
+            UsuarioModel? user = new();
             try
             {
                 user = await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.Usuario == usuario && u.Senha == senha);
@@ -27,10 +28,11 @@ namespace SistemaDeVendas.Repositorios
             catch (Exception ex)
             {
                 Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw;
             }
             if (user == null)
             {
-                throw new Exception("Usuário não encontrado");
+                throw new ErrosException(404, "Usuário e/ou senha inválidos");
             }
             return user;
         }

@@ -1,6 +1,6 @@
 ﻿namespace SistemaDeVendas.Enums
 {
-    public enum Sexo
+    public enum UsuarioSexo
     {
         Masculino = 0,
         Feminino = 1,

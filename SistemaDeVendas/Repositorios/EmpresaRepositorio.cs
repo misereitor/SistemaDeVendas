@@ -27,7 +27,7 @@ namespace SistemaDeVendas.Repositorios
         }
         public async Task<List<EmpresaModel>> BuscarTodosAsEmpresas()
         {
-            List<EmpresaModel> empresas = new List<EmpresaModel>();
+            List<EmpresaModel> empresas = new();
             try
             {
                 empresas = await _dbContext.Empresas.ToListAsync();

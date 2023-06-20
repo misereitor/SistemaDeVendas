@@ -32,7 +32,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(empresa);
         }
 
-        [Authorize]
+
         [HttpPost]
         public async Task<ActionResult<EmpresaModel>> CriarEmpresa([FromBody] EmpresaModel empresa)
         {

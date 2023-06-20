@@ -23,11 +23,6 @@ namespace SistemaDeVendas.Controllers
         {
             UsuarioModel user = await _loginRepositorio.BuscaUsuarioPorUsuarioESenha(loginRequest.Usuario, loginRequest.Senha);
 
-            if (user == null)
-            {
-                return NotFound("Usuário e/ou senha inválidos");
-            }
-
             var token = TokenService.GerarToken(user);
             user.Senha = "";
             return new

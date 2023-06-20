@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SistemaDeVendas.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDB : Migration
+    public partial class InitDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -94,6 +94,40 @@ namespace SistemaDeVendas.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "dados_bancarios",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    bancos = table.Column<int>(type: "integer", nullable: false),
+                    agencia = table.Column<decimal>(type: "numeric", nullable: false),
+                    digito_agencia = table.Column<decimal>(type: "numeric", nullable: false),
+                    conta = table.Column<decimal>(type: "numeric", nullable: false),
+                    digito_conta = table.Column<decimal>(type: "numeric", nullable: false),
+                    EmpresaId = table.Column<int>(type: "integer", nullable: false),
+                    UsuarioId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_dados_bancarios", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "documento_usuarios",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    tipo = table.Column<int>(type: "integer", nullable: false),
+                    foto_documento = table.Column<byte[]>(type: "bytea", nullable: false),
+                    UsuarioId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_documento_usuarios", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "empresa",
                 columns: table => new
                 {
@@ -101,15 +135,16 @@ namespace SistemaDeVendas.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     NomeFantasia = table.Column<string>(type: "text", nullable: false),
                     RazaoSocial = table.Column<string>(type: "text", nullable: false),
-                    Logo = table.Column<byte[]>(type: "bytea", nullable: false),
+                    Logo = table.Column<byte[]>(type: "bytea", nullable: true),
                     CNPJ = table.Column<string>(type: "text", nullable: false),
                     Ativo = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     AreaDeAtuacao = table.Column<int>(type: "integer", nullable: false),
-                    Telefone = table.Column<decimal>(type: "numeric", nullable: false),
+                    Telefone = table.Column<decimal>(type: "numeric", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    IE = table.Column<string>(type: "text", nullable: false),
-                    IM = table.Column<string>(type: "text", nullable: false),
-                    ParametroDeVendaId = table.Column<int>(type: "integer", nullable: false)
+                    IE = table.Column<string>(type: "text", nullable: true),
+                    IM = table.Column<string>(type: "text", nullable: true),
+                    ParametroDeVendaId = table.Column<int>(type: "integer", nullable: true),
+                    UsuarioModelId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -118,8 +153,7 @@ namespace SistemaDeVendas.Migrations
                         name: "FK_empresa_ParametrosdeVendas_ParametroDeVendaId",
                         column: x => x.ParametroDeVendaId,
                         principalTable: "ParametrosdeVendas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -219,125 +253,54 @@ namespace SistemaDeVendas.Migrations
                 name: "usuario",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    nome = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    usuario = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    senha = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    sexo = table.Column<int>(type: "integer", nullable: false),
-                    data_nascimento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    site = table.Column<string>(type: "text", nullable: true),
-                    observacao = table.Column<string>(type: "text", nullable: true),
-                    ativo = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
-                    master = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    operador_pdv = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    adm_pdv = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    vendedor = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    comprador = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    comissao = table.Column<float>(type: "real", nullable: true),
-                    telefone = table.Column<string>(type: "text", nullable: true),
-                    celular = table.Column<string>(type: "text", nullable: true),
-                    tipo_pessoa = table.Column<int>(type: "integer", nullable: false),
-                    cpf = table.Column<string>(type: "text", nullable: true),
-                    cnpj = table.Column<string>(type: "text", nullable: true),
-                    ie = table.Column<string>(type: "text", nullable: true),
-                    rg = table.Column<string>(type: "text", nullable: true),
-                    foto = table.Column<byte[]>(type: "bytea", nullable: true),
-                    EnderecoId = table.Column<int>(type: "integer", nullable: false),
-                    GrupoId = table.Column<int>(type: "integer", nullable: false)
+                    Nome = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    Usuario = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
+                    Senha = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Sexo = table.Column<int>(type: "integer", nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Site = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    Observacao = table.Column<string>(type: "text", nullable: true),
+                    Ativo = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    Master = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    OperadorPDV = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    ADMPDV = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    Vendedor = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    Comprador = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    Comissao = table.Column<float>(type: "real", nullable: true),
+                    Telefone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    Celular = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    TipoPessoa = table.Column<int>(type: "integer", nullable: false),
+                    CPF = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    CNPJ = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    IE = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    RG = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    Foto = table.Column<byte[]>(type: "bytea", nullable: true),
+                    EnderecoId = table.Column<int>(type: "integer", nullable: true),
+                    GrupoId = table.Column<int>(type: "integer", nullable: true),
+                    EmpresaId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_usuario", x => x.id);
+                    table.PrimaryKey("PK_usuario", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_usuario_empresa_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "empresa",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_usuario_endereco_EnderecoId",
                         column: x => x.EnderecoId,
                         principalTable: "endereco",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_usuario_grupo_permissoes_GrupoId",
                         column: x => x.GrupoId,
                         principalTable: "grupo_permissoes",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "dados_bancarios",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    bancos = table.Column<int>(type: "integer", nullable: false),
-                    agencia = table.Column<decimal>(type: "numeric", nullable: false),
-                    digito_agencia = table.Column<decimal>(type: "numeric", nullable: false),
-                    conta = table.Column<decimal>(type: "numeric", nullable: false),
-                    digito_conta = table.Column<decimal>(type: "numeric", nullable: false),
-                    EmpresaId = table.Column<int>(type: "integer", nullable: false),
-                    UsuarioId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_dados_bancarios", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_dados_bancarios_empresa_EmpresaId",
-                        column: x => x.EmpresaId,
-                        principalTable: "empresa",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_dados_bancarios_usuario_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "usuario",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "documento_usuarios",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    tipo = table.Column<int>(type: "integer", nullable: false),
-                    foto_documento = table.Column<byte[]>(type: "bytea", nullable: false),
-                    UsuarioId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_documento_usuarios", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_documento_usuarios_usuario_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "usuario",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "usuario_empresa",
-                columns: table => new
-                {
-                    UsuarioId = table.Column<int>(type: "integer", nullable: false),
-                    EmpresaId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_usuario_empresa", x => new { x.UsuarioId, x.EmpresaId });
-                    table.ForeignKey(
-                        name: "FK_usuario_empresa_empresa_EmpresaId",
-                        column: x => x.EmpresaId,
-                        principalTable: "empresa",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_usuario_empresa_usuario_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "usuario",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -361,6 +324,11 @@ namespace SistemaDeVendas.Migrations
                 column: "ParametroDeVendaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_empresa_UsuarioModelId",
+                table: "empresa",
+                column: "UsuarioModelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EmpresaEnderecoCorrespondencia_EnderecoId",
                 table: "EmpresaEnderecoCorrespondencia",
                 column: "EnderecoId");
@@ -381,6 +349,11 @@ namespace SistemaDeVendas.Migrations
                 column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_usuario_EmpresaId",
+                table: "usuario",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_usuario_EnderecoId",
                 table: "usuario",
                 column: "EnderecoId");
@@ -390,22 +363,49 @@ namespace SistemaDeVendas.Migrations
                 table: "usuario",
                 column: "GrupoId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_usuario_empresa_EmpresaId_UsuarioId",
-                table: "usuario_empresa",
-                columns: new[] { "EmpresaId", "UsuarioId" },
-                unique: true);
+            migrationBuilder.AddForeignKey(
+                name: "FK_dados_bancarios_empresa_EmpresaId",
+                table: "dados_bancarios",
+                column: "EmpresaId",
+                principalTable: "empresa",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
 
-            migrationBuilder.CreateIndex(
-                name: "IX_usuario_empresa_UsuarioId_EmpresaId",
-                table: "usuario_empresa",
-                columns: new[] { "UsuarioId", "EmpresaId" },
-                unique: true);
+            migrationBuilder.AddForeignKey(
+                name: "FK_dados_bancarios_usuario_UsuarioId",
+                table: "dados_bancarios",
+                column: "UsuarioId",
+                principalTable: "usuario",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_documento_usuarios_usuario_UsuarioId",
+                table: "documento_usuarios",
+                column: "UsuarioId",
+                principalTable: "usuario",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_empresa_usuario_UsuarioModelId",
+                table: "empresa",
+                column: "UsuarioModelId",
+                principalTable: "usuario",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_grupo_permissoes_empresa_EmpresaId",
+                table: "grupo_permissoes");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_usuario_empresa_EmpresaId",
+                table: "usuario");
+
             migrationBuilder.DropTable(
                 name: "Contatos");
 
@@ -428,7 +428,10 @@ namespace SistemaDeVendas.Migrations
                 name: "permissao");
 
             migrationBuilder.DropTable(
-                name: "usuario_empresa");
+                name: "empresa");
+
+            migrationBuilder.DropTable(
+                name: "ParametrosdeVendas");
 
             migrationBuilder.DropTable(
                 name: "usuario");
@@ -438,12 +441,6 @@ namespace SistemaDeVendas.Migrations
 
             migrationBuilder.DropTable(
                 name: "grupo_permissoes");
-
-            migrationBuilder.DropTable(
-                name: "empresa");
-
-            migrationBuilder.DropTable(
-                name: "ParametrosdeVendas");
         }
     }
 }

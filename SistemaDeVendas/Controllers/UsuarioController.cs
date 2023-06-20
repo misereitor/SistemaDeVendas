@@ -18,10 +18,12 @@ namespace SistemaDeVendas.Controllers
         {
             _usuariosRepositorio = usuariosRepositorio;
         }
-        
+
+        [Authorize(Roles = "Master")]
         [HttpGet]
         public async Task<ActionResult<List<UsuarioModel>>> BuscarTodosOsUsuarios()
         {
+            Console.WriteLine("Aqui");
             List<UsuarioModel> usuarios = await _usuariosRepositorio.BuscarTodosOsUsuarios();
             return Ok(usuarios);
         }

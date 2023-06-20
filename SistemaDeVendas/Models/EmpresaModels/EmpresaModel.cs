@@ -15,17 +15,18 @@ namespace SistemaDeVendas.Models.EmpresaModels
 
         [Key]
         public int Id { get; set; }
+        [Required]
         public string NomeFantasia { get; set; }
         public string RazaoSocial { get; set; }
-        public byte[] Logo { get; set; }
+        public byte[]? Logo { get; set; }
         public string CNPJ { get; set; }
         [DefaultValue(false)]
         public bool Ativo { get; set; }
         public AreaAtuacaoEmpresa AreaDeAtuacao { get; set; }
-        public decimal Telefone { get; set; }
+        public string Telefone { get; set; } = string.Empty;
         public string Email { get; set; }
-        public string IE { get; set; }
-        public string IM { get; set; }
+        public string? IE { get; set; }
+        public string? IM { get; set; }
         public ICollection<EnderecoModel> EnderecoEntrega { get; set; }
         public ICollection<EnderecoModel> EnderecoFaturamento { get; set; }
         public ICollection<EnderecoModel> EnderecoCorrespondencia { get; set; }
@@ -36,12 +37,18 @@ namespace SistemaDeVendas.Models.EmpresaModels
 
         public EmpresaModel()
         {
+            ParametroDeVenda = new ParametrosdeVendasModel();
             DadosBancarios = new List<DadosBancariosModel>();
             GrupoPermissoes = new List<GrupoPermissoesModel>();
             Usuarios = new List<UsuarioModel>();
             EnderecoEntrega = new List<EnderecoModel>();
             EnderecoFaturamento = new List<EnderecoModel>();
             EnderecoCorrespondencia = new List<EnderecoModel>();
+
+            NomeFantasia = string.Empty;
+            RazaoSocial = string.Empty;
+            CNPJ = string.Empty;
+            Email = string.Empty;
         }
     }
 }

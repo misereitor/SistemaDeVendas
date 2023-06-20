@@ -2,7 +2,9 @@
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.TratamentoDeErros;
 using SistemaDeVendas.Validacoes;
+using System.Net;
 
 namespace SistemaDeVendas.Repositorios
 {
@@ -19,14 +21,15 @@ namespace SistemaDeVendas.Repositorios
 
         public async Task<List<UsuarioModel>> BuscarTodosOsUsuarios()
         {
-            List<UsuarioModel> listaDeUsuarios = new List<UsuarioModel>();
+            List<UsuarioModel> listaDeUsuarios;
             try
             {
-                listaDeUsuarios = await  _dbContext.Usuarios.ToListAsync();
+                listaDeUsuarios = await _dbContext.Usuarios.ToListAsync();
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw;
             }
             return listaDeUsuarios;
         }
@@ -43,7 +46,7 @@ namespace SistemaDeVendas.Repositorios
             }
             if (usuarioPorId == null)
             {
-                throw new Exception("Usuário não encontrado");
+                throw new ErrosException(404, "Usuário não encontrado");
             }
             return usuarioPorId;
         }
@@ -53,7 +56,7 @@ namespace SistemaDeVendas.Repositorios
             if (!validationResult.IsValid)
             {
                 string errors = string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage));
-                throw new Exception(errors);
+                throw new ErrosException(409, errors);
             }
             try
             {

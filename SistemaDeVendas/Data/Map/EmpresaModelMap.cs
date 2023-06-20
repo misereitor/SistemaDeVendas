@@ -64,16 +64,10 @@ namespace SistemaDeVendas.Data.Map
                 .WithOne()
                 .HasForeignKey(g => g.EmpresaId);
 
-            builder.HasMany(e => e.Usuarios).WithMany(u => u.Empresas).UsingEntity<Dictionary<string, object>>(
-                "UsuarioEmpresa",
-                ej => ej.HasOne<UsuarioModel>().WithMany().HasForeignKey("UsuarioId").OnDelete(DeleteBehavior.Cascade),
-                uj => uj.HasOne<EmpresaModel>().WithMany().HasForeignKey("EmpresaId").OnDelete(DeleteBehavior.Cascade),
-                uej =>
-                {
-                    uej.HasKey("EmpresaId", "UsuarioId");
-                    uej.HasIndex("UsuarioId", "EmpresaId").IsUnique();
-                    uej.ToTable("usuario_empresa");
-                });
+            builder.HasMany(e => e.Usuarios)
+                .WithOne()
+                .HasForeignKey(u => u.EmpresaId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(e => e.ParametroDeVenda);
         }
