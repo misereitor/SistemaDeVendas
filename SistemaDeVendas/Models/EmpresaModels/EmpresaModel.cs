@@ -1,6 +1,6 @@
 ﻿using SistemaDeVendas.Enums;
-using SistemaDeVendas.Models.GeralModel;
-using SistemaDeVendas.Models.GeralModels;
+using SistemaDeVendas.Models.GeralModels.DadosBancarios;
+using SistemaDeVendas.Models.GeralModels.EnderecoModel;
 using SistemaDeVendas.Models.Permissoes;
 using SistemaDeVendas.Models.UsuariosModels;
 using System.ComponentModel;
@@ -27,23 +27,23 @@ namespace SistemaDeVendas.Models.EmpresaModels
         public string Email { get; set; }
         public string? IE { get; set; }
         public string? IM { get; set; }
-        public ICollection<EnderecoModel> EnderecoEntrega { get; set; }
-        public ICollection<EnderecoModel> EnderecoFaturamento { get; set; }
-        public ICollection<EnderecoModel> EnderecoCorrespondencia { get; set; }
+        public ICollection<EnderecoEmpresaEntregaModel> EnderecoEntrega { get; set; }
+        public ICollection<EnderecoEmpresaFaturamentoModel> EnderecoFaturamento { get; set; }
+        public ICollection<EnderecoEmpresaCorrespondenciaModel> EnderecoCorrespondencia { get; set; }
         public ICollection<UsuarioModel> Usuarios { get; set; }
-        public ICollection<DadosBancariosModel> DadosBancarios { get; set; }
+        public ICollection<DadosBancariosEmpresaModel> DadosBancarios { get; set; }
         public ParametrosdeVendasModel ParametroDeVenda { get; set; }
         public List<GrupoPermissoesModel> GrupoPermissoes { get; set; }
 
         public EmpresaModel()
         {
             ParametroDeVenda = new ParametrosdeVendasModel();
-            DadosBancarios = new List<DadosBancariosModel>();
+            DadosBancarios = new List<DadosBancariosEmpresaModel>();
             GrupoPermissoes = new List<GrupoPermissoesModel>();
             Usuarios = new List<UsuarioModel>();
-            EnderecoEntrega = new List<EnderecoModel>();
-            EnderecoFaturamento = new List<EnderecoModel>();
-            EnderecoCorrespondencia = new List<EnderecoModel>();
+            EnderecoEntrega = new List<EnderecoEmpresaEntregaModel>();
+            EnderecoFaturamento = new List<EnderecoEmpresaFaturamentoModel>();
+            EnderecoCorrespondencia = new List<EnderecoEmpresaCorrespondenciaModel>();
 
             NomeFantasia = string.Empty;
             RazaoSocial = string.Empty;

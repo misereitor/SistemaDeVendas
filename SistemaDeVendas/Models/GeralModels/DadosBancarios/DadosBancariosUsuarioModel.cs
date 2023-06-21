@@ -1,9 +1,11 @@
 ﻿using SistemaDeVendas.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SistemaDeVendas.Models.GeralModels
+namespace SistemaDeVendas.Models.GeralModels.DadosBancarios
 {
-    public class DadosBancariosModel
+    [Table("dadosBancariosUsuario")]
+    public class DadosBancariosUsuarioModel
     {
         [Key]
         public int Id { get; set; }
@@ -13,8 +15,5 @@ namespace SistemaDeVendas.Models.GeralModels
         public decimal Conta { get; set; }
         public decimal DigitoConta { get; set; }
 
-        public DadosBancariosModel()
-        {
-        }
     }
 }

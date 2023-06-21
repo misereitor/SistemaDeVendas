@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaDeVendas.Models.GeralModels
 {
+    [Table("contasAReceber")]
     public class ContasAReceberModel
     {
         [Key]
@@ -24,10 +26,6 @@ namespace SistemaDeVendas.Models.GeralModels
             DataVencimento = dataVencimento;
             DatCriacao = datCriacao;
             Pago = pago;
-        }
-
-        public ContasAReceberModel()
-        {
         }
     }
 }

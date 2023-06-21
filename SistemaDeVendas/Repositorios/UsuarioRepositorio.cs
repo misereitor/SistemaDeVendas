@@ -72,7 +72,7 @@ namespace SistemaDeVendas.Repositorios
 
         public async Task<UsuarioModel> AlterarUsuario(UsuarioModel usuario, int id)
         {
-            UsuarioModel usuarioPorId = await BuscarUsuarioPorId(id) ?? throw new Exception($"Usuario do ID: {id} não foi encontrado!");
+            UsuarioModel usuarioPorId = await BuscarUsuarioPorId(id) ?? throw new ErrosException(404, $"Usuario do ID: {id} não foi encontrado!");
             _dbContext.Entry(usuarioPorId).CurrentValues.SetValues(usuario);
             await _dbContext.SaveChangesAsync();
             return usuarioPorId;

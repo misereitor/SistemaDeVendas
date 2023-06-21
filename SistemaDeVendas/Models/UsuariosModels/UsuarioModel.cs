@@ -1,7 +1,7 @@
 ﻿using SistemaDeVendas.Enums;
 using SistemaDeVendas.Models.EmpresaModels;
-using SistemaDeVendas.Models.GeralModel;
-using SistemaDeVendas.Models.GeralModels;
+using SistemaDeVendas.Models.GeralModels.DadosBancarios;
+using SistemaDeVendas.Models.GeralModels.EnderecoModel;
 using SistemaDeVendas.Models.Permissoes;
 using System;
 using System.Collections.Generic;
@@ -31,13 +31,13 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public string Senha { get; set; }
         [Required]
         public UsuarioSexo Sexo { get; set; }
-        public EnderecoModel Endereco { get; set; }
+        public EnderecoUsuarioModel Endereco { get; set; }
         [Required]
         public DateOnly DataNascimento { get; set; }
         public DateTimeOffset DataCriacao { get; set; } = DateTimeOffset.UtcNow;
-        public string? Site { get; set; }
-        public string? Observacao { get; set; }
-        public ICollection<DadosBancariosModel> DadosBancarios { get; set; }
+        public string Site { get; set; }
+        public string Observacao { get; set; }
+        public ICollection<DadosBancariosUsuarioModel> DadosBancarios { get; set; }
         public ICollection<DocumentoUsuariosModel> Documentos { get; set; }
         public ICollection<EmpresaModel> Empresas { get; set; }
         [DefaultValue(true)]
@@ -52,32 +52,40 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public bool Vendedor { get; set; }
         [DefaultValue(false)]
         public bool Comprador { get; set; }
-        public GrupoPermissoesModel Grupo { get; set; }
-        public float? Comissao { get; set; }
-        public string? Telefone { get; set; }
-        public string? Celular { get; set; }
+        public ICollection<GrupoPermissoesModel> Grupo { get; set; }
+        [DefaultValue(0)]
+        public float Comissao { get; set; }
+        public string Telefone { get; set; }
+        public string Celular { get; set; }
         public TipoPessoa TipoPessoa { get; set; }
-        public string? CPF { get; set; }
-        public string? CNPJ { get; set; }
-        public string? IE { get; set; }
-        public string? RG { get; set; }
+        public string CPF { get; set; }
+        public string CNPJ { get; set; }
+        public string IE { get; set; }
+        public string IM { get; set; }
+        public string RG { get; set; }
         public byte[]? Foto { get; set; }
-        public int? EnderecoId { get; internal set; }
-        public int? GrupoId { get; internal set; }
-        public int? EmpresaId { get; internal set; }
 
         public UsuarioModel()
         {
-            Grupo = new GrupoPermissoesModel();
-            Endereco = new EnderecoModel();
-            DadosBancarios = new List<DadosBancariosModel>();
+            Grupo = new List<GrupoPermissoesModel>();
+            DadosBancarios = new List<DadosBancariosUsuarioModel>();
             Documentos = new List<DocumentoUsuariosModel>();
             Empresas = new List<EmpresaModel>();
+            Endereco = new EnderecoUsuarioModel();
 
             Nome = string.Empty;
             Email = string.Empty;
             Senha = string.Empty;
             Usuario = string.Empty;
+            CPF = string.Empty;
+            CNPJ = string.Empty;
+            IE = string.Empty;
+            IM = string.Empty;
+            RG = string.Empty;
+            Telefone = string.Empty;
+            Celular = string.Empty;
+            Site = string.Empty;
+            Observacao = string.Empty;
         }
     }
 }

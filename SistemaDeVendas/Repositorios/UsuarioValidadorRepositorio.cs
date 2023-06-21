@@ -1,6 +1,7 @@
 ﻿using DocumentValidator;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
+using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios.Interfaces;
 
 namespace SistemaDeVendas.Repositorios
@@ -26,19 +27,58 @@ namespace SistemaDeVendas.Repositorios
             return !existe;
         }
 
-        public bool CNPJValidador(string cnpj)
+        public bool CNPJValidador(UsuarioModel usuario)
         {
-            return CnpjValidation.Validate(cnpj);
+            if (usuario.TipoPessoa == Enums.TipoPessoa.juridica)
+            {
+                return CnpjValidation.Validate(usuario.CNPJ);
+            }
+            return true;
         }
 
-        public bool CPFValidador(string cpf)
+        public bool CPFValidador(UsuarioModel usuario)
         {
-            return CpfValidation.Validate(cpf);
+            if (usuario.TipoPessoa == Enums.TipoPessoa.fisica)
+            {
+                return CpfValidation.Validate(usuario.CPF);
+            }
+            return true;
         }
 
-        public bool RGValidador(string rg)
+        public bool RGValidador(UsuarioModel usuario)
         {
-            return RGValidation.Validate(rg);
+            if (usuario.TipoPessoa == Enums.TipoPessoa.fisica)
+            {
+                return RGValidation.Validate(usuario.RG);
+            }
+            return true;
+        }
+
+        public bool PesoaJuridica(UsuarioModel usuario)
+        {
+            bool validacao = true;
+            if (usuario.TipoPessoa == Enums.TipoPessoa.juridica)
+            {
+                if (usuario.CPF.Length > 0 || usuario.RG.Length > 0)
+                {
+                    Console.WriteLine("Juridica");
+                    Console.WriteLine(!CNPJValidador(usuario));
+                    validacao = false;
+                }
+            }
+            return validacao;
+        }
+
+        public bool PesoaFisica(UsuarioModel usuario)
+        {
+            if (usuario.TipoPessoa == Enums.TipoPessoa.fisica)
+            {
+                if (usuario.CNPJ.Length > 0 || usuario.IE.Length > 0 || usuario.IM.Length > 0)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

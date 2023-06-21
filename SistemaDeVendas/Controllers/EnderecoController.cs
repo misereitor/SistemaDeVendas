@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SistemaDeVendas.Models.GeralModel;
+using SistemaDeVendas.Models.GeralModels.EnderecoModel;
 using SistemaDeVendas.Models.RequestModel;
 using SistemaDeVendas.Repositorios.Interfaces;
 
@@ -20,103 +20,103 @@ namespace SistemaDeVendas.Controllers
 
         [Authorize]
         [HttpPost("enderecoentregaempresa")]
-        public async Task<ActionResult<EnderecoModel>> AdcionarEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoEmpresaEntregaModel>> AdcionarEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
-            EnderecoModel endereco = await _enderecoRepositorio.AdcionarEnderecoEntregaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.Endereco);
+            EnderecoEmpresaEntregaModel endereco = await _enderecoRepositorio.AdcionarEnderecoEntregaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.EnderecoEntrega);
             return Ok(endereco);
         }
 
         [Authorize]
         [HttpPost("enderecofaturamentoempresa")]
-        public async Task<ActionResult<EnderecoModel>> AdcionarEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoEmpresaFaturamentoModel>> AdcionarEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
-            EnderecoModel endereco = await _enderecoRepositorio.AdcionarEnderecoFaturamentoEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.Endereco);
+            EnderecoEmpresaFaturamentoModel endereco = await _enderecoRepositorio.AdcionarEnderecoFaturamentoEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.EnderecoFaturamento);
             return Ok(endereco);
         }
 
         [Authorize]
         [HttpPost("enderecocorrespondenciaempresa")]
-        public async Task<ActionResult<EnderecoModel>> AdcionarEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoEmpresaCorrespondenciaModel>> AdcionarEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
-            EnderecoModel endereco = await _enderecoRepositorio.AdcionarEnderecoCorrespondenciaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.Endereco);
+            EnderecoEmpresaCorrespondenciaModel endereco = await _enderecoRepositorio.AdcionarEnderecoCorrespondenciaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.EnderecoCorrespondencia);
             return Ok(endereco);
         }
 
         [Authorize]
         [HttpPost("enderecousuario")]
-        public async Task<ActionResult<EnderecoModel>> AdcionarEnderecoDoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoUsuarioModel>> AdcionarEnderecoDoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
         {
-            EnderecoModel endereco = await _enderecoRepositorio.AdcionarEnderecoDoUsuario(enderecoRequest.IdUsuario, enderecoRequest.Endereco);
+            EnderecoUsuarioModel endereco = await _enderecoRepositorio.AdcionarEnderecoDoUsuario(enderecoRequest.IdUsuario, enderecoRequest.Endereco);
             return Ok(endereco);
         }
 
         [Authorize]
         [HttpGet("enderecoentregaempresa")]
-        public async Task<ActionResult<ICollection<EnderecoModel>>> BuscaEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<ICollection<EnderecoEmpresaEntregaModel>>> BuscaEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
-            ICollection<EnderecoModel> endereco = await _enderecoRepositorio.BuscaEnderecoEntregaEmpresa(enderecoRequest.IdEmpresa);
+            ICollection<EnderecoEmpresaEntregaModel> endereco = await _enderecoRepositorio.BuscaEnderecoEntregaEmpresa(enderecoRequest.IdEmpresa);
             return Ok(endereco);
         }
 
         [Authorize]
         [HttpGet("enderecofaturamentoempresa")]
-        public async Task<ActionResult<ICollection<EnderecoModel>>> BuscaEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<ICollection<EnderecoEmpresaFaturamentoModel>>> BuscaEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
-            ICollection<EnderecoModel> endereco = await _enderecoRepositorio.BuscaEnderecoFaturamentoEmpresa(enderecoRequest.IdEmpresa);
+            ICollection<EnderecoEmpresaFaturamentoModel> endereco = await _enderecoRepositorio.BuscaEnderecoFaturamentoEmpresa(enderecoRequest.IdEmpresa);
             return Ok(endereco);
         }
 
         [Authorize]
         [HttpGet("enderecocorrespondenciaempresa")]
-        public async Task<ActionResult<ICollection<EnderecoModel>>> BuscaEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<ICollection<EnderecoEmpresaCorrespondenciaModel>>> BuscaEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
-            ICollection<EnderecoModel> endereco = await _enderecoRepositorio.BuscaEnderecoCorrespondenciaEmpresa(enderecoRequest.IdEmpresa);
+            ICollection<EnderecoEmpresaCorrespondenciaModel> endereco = await _enderecoRepositorio.BuscaEnderecoCorrespondenciaEmpresa(enderecoRequest.IdEmpresa);
             return Ok(endereco);
         }
 
         [Authorize]
         [HttpGet("enderecousuario")]
-        public async Task<ActionResult<EnderecoModel>> BuscaEnderecoDoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoUsuarioModel>> BuscaEnderecoDoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
         {
-            EnderecoModel endereco = await _enderecoRepositorio.BuscaEnderecoDoUsuario(enderecoRequest.IdUsuario);
+            EnderecoUsuarioModel endereco = await _enderecoRepositorio.BuscaEnderecoDoUsuario(enderecoRequest.IdUsuario);
             return Ok(endereco);
         }
 
         [Authorize]
         [HttpPut("enderecoentregaempresa")]
-        public async Task<ActionResult<EnderecoModel>> AlteraEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoEmpresaEntregaModel>> AlteraEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
-            EnderecoModel enderecoAlterado = await _enderecoRepositorio.AlteraEnderecoEntregaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.IdEndereco, enderecoRequest.Endereco);
+            EnderecoEmpresaEntregaModel enderecoAlterado = await _enderecoRepositorio.AlteraEnderecoEntregaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.IdEndereco, enderecoRequest.EnderecoEntrega);
             return Ok(enderecoAlterado);
         }
 
         [Authorize]
         [HttpPut("enderecofaturamentoempresa")]
-        public async Task<ActionResult<EnderecoModel>> AlteraEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoEmpresaFaturamentoModel>> AlteraEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
-            EnderecoModel enderecoAlterado = await _enderecoRepositorio.AlteraEnderecoFaturamentoEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.IdEndereco, enderecoRequest.Endereco);
+            EnderecoEmpresaFaturamentoModel enderecoAlterado = await _enderecoRepositorio.AlteraEnderecoFaturamentoEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.IdEndereco, enderecoRequest.EnderecoFaturamento);
             return Ok(enderecoAlterado);
         }
 
         [Authorize]
         [HttpPut("enderecocorrespondenciaempresa")]
-        public async Task<ActionResult<EnderecoModel>> AlteraEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoEmpresaCorrespondenciaModel>> AlteraEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
-            EnderecoModel enderecoAlterado = await _enderecoRepositorio.AlteraEnderecoCorrespondenciaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.IdEndereco, enderecoRequest.Endereco);
+            EnderecoEmpresaCorrespondenciaModel enderecoAlterado = await _enderecoRepositorio.AlteraEnderecoCorrespondenciaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.IdEndereco, enderecoRequest.EnderecoCorrespondencia);
             return Ok(enderecoAlterado);
         }
 
         [Authorize]
         [HttpPut("enderecousuario")]
-        public async Task<ActionResult<EnderecoModel>> AlteraEnderecoDoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoUsuarioModel>> AlteraEnderecoDoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
         {
-            EnderecoModel enderecoAlterado = await _enderecoRepositorio.AlteraEnderecoDoUsuario(enderecoRequest.IdUsuario, enderecoRequest.Endereco);
+            EnderecoUsuarioModel enderecoAlterado = await _enderecoRepositorio.AlteraEnderecoDoUsuario(enderecoRequest.IdUsuario, enderecoRequest.Endereco);
             return Ok(enderecoAlterado);
         }
 
         [Authorize]
         [HttpDelete("enderecoentregaempresa")]
-        public async Task<ActionResult<EnderecoModel>> DeletaEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoUsuarioModel>> DeletaEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
             bool deletar = await _enderecoRepositorio.DeletaEnderecoEntregaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.IdEndereco);
             return Ok(deletar);
@@ -124,7 +124,7 @@ namespace SistemaDeVendas.Controllers
 
         [Authorize]
         [HttpDelete("enderecofaturamentoempresa")]
-        public async Task<ActionResult<EnderecoModel>> DeletaEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoUsuarioModel>> DeletaEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
             bool deletar = await _enderecoRepositorio.DeletaEnderecoFaturamentoEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.IdEndereco);
             return Ok(deletar);
@@ -132,7 +132,7 @@ namespace SistemaDeVendas.Controllers
 
         [Authorize]
         [HttpDelete("enderecocorrespondenciaempresa")]
-        public async Task<ActionResult<EnderecoModel>> DeletaEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoUsuarioModel>> DeletaEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
             bool deletar = await _enderecoRepositorio.DeletaEnderecoCorrespondenciaEmpresa(enderecoRequest.IdEmpresa, enderecoRequest.IdEndereco);
             return Ok(deletar);
@@ -140,7 +140,7 @@ namespace SistemaDeVendas.Controllers
 
         [Authorize]
         [HttpDelete("enderecousuario")]
-        public async Task<ActionResult<EnderecoModel>> DeletaEnderecoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
+        public async Task<ActionResult<EnderecoUsuarioModel>> DeletaEnderecoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
         {
             bool deletar = await _enderecoRepositorio.DeletaEnderecoUsuario(enderecoRequest.IdUsuario);
             return Ok(deletar);

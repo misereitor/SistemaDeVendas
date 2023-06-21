@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.EmpresaModels;
-using SistemaDeVendas.Models.GeralModel;
+using SistemaDeVendas.Models.GeralModels.EnderecoModel;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios.Interfaces;
 using SistemaDeVendas.TratamentoDeErros;
@@ -21,7 +21,7 @@ namespace SistemaDeVendas.Repositorios
             _usuarioRepositorio = usuarioRepositorio;
         }
 
-        public async Task<EnderecoModel> AdcionarEnderecoCorrespondenciaEmpresa(int idEmpresa, EnderecoModel endereco)
+        public async Task<EnderecoEmpresaCorrespondenciaModel> AdcionarEnderecoCorrespondenciaEmpresa(int idEmpresa, EnderecoEmpresaCorrespondenciaModel endereco)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
             empresa.EnderecoCorrespondencia.Add(endereco);
@@ -30,7 +30,7 @@ namespace SistemaDeVendas.Repositorios
             return endereco;
         }
 
-        public async Task<EnderecoModel> AdcionarEnderecoEntregaEmpresa(int idEmpresa, EnderecoModel endereco)
+        public async Task<EnderecoEmpresaEntregaModel> AdcionarEnderecoEntregaEmpresa(int idEmpresa, EnderecoEmpresaEntregaModel endereco)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
             empresa.EnderecoEntrega.Add(endereco);
@@ -39,7 +39,7 @@ namespace SistemaDeVendas.Repositorios
             return endereco;
         }
 
-        public async Task<EnderecoModel> AdcionarEnderecoFaturamentoEmpresa(int idEmpresa, EnderecoModel endereco)
+        public async Task<EnderecoEmpresaFaturamentoModel> AdcionarEnderecoFaturamentoEmpresa(int idEmpresa, EnderecoEmpresaFaturamentoModel endereco)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
             empresa.EnderecoFaturamento.Add(endereco);
@@ -48,7 +48,7 @@ namespace SistemaDeVendas.Repositorios
             return endereco;
         }
 
-        public async Task<EnderecoModel> AdcionarEnderecoDoUsuario(int IdUsuario, EnderecoModel endereco)
+        public async Task<EnderecoUsuarioModel> AdcionarEnderecoDoUsuario(int IdUsuario, EnderecoUsuarioModel endereco)
         {
             UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
             usuario.Endereco = endereco;
@@ -57,10 +57,10 @@ namespace SistemaDeVendas.Repositorios
             return endereco;
         }
 
-        public async Task<EnderecoModel> AlteraEnderecoCorrespondenciaEmpresa(int idEmpresa, int idEndereco, EnderecoModel enderecoCorrespondencia)
+        public async Task<EnderecoEmpresaCorrespondenciaModel> AlteraEnderecoCorrespondenciaEmpresa(int idEmpresa, int idEndereco, EnderecoEmpresaCorrespondenciaModel enderecoCorrespondencia)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa) ?? throw new Exception("Empresa não encontrada");
-            EnderecoModel? endereco = empresa.EnderecoCorrespondencia.FirstOrDefault(e => e.Id == idEndereco) ?? throw new Exception("Endereço não encontrado");
+            EnderecoEmpresaCorrespondenciaModel? endereco = empresa.EnderecoCorrespondencia.FirstOrDefault(e => e.Id == idEndereco) ?? throw new Exception("Endereço não encontrado");
             endereco.CEP = enderecoCorrespondencia.CEP;
             endereco.Rua = enderecoCorrespondencia.Rua;
             endereco.Cidade = enderecoCorrespondencia.Cidade;
@@ -70,10 +70,10 @@ namespace SistemaDeVendas.Repositorios
         }
 
 
-        public async Task<EnderecoModel> AlteraEnderecoEntregaEmpresa(int idEmpresa, int idEndereco, EnderecoModel enderecoEntrega)
+        public async Task<EnderecoEmpresaEntregaModel> AlteraEnderecoEntregaEmpresa(int idEmpresa, int idEndereco, EnderecoEmpresaEntregaModel enderecoEntrega)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa) ?? throw new Exception("Empresa não encontrada");
-            EnderecoModel? endereco = empresa.EnderecoEntrega.FirstOrDefault(e => e.Id == idEndereco) ?? throw new Exception("Endereço não encontrado");
+            EnderecoEmpresaEntregaModel? endereco = empresa.EnderecoEntrega.FirstOrDefault(e => e.Id == idEndereco) ?? throw new Exception("Endereço não encontrado");
             endereco.CEP = enderecoEntrega.CEP;
             endereco.Rua = enderecoEntrega.Rua;
             endereco.Cidade = enderecoEntrega.Cidade;
@@ -82,10 +82,10 @@ namespace SistemaDeVendas.Repositorios
             return endereco;
         }
 
-        public async Task<EnderecoModel> AlteraEnderecoFaturamentoEmpresa(int idEmpresa, int idEndereco, EnderecoModel enderecoFaturamento)
+        public async Task<EnderecoEmpresaFaturamentoModel> AlteraEnderecoFaturamentoEmpresa(int idEmpresa, int idEndereco, EnderecoEmpresaFaturamentoModel enderecoFaturamento)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa) ?? throw new Exception("Empresa não encontrada");
-            EnderecoModel? endereco = empresa.EnderecoFaturamento.FirstOrDefault(e => e.Id == idEndereco) ?? throw new Exception("Endereço não encontrado");
+            EnderecoEmpresaFaturamentoModel? endereco = empresa.EnderecoFaturamento.FirstOrDefault(e => e.Id == idEndereco) ?? throw new Exception("Endereço não encontrado");
             endereco.CEP = enderecoFaturamento.CEP;
             endereco.Rua = enderecoFaturamento.Rua;
             endereco.Cidade = enderecoFaturamento.Cidade;
@@ -93,7 +93,7 @@ namespace SistemaDeVendas.Repositorios
             await _dbContext.SaveChangesAsync();
             return endereco;
         }
-        public async Task<EnderecoModel> AlteraEnderecoDoUsuario(int IdUsuario, EnderecoModel endereco)
+        public async Task<EnderecoUsuarioModel> AlteraEnderecoDoUsuario(int IdUsuario, EnderecoUsuarioModel endereco)
         {
             UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
             usuario.Endereco = endereco;
@@ -102,31 +102,31 @@ namespace SistemaDeVendas.Repositorios
             return endereco;
         }
 
-        public async Task<ICollection<EnderecoModel>> BuscaEnderecoCorrespondenciaEmpresa(int idEmpresa)
+        public async Task<ICollection<EnderecoEmpresaCorrespondenciaModel>> BuscaEnderecoCorrespondenciaEmpresa(int idEmpresa)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
-            ICollection<EnderecoModel> enderecoEmpresa = empresa.EnderecoCorrespondencia ?? throw new Exception("Endereço não cadastrado");
+            ICollection<EnderecoEmpresaCorrespondenciaModel> enderecoEmpresa = empresa.EnderecoCorrespondencia ?? throw new Exception("Endereço não cadastrado");
             return enderecoEmpresa;
         }
 
-        public async Task<ICollection<EnderecoModel>> BuscaEnderecoEntregaEmpresa(int idEmpresa)
+        public async Task<ICollection<EnderecoEmpresaEntregaModel>> BuscaEnderecoEntregaEmpresa(int idEmpresa)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
-            ICollection<EnderecoModel> enderecoEmpresa = empresa.EnderecoEntrega;
+            ICollection<EnderecoEmpresaEntregaModel> enderecoEmpresa = empresa.EnderecoEntrega;
             return enderecoEmpresa ?? throw new Exception("Endereço não cadastrado");
         }
 
-        public async Task<ICollection<EnderecoModel>> BuscaEnderecoFaturamentoEmpresa(int idEmpresa)
+        public async Task<ICollection<EnderecoEmpresaFaturamentoModel>> BuscaEnderecoFaturamentoEmpresa(int idEmpresa)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
-            ICollection<EnderecoModel> enderecoEmpresa = empresa.EnderecoFaturamento ?? throw new Exception("Endereço não cadastrado");
+            ICollection<EnderecoEmpresaFaturamentoModel> enderecoEmpresa = empresa.EnderecoFaturamento ?? throw new Exception("Endereço não cadastrado");
             return enderecoEmpresa;
         }
 
-        public async Task<EnderecoModel> BuscaEnderecoDoUsuario(int IdUsuario)
+        public async Task<EnderecoUsuarioModel> BuscaEnderecoDoUsuario(int IdUsuario)
         {
             UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
-            EnderecoModel enderecoUsuario = usuario.Endereco;
+            EnderecoUsuarioModel enderecoUsuario = usuario.Endereco;
             if (usuario == null)
             {
                 throw new Exception("Usuário não encontrado");
@@ -137,7 +137,7 @@ namespace SistemaDeVendas.Repositorios
         public async Task<bool> DeletaEnderecoCorrespondenciaEmpresa(int idEmpresa, int idEmderecoCorrespondencia)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa) ?? throw new Exception("Empresa não encontrada");
-            EnderecoModel? endereco = empresa.EnderecoFaturamento.FirstOrDefault(e => e.Id == idEmderecoCorrespondencia) ?? throw new Exception("Endereço não encontrado");
+            EnderecoEmpresaCorrespondenciaModel? endereco = empresa.EnderecoCorrespondencia.FirstOrDefault(e => e.Id == idEmderecoCorrespondencia) ?? throw new Exception("Endereço não encontrado");
             empresa.EnderecoCorrespondencia.Remove(endereco);
             _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
             await _dbContext.SaveChangesAsync();
@@ -147,7 +147,7 @@ namespace SistemaDeVendas.Repositorios
         public async Task<bool> DeletaEnderecoEntregaEmpresa(int idEmpresa, int idEmderecoEntrega)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa) ?? throw new Exception("Empresa não encontrada");
-            EnderecoModel? endereco = empresa.EnderecoEntrega.FirstOrDefault(e => e.Id == idEmderecoEntrega) ?? throw new Exception("Endereço não encontrado");
+            EnderecoEmpresaEntregaModel? endereco = empresa.EnderecoEntrega.FirstOrDefault(e => e.Id == idEmderecoEntrega) ?? throw new Exception("Endereço não encontrado");
             empresa.EnderecoEntrega.Remove(endereco);
             _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
             await _dbContext.SaveChangesAsync();
@@ -157,7 +157,7 @@ namespace SistemaDeVendas.Repositorios
         public async Task<bool> DeletaEnderecoFaturamentoEmpresa(int idEmpresa, int idEmderecoFaturamento)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa) ?? throw new Exception("Empresa não encontrada");
-            EnderecoModel? endereco = empresa.EnderecoFaturamento.FirstOrDefault(e => e.Id == idEmderecoFaturamento) ?? throw new Exception("Endereço não encontrado");
+            EnderecoEmpresaFaturamentoModel? endereco = empresa.EnderecoFaturamento.FirstOrDefault(e => e.Id == idEmderecoFaturamento) ?? throw new Exception("Endereço não encontrado");
             empresa.EnderecoFaturamento.Remove(endereco);
             _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
             await _dbContext.SaveChangesAsync();
@@ -167,7 +167,7 @@ namespace SistemaDeVendas.Repositorios
         public async Task<bool> DeletaEnderecoUsuario(int idUsuario)
         {
             UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(idUsuario) ?? throw new Exception("Usuario não encontrada");
-            EnderecoModel enderecoVazio = new();
+            EnderecoUsuarioModel enderecoVazio = new();
             usuario.Endereco = enderecoVazio;
             _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
             await _dbContext.SaveChangesAsync();

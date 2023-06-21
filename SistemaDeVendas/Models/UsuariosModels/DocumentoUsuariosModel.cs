@@ -1,21 +1,24 @@
 ﻿using SistemaDeVendas.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaDeVendas.Models.UsuariosModels
 {
+    [Table("documentoUsuarios")]
     public class DocumentoUsuariosModel
     {
-        public DocumentoUsuariosModel()
-        {
-        }
-
         [Key]
         public int Id { get; set; }
         [Required]
         public TipoDocumentoUsuarios Tipo { get; set; }
         [Required]
         public byte[] FotoDocumento { get; set; }
-        public int? UsuarioId { get; set; }
-        public UsuarioModel Usuario { get; internal set; }
+
+        public DocumentoUsuariosModel(int id, TipoDocumentoUsuarios tipo, byte[] fotoDocumento)
+        {
+            Id = id;
+            Tipo = tipo;
+            FotoDocumento = fotoDocumento;
+        }
     }
 }

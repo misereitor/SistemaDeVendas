@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaDeVendas.Models.FinanceiroModel
 {
+    [Table("ContasAPagar")]
     public class ContasAPagarModel
     {
         [Key]
@@ -24,10 +26,6 @@ namespace SistemaDeVendas.Models.FinanceiroModel
             DataVencimento = dataVencimento;
             DatCriacao = datCriacao;
             Pago = pago;
-        }
-
-        public ContasAPagarModel()
-        {
         }
     }
 }

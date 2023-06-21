@@ -1,15 +1,13 @@
 ﻿using SistemaDeVendas.Enums;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaDeVendas.Models.EmpresaModels
 {
+    [Table("ParametrosdeVendas")]
     public class ParametrosdeVendasModel
     {
-        public ParametrosdeVendasModel()
-        {
-        }
-
         [Key]
         public int Id { get; set; }
         public int ValidadeOrcamentoCompra { get; set; }

@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaDeVendas.Models.FornecedorModel
 {
+    [Table("TipoFornecedor")]
     public class TipoFornecedorModel
     {
         [Key]
@@ -15,8 +17,5 @@ namespace SistemaDeVendas.Models.FornecedorModel
             Tipo = tipo;
         }
 
-        public TipoFornecedorModel()
-        {
-        }
     }
 }

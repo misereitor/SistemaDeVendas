@@ -24,17 +24,20 @@ namespace SistemaDeVendas.Validacoes
                 .MaximumLength(30).WithMessage("O campo Usuário deve ter no máximo 30 caracteres.")
                 .MustAsync(UsuarioExclusivo).WithMessage("Este usuário já está em uso.");
 
-            RuleFor(usuario => usuario.CPF)
-                .Length(11).WithMessage("O CPF deve conter 11 caracteres.")
+            RuleFor(u => u)
                 .Must(CPFValidador).WithMessage("CPF inválido.");
 
-            RuleFor(usuario => usuario.CNPJ)
-                .Length(14).WithMessage("O CNPJ deve conter 14 caracteres.")
+            RuleFor(u => u)
                 .Must(CNPJValidador).WithMessage("CNPJ inválido.");
 
-            RuleFor(usuario => usuario.RG)
-                .Length(9).WithMessage("O RG deve conter 9 caracteres.")
+            RuleFor(u => u)
                 .Must(RGValidador).WithMessage("RG inválido.");
+
+            RuleFor(u => u)
+                .Must(PesoaFisica).WithMessage("Pessoa fisica não pode conter um CNPJ/IE/IM");
+
+            RuleFor(u => u)
+                .Must(PesoaJuridica).WithMessage("Pessoa juridica não pode conter um CPF/RG");
         }
 
         private async Task<bool> EmailExclusivo(string email, CancellationToken cancellationToken)
@@ -47,19 +50,28 @@ namespace SistemaDeVendas.Validacoes
             return await _usuarioValidadorRepositorio.UsuarioExclusivo(usuario);
         }
 
-        private bool CPFValidador(string cpf)
+        private bool CPFValidador(UsuarioModel usuario)
         {
-            return _usuarioValidadorRepositorio.CPFValidador(cpf);
+            return _usuarioValidadorRepositorio.CPFValidador(usuario);
         }
 
-        private bool CNPJValidador(string cnpj)
+        private bool CNPJValidador(UsuarioModel usuario)
         {
-            return _usuarioValidadorRepositorio.CNPJValidador(cnpj);
+            return _usuarioValidadorRepositorio.CNPJValidador(usuario);
         }
 
-        private bool RGValidador(string rg)
+        private bool RGValidador(UsuarioModel usuario)
         {
-            return _usuarioValidadorRepositorio.RGValidador(rg);
+            return _usuarioValidadorRepositorio.RGValidador(usuario);
+        }
+
+        private bool PesoaJuridica(UsuarioModel usuario)
+        {
+            return _usuarioValidadorRepositorio.PesoaJuridica(usuario);
+        }
+        private bool PesoaFisica(UsuarioModel usuario)
+        {
+            return _usuarioValidadorRepositorio.PesoaFisica(usuario);
         }
     }
 }
