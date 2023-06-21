@@ -41,7 +41,7 @@ namespace SistemaDeVendas.Data
                     Nome = "Master",
                     Email = "teste@teste.com",
                     Usuario = "suporte",
-                    Senha = "V!V#tc%001",
+                    Senha = "4a9ccbd733db5bd7d6c09acdb551b94504aa2738195b955dd0fa64f5145a9369",
                     Sexo = 0,
                     DataNascimento = DateOnly.Parse("2023-06-10"),
                     Ativo = true,

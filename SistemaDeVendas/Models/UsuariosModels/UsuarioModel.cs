@@ -27,11 +27,10 @@ namespace SistemaDeVendas.Models.UsuariosModels
         [MaxLength(30)]
         public string Usuario { get; set; }
         [Required]
-        [MaxLength(20)]
         public string Senha { get; set; }
         [Required]
         public UsuarioSexo Sexo { get; set; }
-        public EnderecoUsuarioModel Endereco { get; set; }
+        public EnderecoUsuarioModel? Endereco { get; set; }
         [Required]
         public DateOnly DataNascimento { get; set; }
         public DateTimeOffset DataCriacao { get; set; } = DateTimeOffset.UtcNow;
@@ -64,7 +63,6 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public string IM { get; set; }
         public string RG { get; set; }
         public byte[]? Foto { get; set; }
-        public int EnderecoId { get; set; }
 
         public UsuarioModel()
         {
@@ -72,7 +70,6 @@ namespace SistemaDeVendas.Models.UsuariosModels
             DadosBancarios = new List<DadosBancariosUsuarioModel>();
             Documentos = new List<DocumentoUsuariosModel>();
             Empresas = new List<EmpresaModel>();
-            Endereco = new EnderecoUsuarioModel();
 
             Nome = string.Empty;
             Email = string.Empty;

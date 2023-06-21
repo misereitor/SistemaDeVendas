@@ -5,6 +5,8 @@ using SistemaDeVendas.Repositorios.Interfaces;
 using SistemaDeVendas.TratamentoDeErros;
 using SistemaDeVendas.Validacoes;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SistemaDeVendas.Repositorios
 {
@@ -58,6 +60,22 @@ namespace SistemaDeVendas.Repositorios
                 string errors = string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage));
                 throw new ErrosException(409, errors);
             }
+            string senhaCriptografada;
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytesSenha = Encoding.UTF8.GetBytes(usuario.Senha); // Converte a senha em um array de bytes
+                byte[] hashBytes = sha256.ComputeHash(bytesSenha); // Calcula o hash da senha
+
+                // Converte o hash em uma string hexadecimal
+                StringBuilder builder = new();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    builder.Append(hashBytes[i].ToString("x2"));
+                }
+                senhaCriptografada = builder.ToString();
+            }
+            usuario.Usuario = usuario.Usuario.ToLower();
+            usuario.Senha = senhaCriptografada;
             try
             {
                 await _dbContext.AddAsync(usuario);
