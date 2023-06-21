@@ -33,7 +33,27 @@ namespace SistemaDeVendas.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            
+            // Dados iniciais
+            modelBuilder.Entity<UsuarioModel>().HasData(
+                new UsuarioModel
+                {
+                    Id = 1,
+                    Nome = "Master",
+                    Email = "teste@teste.com",
+                    Usuario = "suporte",
+                    Senha = "V!V#tc%001",
+                    Sexo = 0,
+                    DataNascimento = DateOnly.Parse("2023-06-10"),
+                    Ativo = true,
+                    Roles = Enums.UsuarioRoles.Master,
+                    TipoPessoa = Enums.TipoPessoa.juridica,
+                    OperadorPDV = true,
+                    ADMPDV = true,
+                    Vendedor = true,
+                    Comprador = true,
+                    CNPJ = "26467564000122",
+                    Telefone = "07536312387"
+                });
         }
     }
 }

@@ -64,6 +64,7 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public string IM { get; set; }
         public string RG { get; set; }
         public byte[]? Foto { get; set; }
+        public int EnderecoId { get; set; }
 
         public UsuarioModel()
         {
