@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SistemaDeVendas.Models.GeralModels.EnderecoModel
+namespace SistemaDeVendas.Models.GeralModels.Endereco
 {
-    [Table("enderecoEmpresaEntrega")]
-    public class EnderecoEmpresaEntregaModel
+    [Table("enderecoForecedor")]
+    public class EnderecoFornecedor
     {
         [Key]
         public int Id { get; set; }
@@ -13,7 +13,7 @@ namespace SistemaDeVendas.Models.GeralModels.EnderecoModel
         public string Estado { get; set; }
         public string Bairro { get; set; }
         public string CEP { get; set; }
-        public EnderecoEmpresaEntregaModel()
+        public EnderecoFornecedor()
         {
             Rua = string.Empty;
             Cidade = string.Empty;
@@ -23,4 +23,3 @@ namespace SistemaDeVendas.Models.GeralModels.EnderecoModel
         }
     }
 }
-

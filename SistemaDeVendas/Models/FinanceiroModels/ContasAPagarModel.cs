@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using SistemaDeVendas.Models.FornecedorModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,15 +18,12 @@ namespace SistemaDeVendas.Models.FinanceiroModel
         public DateTime DatCriacao { get; set; }
         [DefaultValue(false)]
         public bool Pago { get; set; }
+        public FornecedoresModel Fornecedor { get; set; }
 
-        public ContasAPagarModel(int id, decimal valor, string descricao, DateTime dataVencimento, DateTime datCriacao, bool pago)
+        public ContasAPagarModel()
         {
-            Id = id;
-            Valor = valor;
-            Descricao = descricao;
-            DataVencimento = dataVencimento;
-            DatCriacao = datCriacao;
-            Pago = pago;
+            Fornecedor = new FornecedoresModel();
+            Descricao = string.Empty;
         }
     }
 }
