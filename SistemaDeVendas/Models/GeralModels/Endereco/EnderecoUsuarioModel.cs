@@ -13,6 +13,7 @@ namespace SistemaDeVendas.Models.GeralModels.EnderecoModel
         public string Rua { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
+        public string Bairro { get; set; }
         public string CEP { get; set; }
 
         public EnderecoUsuarioModel()
@@ -21,6 +22,7 @@ namespace SistemaDeVendas.Models.GeralModels.EnderecoModel
             Cidade = string.Empty;
             Estado = string.Empty;
             CEP = string.Empty;
+            Bairro = string.Empty;
         }
     }
 }

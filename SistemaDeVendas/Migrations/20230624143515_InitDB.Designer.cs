@@ -12,8 +12,8 @@ using SistemaDeVendas.Data;
 namespace SistemaDeVendas.Migrations
 {
     [DbContext(typeof(ConexaoDBContext))]
-    [Migration("20230621151612_DB")]
-    partial class DB
+    [Migration("20230624143515_InitDB")]
+    partial class InitDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -525,8 +525,7 @@ namespace SistemaDeVendas.Migrations
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Sexo")
                         .HasColumnType("integer");
@@ -567,7 +566,7 @@ namespace SistemaDeVendas.Migrations
                             Celular = "",
                             Comissao = 0f,
                             Comprador = true,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 6, 21, 15, 16, 12, 578, DateTimeKind.Unspecified).AddTicks(6632), new TimeSpan(0, 0, 0, 0, 0)),
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 6, 24, 14, 35, 15, 484, DateTimeKind.Unspecified).AddTicks(4815), new TimeSpan(0, 0, 0, 0, 0)),
                             DataNascimento = new DateOnly(2023, 6, 10),
                             Email = "teste@teste.com",
                             IE = "",
@@ -577,7 +576,7 @@ namespace SistemaDeVendas.Migrations
                             OperadorPDV = true,
                             RG = "",
                             Roles = 0,
-                            Senha = "V!V#tc%001",
+                            Senha = "4a9ccbd733db5bd7d6c09acdb551b94504aa2738195b955dd0fa64f5145a9369",
                             Sexo = 0,
                             Site = "",
                             Telefone = "07536312387",

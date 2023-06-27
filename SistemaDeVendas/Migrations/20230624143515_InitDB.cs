@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SistemaDeVendas.Migrations
 {
     /// <inheritdoc />
-    public partial class DB : Migration
+    public partial class InitDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -86,7 +86,7 @@ namespace SistemaDeVendas.Migrations
                     Nome = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     Usuario = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    Senha = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Senha = table.Column<string>(type: "text", nullable: false),
                     Sexo = table.Column<int>(type: "integer", nullable: false),
                     EnderecoId = table.Column<int>(type: "integer", nullable: true),
                     DataNascimento = table.Column<DateOnly>(type: "date", nullable: false),
@@ -334,7 +334,7 @@ namespace SistemaDeVendas.Migrations
             migrationBuilder.InsertData(
                 table: "usuario",
                 columns: new[] { "Id", "ADMPDV", "Ativo", "CNPJ", "CPF", "Celular", "Comissao", "Comprador", "DataCriacao", "DataNascimento", "Email", "EnderecoId", "Foto", "IE", "IM", "Nome", "Observacao", "OperadorPDV", "RG", "Roles", "Senha", "Sexo", "Site", "Telefone", "TipoPessoa", "Usuario", "Vendedor" },
-                values: new object[] { 1, true, true, "26467564000122", "", "", 0f, true, new DateTimeOffset(new DateTime(2023, 6, 21, 15, 16, 12, 578, DateTimeKind.Unspecified).AddTicks(6632), new TimeSpan(0, 0, 0, 0, 0)), new DateOnly(2023, 6, 10), "teste@teste.com", null, null, "", "", "Master", "", true, "", 0, "V!V#tc%001", 0, "", "07536312387", 1, "suporte", true });
+                values: new object[] { 1, true, true, "26467564000122", "", "", 0f, true, new DateTimeOffset(new DateTime(2023, 6, 24, 14, 35, 15, 484, DateTimeKind.Unspecified).AddTicks(4815), new TimeSpan(0, 0, 0, 0, 0)), new DateOnly(2023, 6, 10), "teste@teste.com", null, null, "", "", "Master", "", true, "", 0, "4a9ccbd733db5bd7d6c09acdb551b94504aa2738195b955dd0fa64f5145a9369", 0, "", "07536312387", 1, "suporte", true });
 
             migrationBuilder.CreateIndex(
                 name: "IX_dadosBancariosEmpresa_EmpresaModelId",
