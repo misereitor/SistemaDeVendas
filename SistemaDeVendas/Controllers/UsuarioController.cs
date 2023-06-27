@@ -28,6 +28,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(usuarios);
         }
 
+        [Authorize(Roles = "Master")]
         [HttpGet("{id}")]
         public async Task<ActionResult<UsuarioModel>> BuscarUsuarioPorID(int id)
         {
@@ -35,6 +36,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(usuario);
         }
 
+        [Authorize(Roles = "Master")]
         [HttpPost]
         public async Task<ActionResult<UsuarioModel>> CriarUsuario([FromBody] UsuarioModel usuario)
         {
@@ -47,6 +49,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(novoUsuario);
         }
 
+        [Authorize(Roles = "Master")]
         [HttpPut("{id}")]
         public async Task<ActionResult<UsuarioModel>> AlterarUsuario([FromBody] UsuarioModel usuario, int id)
         {
@@ -60,6 +63,7 @@ namespace SistemaDeVendas.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Master")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<UsuarioModel>> DeletarUsuario(int id)
         {

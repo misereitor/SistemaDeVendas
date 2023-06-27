@@ -13,6 +13,7 @@ namespace SistemaDeVendas.Models.GeralModels.ContatosModel
         public string Cargo { get; set; }
         public decimal Telefone { get; set; }
         public string Email { get; set; }
+        public DateTimeOffset DataCriacao { get; set; } = DateTimeOffset.UtcNow;
 
         public ContatosUsuarioModel(int id, string nome, string cargo, decimal telefone, string email)
         {

@@ -14,6 +14,7 @@ namespace SistemaDeVendas.Models.GeralModels.DadosBancarios
         public decimal DigitoAgencia { get; set; }
         public decimal Conta { get; set; }
         public decimal DigitoConta { get; set; }
+        public DateTimeOffset DataCriacao { get; set; } = DateTimeOffset.UtcNow;
 
     }
 }

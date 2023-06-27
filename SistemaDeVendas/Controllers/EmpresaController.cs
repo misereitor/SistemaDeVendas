@@ -16,7 +16,7 @@ namespace SistemaDeVendas.Controllers
             _empresaRepositorio = empresaRepositorio;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpGet]
         public async Task<ActionResult<List<EmpresaModel>>> BuscarTodasEmpresas()
         {
@@ -24,7 +24,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(empresas);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpGet("{id}")]
         public async Task<ActionResult<EmpresaModel>> BuscarEmpresasPorId(int id)
         {
@@ -33,7 +33,7 @@ namespace SistemaDeVendas.Controllers
         }
 
 
-        [HttpPost]
+        [Authorize(Roles = "Master")]
         public async Task<ActionResult<EmpresaModel>> CriarEmpresa([FromBody] EmpresaModel empresa)
         {
             if (empresa == null)
@@ -44,7 +44,7 @@ namespace SistemaDeVendas.Controllers
             EmpresaModel novaEmpresa = await _empresaRepositorio.CriarEmpresa(empresa);
             return Ok(novaEmpresa);
         }
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpPut("{id}")]
         public async Task<ActionResult<EmpresaModel>> AlterarEmpresa(int id, [FromBody] EmpresaModel empresa)
         {
@@ -52,7 +52,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(empresaAlterada);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<EmpresaModel>> DeletarEmpresa(int id)
         {

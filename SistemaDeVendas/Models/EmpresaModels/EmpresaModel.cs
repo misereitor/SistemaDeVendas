@@ -1,4 +1,6 @@
 ﻿using SistemaDeVendas.Enums;
+using SistemaDeVendas.Models.FinanceiroModel;
+using SistemaDeVendas.Models.GeralModels;
 using SistemaDeVendas.Models.GeralModels.DadosBancarios;
 using SistemaDeVendas.Models.GeralModels.EnderecoModel;
 using SistemaDeVendas.Models.Permissoes;
@@ -19,14 +21,16 @@ namespace SistemaDeVendas.Models.EmpresaModels
         public string NomeFantasia { get; set; }
         public string RazaoSocial { get; set; }
         public byte[]? Logo { get; set; }
+        [Required]
         public string CNPJ { get; set; }
         [DefaultValue(false)]
         public bool Ativo { get; set; }
         public AreaAtuacaoEmpresa AreaDeAtuacao { get; set; }
         public string Telefone { get; set; } = string.Empty;
         public string Email { get; set; }
-        public string? IE { get; set; }
-        public string? IM { get; set; }
+        public string IE { get; set; }
+        public string IM { get; set; }
+        public DateTimeOffset DataCriacao { get; set; } = DateTimeOffset.UtcNow;
         public ICollection<EnderecoEmpresaEntregaModel> EnderecoEntrega { get; set; }
         public ICollection<EnderecoEmpresaFaturamentoModel> EnderecoFaturamento { get; set; }
         public ICollection<EnderecoEmpresaCorrespondenciaModel> EnderecoCorrespondencia { get; set; }
@@ -34,6 +38,8 @@ namespace SistemaDeVendas.Models.EmpresaModels
         public ICollection<DadosBancariosEmpresaModel> DadosBancarios { get; set; }
         public ParametrosdeVendasModel ParametroDeVenda { get; set; }
         public List<GrupoPermissoesModel> GrupoPermissoes { get; set; }
+        public List<ContasAPagarModel> ContasAPagar { get; set; }
+        public List<ContasAReceberModel> ContasAReceber { get; set; }
 
         public EmpresaModel()
         {
@@ -44,11 +50,15 @@ namespace SistemaDeVendas.Models.EmpresaModels
             EnderecoEntrega = new List<EnderecoEmpresaEntregaModel>();
             EnderecoFaturamento = new List<EnderecoEmpresaFaturamentoModel>();
             EnderecoCorrespondencia = new List<EnderecoEmpresaCorrespondenciaModel>();
+            ContasAPagar = new List<ContasAPagarModel>();
+            ContasAReceber = new List<ContasAReceberModel>();
 
             NomeFantasia = string.Empty;
             RazaoSocial = string.Empty;
             CNPJ = string.Empty;
             Email = string.Empty;
+            IM = string.Empty;
+            IE = string.Empty;
         }
     }
 }

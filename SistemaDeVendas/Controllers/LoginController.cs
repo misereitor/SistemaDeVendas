@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SistemaDeVendas.Models.LoginModel;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
@@ -18,6 +19,7 @@ namespace SistemaDeVendas.Controllers
             _loginRepositorio = loginRepositorio;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<dynamic>> AuthenticateAsync([FromBody] LoginRequest loginRequest)
         {

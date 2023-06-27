@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Hosting.Server;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Models.EmpresaModels;
-using SistemaDeVendas.Models.GeralModels.ContatosModel;
+using SistemaDeVendas.Models.FinanceiroModel;
+using SistemaDeVendas.Models.GeralModels;
 using SistemaDeVendas.Models.GeralModels.DadosBancarios;
 using SistemaDeVendas.Models.GeralModels.EnderecoModel;
 using SistemaDeVendas.Models.Permissoes;
@@ -23,6 +23,8 @@ namespace SistemaDeVendas.Data
         public DbSet<DadosBancariosEmpresaModel> DadosBancariosEmpresas { get; set; }
         public DbSet<EmpresaModel> Empresas { get; set; }
         public DbSet<ParametrosdeVendasModel> ParametrosVendas { get; set; }
+        public DbSet<ContasAReceberModel> ContasAReceber { get; set; }
+        public DbSet<ContasAPagarModel> ContasAPagar { get; set; }
 
 
         public ConexaoDBContext(DbContextOptions<ConexaoDBContext> options) : base(options)

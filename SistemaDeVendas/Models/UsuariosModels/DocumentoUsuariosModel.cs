@@ -13,6 +13,7 @@ namespace SistemaDeVendas.Models.UsuariosModels
         public TipoDocumentoUsuarios Tipo { get; set; }
         [Required]
         public byte[] FotoDocumento { get; set; }
+        public DateTimeOffset DataCriacao { get; set; } = DateTimeOffset.UtcNow;
 
         public DocumentoUsuariosModel(int id, TipoDocumentoUsuarios tipo, byte[] fotoDocumento)
         {

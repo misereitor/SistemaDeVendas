@@ -18,7 +18,7 @@ namespace SistemaDeVendas.Controllers
             _enderecoRepositorio = enderecoRepositorio;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpPost("enderecoentregaempresa")]
         public async Task<ActionResult<EnderecoEmpresaEntregaModel>> AdcionarEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -26,7 +26,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(endereco);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpPost("enderecofaturamentoempresa")]
         public async Task<ActionResult<EnderecoEmpresaFaturamentoModel>> AdcionarEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -34,7 +34,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(endereco);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpPost("enderecocorrespondenciaempresa")]
         public async Task<ActionResult<EnderecoEmpresaCorrespondenciaModel>> AdcionarEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -42,7 +42,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(endereco);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpPost("enderecousuario")]
         public async Task<ActionResult<EnderecoUsuarioModel>> AdcionarEnderecoDoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
         {
@@ -50,7 +50,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(endereco);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpGet("enderecoentregaempresa")]
         public async Task<ActionResult<ICollection<EnderecoEmpresaEntregaModel>>> BuscaEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -58,7 +58,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(endereco);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpGet("enderecofaturamentoempresa")]
         public async Task<ActionResult<ICollection<EnderecoEmpresaFaturamentoModel>>> BuscaEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -66,7 +66,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(endereco);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpGet("enderecocorrespondenciaempresa")]
         public async Task<ActionResult<ICollection<EnderecoEmpresaCorrespondenciaModel>>> BuscaEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -74,7 +74,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(endereco);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpGet("enderecousuario")]
         public async Task<ActionResult<EnderecoUsuarioModel>> BuscaEnderecoDoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
         {
@@ -82,7 +82,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(endereco);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpPut("enderecoentregaempresa")]
         public async Task<ActionResult<EnderecoEmpresaEntregaModel>> AlteraEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -90,7 +90,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(enderecoAlterado);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpPut("enderecofaturamentoempresa")]
         public async Task<ActionResult<EnderecoEmpresaFaturamentoModel>> AlteraEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -98,7 +98,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(enderecoAlterado);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpPut("enderecocorrespondenciaempresa")]
         public async Task<ActionResult<EnderecoEmpresaCorrespondenciaModel>> AlteraEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -106,7 +106,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(enderecoAlterado);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpPut("enderecousuario")]
         public async Task<ActionResult<EnderecoUsuarioModel>> AlteraEnderecoDoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
         {
@@ -114,7 +114,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(enderecoAlterado);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpDelete("enderecoentregaempresa")]
         public async Task<ActionResult<EnderecoUsuarioModel>> DeletaEnderecoEntregaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -122,7 +122,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(deletar);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpDelete("enderecofaturamentoempresa")]
         public async Task<ActionResult<EnderecoUsuarioModel>> DeletaEnderecoFaturamentoEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -130,7 +130,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(deletar);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpDelete("enderecocorrespondenciaempresa")]
         public async Task<ActionResult<EnderecoUsuarioModel>> DeletaEnderecoCorrespondenciaEmpresa([FromBody] EnderecoEmpresaRequest enderecoRequest)
         {
@@ -138,7 +138,7 @@ namespace SistemaDeVendas.Controllers
             return Ok(deletar);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Master")]
         [HttpDelete("enderecousuario")]
         public async Task<ActionResult<EnderecoUsuarioModel>> DeletaEnderecoUsuario([FromBody] EnderecoUsuarioRequest enderecoRequest)
         {
