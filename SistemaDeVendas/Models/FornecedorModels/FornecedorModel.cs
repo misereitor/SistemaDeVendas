@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SistemaDeVendas.Models.FornecedorModel
+namespace SistemaDeVendas.Models.FornecedorModels
 {
     [Table("fornecedor")]
-    public class FornecedoresModel
+    public class FornecedorModel
     {
         [Key]
         public int Id { get; set; }
@@ -39,7 +39,7 @@ namespace SistemaDeVendas.Models.FornecedorModel
         [DefaultValue(false)]
         public bool ProdutorRutal { get; set; }
 
-        public FornecedoresModel()
+        public FornecedorModel()
         {
             RazaoSocial = string.Empty;
             NomeFantasia = string.Empty;

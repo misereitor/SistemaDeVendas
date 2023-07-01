@@ -1,9 +1,11 @@
 ﻿using SistemaDeVendas.Enums;
 using SistemaDeVendas.Models.FinanceiroModel;
+using SistemaDeVendas.Models.FornecedorModels;
 using SistemaDeVendas.Models.GeralModels;
 using SistemaDeVendas.Models.GeralModels.DadosBancarios;
 using SistemaDeVendas.Models.GeralModels.EnderecoModel;
 using SistemaDeVendas.Models.Permissoes;
+using SistemaDeVendas.Models.ProdutoModels;
 using SistemaDeVendas.Models.UsuariosModels;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -37,9 +39,12 @@ namespace SistemaDeVendas.Models.EmpresaModels
         public ICollection<UsuarioModel> Usuarios { get; set; }
         public ICollection<DadosBancariosEmpresaModel> DadosBancarios { get; set; }
         public ParametrosdeVendasModel ParametroDeVenda { get; set; }
-        public List<GrupoPermissoesModel> GrupoPermissoes { get; set; }
-        public List<ContasAPagarModel> ContasAPagar { get; set; }
-        public List<ContasAReceberModel> ContasAReceber { get; set; }
+        public ICollection<GrupoPermissoesModel> GrupoPermissoes { get; set; }
+        public ICollection<ContasAPagarModel> ContasAPagar { get; set; }
+        public ICollection<ContasAReceberModel> ContasAReceber { get; set; }
+        public ICollection<FornecedorModel> Fornecedor { get; set; }
+        public ICollection<ProdutoModel> Produto { get; set; }
+
 
         public EmpresaModel()
         {
@@ -52,6 +57,8 @@ namespace SistemaDeVendas.Models.EmpresaModels
             EnderecoCorrespondencia = new List<EnderecoEmpresaCorrespondenciaModel>();
             ContasAPagar = new List<ContasAPagarModel>();
             ContasAReceber = new List<ContasAReceberModel>();
+            Fornecedor = new List<FornecedorModel>();
+            Produto = new List<ProdutoModel>();
 
             NomeFantasia = string.Empty;
             RazaoSocial = string.Empty;
