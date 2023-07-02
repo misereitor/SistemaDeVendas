@@ -22,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Produto\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Repositorios\Interfaces\InterfaceProduto\" />
   </ItemGroup>
 
 </Project>

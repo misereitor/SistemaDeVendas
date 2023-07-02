@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
 
 namespace SistemaDeVendas.Validacoes
 {

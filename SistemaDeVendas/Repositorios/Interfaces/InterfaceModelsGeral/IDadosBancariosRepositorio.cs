@@ -1,6 +1,6 @@
 ﻿using SistemaDeVendas.Models.GeralModels.DadosBancarios;
 
-namespace SistemaDeVendas.Repositorios.Interfaces
+namespace SistemaDeVendas.Repositorios.Interfaces.InterfaceDadosBancarios
 {
     public interface IDadosBancariosRepositorio
     {

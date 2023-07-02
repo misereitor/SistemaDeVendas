@@ -1,6 +1,6 @@
 ﻿using SistemaDeVendas.Models.UsuariosModels;
 
-namespace SistemaDeVendas.Repositorios.Interfaces
+namespace SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario
 {
     public interface IUsuariosRepositorio
     {

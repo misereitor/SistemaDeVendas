@@ -7,7 +7,11 @@ using SistemaDeVendas.Auth.Politicas;
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InteerfaceEmpresa;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceFornecedor;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceLogin;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceModelsGeral;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
 using SistemaDeVendas.TratamentoDeErros;
 using SistemaDeVendas.Validacoes;
 using System.Text;
@@ -52,6 +56,7 @@ namespace SistemaDeVendas
             builder.Services.AddTransient<IEmpresaRepositorio, EmpresaRepositorio>();
             builder.Services.AddTransient<IEnderecoRepositorio, EnderecoRepositorio>();
             builder.Services.AddScoped<IUsuarioValidadorRepositorio, UsuarioValidadorRepositorio>();
+            builder.Services.AddScoped<IFornecedorRepositorio, FornecedorRepositorio>();
 
             //Validações
             builder.Services.AddValidatorsFromAssemblyContaining<UsuarioModelValidador>();

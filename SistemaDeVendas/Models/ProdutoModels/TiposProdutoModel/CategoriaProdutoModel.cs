@@ -1,14 +1,13 @@
 ﻿namespace SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel
 {
-    public class CategoriaProduto
+    public class CategoriaProdutoModel
     {
         public int Id { get; set; }
         public string Nome { get; set; }
 
-        public CategoriaProduto(int id, string nome)
+        public CategoriaProdutoModel()
         {
-            Id = id;
-            Nome = nome;
+            Nome = string.Empty;
         }
     }
 }

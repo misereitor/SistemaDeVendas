@@ -43,7 +43,7 @@ namespace SistemaDeVendas.Models.EmpresaModels
         public ICollection<ContasAPagarModel> ContasAPagar { get; set; }
         public ICollection<ContasAReceberModel> ContasAReceber { get; set; }
         public ICollection<FornecedorModel> Fornecedor { get; set; }
-        public ICollection<ProdutoModel> Produto { get; set; }
+        public ICollection<ProdutoModel> Produtos { get; set; }
 
 
         public EmpresaModel()
@@ -58,7 +58,7 @@ namespace SistemaDeVendas.Models.EmpresaModels
             ContasAPagar = new List<ContasAPagarModel>();
             ContasAReceber = new List<ContasAReceberModel>();
             Fornecedor = new List<FornecedorModel>();
-            Produto = new List<ProdutoModel>();
+            Produtos = new List<ProdutoModel>();
 
             NomeFantasia = string.Empty;
             RazaoSocial = string.Empty;

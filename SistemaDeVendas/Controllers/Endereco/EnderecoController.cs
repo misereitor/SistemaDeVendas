@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeVendas.Models.GeralModels.EnderecoModel;
 using SistemaDeVendas.Models.RequestModel;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceModelsGeral;
 
-namespace SistemaDeVendas.Controllers
+namespace SistemaDeVendas.Controllers.Endereco
 {
     [Route("api/[controller]")]
     [ApiController]
     public class EnderecoController : ControllerBase
     {
-        
+
         private readonly IEnderecoRepositorio _enderecoRepositorio;
         public EnderecoController(IEnderecoRepositorio enderecoRepositorio)
         {

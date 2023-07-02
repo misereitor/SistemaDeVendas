@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.EmpresaModels;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InteerfaceEmpresa;
 
 namespace SistemaDeVendas.Repositorios
 {

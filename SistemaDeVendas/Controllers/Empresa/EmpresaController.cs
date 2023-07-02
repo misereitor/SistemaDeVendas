@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeVendas.Models.EmpresaModels;
 using SistemaDeVendas.Models.UsuariosModels;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InteerfaceEmpresa;
 
-namespace SistemaDeVendas.Controllers
+namespace SistemaDeVendas.Controllers.Empresa
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -26,7 +26,7 @@ namespace SistemaDeVendas.Controllers
 
         [Authorize(Roles = "Master")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<EmpresaModel>> BuscarEmpresasPorId(int id)
+        public async Task<ActionResult<EmpresaModel>> BuscarEmpresasPorId([FromHeader] int id)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(id);
             return Ok(empresa);

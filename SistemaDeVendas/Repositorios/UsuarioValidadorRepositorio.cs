@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
 
 namespace SistemaDeVendas.Repositorios
 {

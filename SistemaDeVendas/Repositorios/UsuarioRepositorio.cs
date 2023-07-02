@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
 using SistemaDeVendas.TratamentoDeErros;
 using SistemaDeVendas.Validacoes;
 using System.Net;

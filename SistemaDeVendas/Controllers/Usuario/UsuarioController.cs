@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
 using SistemaDeVendas.Validacoes;
 
-namespace SistemaDeVendas.Controllers
+namespace SistemaDeVendas.Controllers.Usuario
 {
     [Route("api/[controller]")]
     [ApiController]

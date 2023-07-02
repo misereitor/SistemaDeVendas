@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceLogin;
 using SistemaDeVendas.TratamentoDeErros;
 
 namespace SistemaDeVendas.Repositorios
@@ -30,7 +30,7 @@ namespace SistemaDeVendas.Repositorios
                 byte[] hashBytes = sha256.ComputeHash(bytesSenha); // Calcula o hash da senha fornecida
 
                 // Converte o hash em uma string hexadecimal
-                StringBuilder builder = new StringBuilder();
+                StringBuilder builder = new();
                 for (int i = 0; i < hashBytes.Length; i++)
                 {
                     builder.Append(hashBytes[i].ToString("x2"));

@@ -5,10 +5,9 @@
         public int Id { get; set; }
         public string Nome { get; set; }
 
-        public MarcaProdutoModel(int id, string nome)
+        public MarcaProdutoModel()
         {
-            Id = id;
-            Nome = nome;
+            Nome = string.Empty;
         }
     }
 }

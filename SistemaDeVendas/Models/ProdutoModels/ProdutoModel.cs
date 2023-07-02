@@ -19,7 +19,7 @@ namespace SistemaDeVendas.Models.ProdutoModels
         [Required]
         public string Nome { get; set; }
         public decimal CodigoDeBarras { get; set; }
-        public TipoProduto TipoProduto { get; set; }
+        public TipoProdutoModel TipoProduto { get; set; }
         public string Descricao { get; set; }
         public float PrecoDeCusto { get; set; }
         public float PrecoVendaVarejo { get; set; }
@@ -27,8 +27,8 @@ namespace SistemaDeVendas.Models.ProdutoModels
         public UnidadeProdutoModel Unidade { get; set; }
         public bool Ativo { get; set; }
         public FornecedorModel Fornecedor { get; set; }
-        public CategoriaProduto CategoriaProduto { get; set; }
-        public CategoriaProduto SubcategoriaProduto { get; set; }
+        public CategoriaProdutoModel CategoriaProduto { get; set; }
+        public CategoriaProdutoModel SubcategoriaProduto { get; set; }
         public bool MovimentaEstoque { get; set; }
         public int EstoqueMinimo { get; set; }
         public int QuantidadeEmEstoque { get; set; }
@@ -36,15 +36,27 @@ namespace SistemaDeVendas.Models.ProdutoModels
         public string Modelo { get; set; }
         public decimal CodigoBalanca { get; set; }
         public decimal CodigoInterno { get; set; }
-        public FinalidadeProduto FinalidadeProduto { get; set; }
-        public RCMProduto RCM { get; set; }
+        public FinalidadeProdutoModel FinalidadeProduto { get; set; }
+        public RCMProdutoModel RCM { get; set; }
+        public DateOnly DataValidade { get; set; }
+        public DateTimeOffset DataCriacao { get; set; } = DateTimeOffset.UtcNow;
         public int Garantia { get; set; }
 
 
         public ProdutoModel() 
         {
             Fornecedor = new FornecedorModel();
+            TipoProduto = new TipoProdutoModel();
+            Unidade = new UnidadeProdutoModel();
+            CategoriaProduto = new CategoriaProdutoModel();
+            SubcategoriaProduto = new CategoriaProdutoModel();
+            MarcaProduto = new MarcaProdutoModel();
+            FinalidadeProduto = new FinalidadeProdutoModel();
+            RCM = new RCMProdutoModel();
+
             Nome = string.Empty;
+            Descricao = string.Empty;
+            Modelo = string.Empty;
         }
     }
 }

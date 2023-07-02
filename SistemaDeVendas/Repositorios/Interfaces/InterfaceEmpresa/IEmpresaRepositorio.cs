@@ -1,6 +1,6 @@
 ﻿using SistemaDeVendas.Models.EmpresaModels;
 
-namespace SistemaDeVendas.Repositorios.Interfaces
+namespace SistemaDeVendas.Repositorios.Interfaces.InteerfaceEmpresa
 {
     public interface IEmpresaRepositorio
     {

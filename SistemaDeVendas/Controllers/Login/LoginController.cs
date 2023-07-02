@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaDeVendas.Models.LoginModel;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
-using SistemaDeVendas.Repositorios.Interfaces;
+using SistemaDeVendas.Repositorios.Interfaces.InterfaceLogin;
 using SistemaDeVendas.Services;
 
-namespace SistemaDeVendas.Controllers
+namespace SistemaDeVendas.Controllers.Login
 {
     [ApiController]
     [Route("v1")]

@@ -2,13 +2,15 @@
 
 namespace SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel
 {
-    public class UnidadeProdutoModel
+    public class RCMProdutoModel
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Nome { get; set; }
-
-        public UnidadeProdutoModel ()
+        [Required]
+        public decimal Codigo { get; set;}
+        public RCMProdutoModel() 
         {
             Nome = string.Empty;
         }

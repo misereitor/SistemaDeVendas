@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Models.EmpresaModels;
 using SistemaDeVendas.Models.FinanceiroModel;
+using SistemaDeVendas.Models.FornecedorModels;
 using SistemaDeVendas.Models.GeralModels;
 using SistemaDeVendas.Models.GeralModels.DadosBancarios;
 using SistemaDeVendas.Models.GeralModels.EnderecoModel;
@@ -25,6 +26,7 @@ namespace SistemaDeVendas.Data
         public DbSet<ParametrosdeVendasModel> ParametrosVendas { get; set; }
         public DbSet<ContasAReceberModel> ContasAReceber { get; set; }
         public DbSet<ContasAPagarModel> ContasAPagar { get; set; }
+        public DbSet<FornecedorModel> Forcededor { get; set; }
 
 
         public ConexaoDBContext(DbContextOptions<ConexaoDBContext> options) : base(options)
