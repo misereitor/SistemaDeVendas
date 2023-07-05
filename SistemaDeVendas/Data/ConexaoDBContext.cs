@@ -6,6 +6,8 @@ using SistemaDeVendas.Models.GeralModels;
 using SistemaDeVendas.Models.GeralModels.DadosBancarios;
 using SistemaDeVendas.Models.GeralModels.EnderecoModel;
 using SistemaDeVendas.Models.Permissoes;
+using SistemaDeVendas.Models.ProdutoModels;
+using SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel;
 using SistemaDeVendas.Models.UsuariosModels;
 
 namespace SistemaDeVendas.Data
@@ -27,6 +29,13 @@ namespace SistemaDeVendas.Data
         public DbSet<ContasAReceberModel> ContasAReceber { get; set; }
         public DbSet<ContasAPagarModel> ContasAPagar { get; set; }
         public DbSet<FornecedorModel> Forcededor { get; set; }
+        public DbSet<ProdutoModel> Produto { get; set; }
+        public DbSet<TipoProdutoModel> TipoProduto { get; set; }
+        public DbSet<UnidadeProdutoModel> UnidadeProduto { get; set; }
+        public DbSet<CategoriaProdutoModel> CategoriaProduto { get; set; }
+        public DbSet<MarcaProdutoModel> MarcaProduto { get; set; }
+        public DbSet<FinalidadeProdutoModel> FinalidadeProduto { get; set; }
+        public DbSet<RCMProdutoModel> RCMProduto { get; set; }
 
 
         public ConexaoDBContext(DbContextOptions<ConexaoDBContext> options) : base(options)

@@ -6,8 +6,8 @@ namespace SistemaDeVendas.Repositorios.Interfaces.InterfaceFornecedor
     {
         public Task<FornecedorModel> CriarFornecedor(FornecedorModel fornecedor);
         public Task<FornecedorModel> AlterarFornecedor(int idFornecedor, FornecedorModel fornecedor);
-        public Task<FornecedorModel> BuscarFornecedorPorId(int idFornecedorPorId);
+        public Task<FornecedorModel> BuscarFornecedorPorId(int idFornecedor);
         public Task<List<FornecedorModel>> BuscarTodosFornecedores();
-        public Task<bool> DesativarFornecedorModelPorId(int idFornecedorPorId);
+        public Task<bool> DesativarFornecedorModelPorId(int idFornecedor);
     }
 }

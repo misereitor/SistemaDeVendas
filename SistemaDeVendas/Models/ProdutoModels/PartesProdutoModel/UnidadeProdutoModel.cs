@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel
+namespace SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel
 {
     public class UnidadeProdutoModel
     {

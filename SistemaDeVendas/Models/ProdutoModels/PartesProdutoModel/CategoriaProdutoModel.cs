@@ -1,4 +1,4 @@
-﻿namespace SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel
+﻿namespace SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel
 {
     public class CategoriaProdutoModel
     {

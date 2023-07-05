@@ -1,6 +1,5 @@
-﻿using SistemaDeVendas.Enums;
-using SistemaDeVendas.Models.FornecedorModels;
-using SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel;
+﻿using SistemaDeVendas.Models.FornecedorModels;
+using SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,7 +27,6 @@ namespace SistemaDeVendas.Models.ProdutoModels
         public bool Ativo { get; set; }
         public FornecedorModel Fornecedor { get; set; }
         public CategoriaProdutoModel CategoriaProduto { get; set; }
-        public CategoriaProdutoModel SubcategoriaProduto { get; set; }
         public bool MovimentaEstoque { get; set; }
         public int EstoqueMinimo { get; set; }
         public int QuantidadeEmEstoque { get; set; }
@@ -49,7 +47,6 @@ namespace SistemaDeVendas.Models.ProdutoModels
             TipoProduto = new TipoProdutoModel();
             Unidade = new UnidadeProdutoModel();
             CategoriaProduto = new CategoriaProdutoModel();
-            SubcategoriaProduto = new CategoriaProdutoModel();
             MarcaProduto = new MarcaProdutoModel();
             FinalidadeProduto = new FinalidadeProdutoModel();
             RCM = new RCMProdutoModel();

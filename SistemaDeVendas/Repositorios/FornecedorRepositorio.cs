@@ -51,7 +51,7 @@ namespace SistemaDeVendas.Repositorios
         {
             FornecedorModel fornecedor = await BuscarFornecedorPorId(idFornecedor) ?? throw new Exception("Fornecedor não encontrado");
             fornecedor.Ativo = false;
-            _dbContext.Entry(fornecedor).CurrentValues.SetValues(fornecedor);
+            _dbContext.Entry(fornecedor).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return true;
         }

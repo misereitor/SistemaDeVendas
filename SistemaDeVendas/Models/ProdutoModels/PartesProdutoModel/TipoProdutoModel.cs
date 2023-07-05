@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel
+namespace SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel
 {
-    public class RCMProdutoModel
+    public class TipoProdutoModel
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
-        public decimal Codigo { get; set;}
-        public RCMProdutoModel() 
+        public decimal Codigo { get; set; }
+        public TipoProdutoModel()
         {
             Nome = string.Empty;
         }
