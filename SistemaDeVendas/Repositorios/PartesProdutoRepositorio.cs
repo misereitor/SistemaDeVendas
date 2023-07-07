@@ -1,158 +1,256 @@
-﻿using SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaDeVendas.Data;
+using SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceProduto;
+using SistemaDeVendas.TratamentoDeErros;
 
 namespace SistemaDeVendas.Repositorios
 {
     public class PartesProdutoRepositorio : IPartesProdutoRepositorio
     {
-        public Task<CategoriaProdutoModel> AdicionarCategoriaProduto(CategoriaProdutoModel categoriaProduto)
+        private readonly ConexaoDBContext _dbContext;
+        public PartesProdutoRepositorio(ConexaoDBContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+        }
+        public async Task<CategoriaProdutoModel> AdicionarCategoriaProduto(CategoriaProdutoModel categoriaProduto)
+        {
+            if (categoriaProduto == null)
+            {
+                throw new ErrosException(401, "A categoria do produto não pode ser vazia");
+            }
+            await _dbContext.CategoriaProduto.AddAsync(categoriaProduto);
+            await _dbContext.SaveChangesAsync();
+            return categoriaProduto;
         }
 
-        public Task<FinalidadeProdutoModel> AdicionarFinalidadeProduto(FinalidadeProdutoModel finalidadeProduto)
+        public async Task<FinalidadeProdutoModel> AdicionarFinalidadeProduto(FinalidadeProdutoModel finalidadeProduto)
         {
-            throw new NotImplementedException();
+            if (finalidadeProduto == null)
+            {
+                throw new ErrosException(401, "A finalidade do produto não pode ser vazia");
+            }
+            await _dbContext.FinalidadeProduto.AddAsync(finalidadeProduto);
+            await _dbContext.SaveChangesAsync();
+            return finalidadeProduto;
         }
 
-        public Task<MarcaProdutoModel> AdicionarMarcaProduto(MarcaProdutoModel marcaProduto)
+        public async Task<MarcaProdutoModel> AdicionarMarcaProduto(MarcaProdutoModel marcaProduto)
         {
-            throw new NotImplementedException();
+            if (marcaProduto == null)
+            {
+                throw new ErrosException(401, "A marca do produto não pode ser vazia");
+            }
+            await _dbContext.MarcaProduto.AddAsync(marcaProduto);
+            await _dbContext.SaveChangesAsync();
+            return marcaProduto;
         }
 
-        public Task<RCMProdutoModel> AdicionarRCMProduto(RCMProdutoModel RCMProduto)
+        public async Task<RCMProdutoModel> AdicionarRCMProduto(RCMProdutoModel RCMProduto)
         {
-            throw new NotImplementedException();
+            if (RCMProduto == null)
+            {
+                throw new ErrosException(401, "o RCM do produto não pode ser vazia");
+            }
+            await _dbContext.RCMProduto.AddAsync(RCMProduto);
+            await _dbContext.SaveChangesAsync();
+            return RCMProduto;
         }
 
-        public Task<TipoProdutoModel> AdicionarTipoProduto(TipoProdutoModel tipoProduto)
+        public async Task<TipoProdutoModel> AdicionarTipoProduto(TipoProdutoModel tipoProduto)
         {
-            throw new NotImplementedException();
+            if (tipoProduto == null)
+            {
+                throw new ErrosException(401, "o tipo do produto não pode ser vazia");
+            }
+            await _dbContext.TipoProduto.AddAsync(tipoProduto);
+            await _dbContext.SaveChangesAsync();
+            return tipoProduto;
         }
 
-        public Task<UnidadeProdutoModel> AdicionarUnidadeProduto(UnidadeProdutoModel unidadeProduto)
+        public async Task<UnidadeProdutoModel> AdicionarUnidadeProduto(UnidadeProdutoModel unidadeProduto)
         {
-            throw new NotImplementedException();
+            if (unidadeProduto == null)
+            {
+                throw new ErrosException(401, "A unidade do produto não pode ser vazia");
+            }
+            await _dbContext.UnidadeProduto.AddAsync(unidadeProduto);
+            await _dbContext.SaveChangesAsync();
+            return unidadeProduto;
         }
 
-        public Task<CategoriaProdutoModel> BuscarCategoriaProdutoPorId(int id)
+        public async Task<CategoriaProdutoModel> BuscarCategoriaProdutoPorId(int id)
         {
-            throw new NotImplementedException();
+            CategoriaProdutoModel? categoriaProduto = await _dbContext.CategoriaProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "A categoria do produto não foi encontrada");
+            return categoriaProduto;
+
         }
 
-        public Task<FinalidadeProdutoModel> BuscarFinalidadeProdutoPorId(int id)
+        public async Task<FinalidadeProdutoModel> BuscarFinalidadeProdutoPorId(int id)
         {
-            throw new NotImplementedException();
+            FinalidadeProdutoModel? finalidadeProduto = await _dbContext.FinalidadeProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "A Finalidade do produto não foi encontrada");
+            return finalidadeProduto;
         }
 
-        public Task<MarcaProdutoModel> BuscarMarcaProdutoPorId(int id)
+        public async Task<MarcaProdutoModel> BuscarMarcaProdutoPorId(int id)
         {
-            throw new NotImplementedException();
+            MarcaProdutoModel? marcaProduto = await _dbContext.MarcaProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "A marca do produto não foi encontrada");
+            return marcaProduto;
         }
 
-        public Task<RCMProdutoModel> BuscarRCMProdutoPorId(int id)
+        public async Task<RCMProdutoModel> BuscarRCMProdutoPorId(int id)
         {
-            throw new NotImplementedException();
+            RCMProdutoModel? rCMProduto = await _dbContext.RCMProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "o RCM do produto não foi encontrado");
+            return rCMProduto;
         }
 
-        public Task<TipoProdutoModel> BuscarTiposProdutoPorId(int id)
+        public async Task<TipoProdutoModel> BuscarTiposProdutoPorId(int id)
         {
-            throw new NotImplementedException();
+            TipoProdutoModel? tipoProduto = await _dbContext.TipoProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "O tipo do produto não foi encontrado");
+            return tipoProduto;
+        }
+        public async Task<UnidadeProdutoModel> BuscarUnidadeProdutoPorId(int id)
+        {
+            UnidadeProdutoModel? unidadeProduto = await _dbContext.UnidadeProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "O tipo do produto não foi encontrado");
+            return unidadeProduto;
         }
 
-        public Task<List<FinalidadeProdutoModel>> BuscarTodasFinalidadesProduto()
+        public async Task<List<FinalidadeProdutoModel>> BuscarTodasFinalidadesProduto()
         {
-            throw new NotImplementedException();
+            List<FinalidadeProdutoModel> finalidadesProduto = await _dbContext.FinalidadeProduto.ToListAsync();
+            return finalidadesProduto;
         }
 
-        public Task<List<CategoriaProdutoModel>> BuscarTodosCategoriasProduto()
+        public async Task<List<CategoriaProdutoModel>> BuscarTodosCategoriasProduto()
         {
-            throw new NotImplementedException();
+            List<CategoriaProdutoModel> categoriaProduto = await _dbContext.CategoriaProduto.ToListAsync();
+            return categoriaProduto;
         }
 
-        public Task<List<RCMProdutoModel>> BuscarTodosRCMProduto()
+        public async Task<List<RCMProdutoModel>> BuscarTodosRCMProduto()
         {
-            throw new NotImplementedException();
+            List<RCMProdutoModel> rCMProduto = await _dbContext.RCMProduto.ToListAsync();
+            return rCMProduto;
         }
 
-        public Task<List<MarcaProdutoModel>> BuscarTodossMarcasProduto()
+        public async Task<List<MarcaProdutoModel>> BuscarTodossMarcasProduto()
         {
-            throw new NotImplementedException();
+            List<MarcaProdutoModel> MarcaProduto = await _dbContext.MarcaProduto.ToListAsync();
+            return MarcaProduto;
         }
 
-        public Task<List<TipoProdutoModel>> BuscarTodosTiposProduto()
+        public async Task<List<TipoProdutoModel>> BuscarTodosTiposProduto()
         {
-            throw new NotImplementedException();
+            List<TipoProdutoModel> tipoProduto = await _dbContext.TipoProduto.ToListAsync();
+            return tipoProduto;
         }
 
-        public Task<List<UnidadeProdutoModel>> BuscarTodosUnidadesProduto()
+        public async Task<List<UnidadeProdutoModel>> BuscarTodosUnidadesProduto()
         {
-            throw new NotImplementedException();
+            List<UnidadeProdutoModel> unidadeProduto = await _dbContext.UnidadeProduto.ToListAsync();
+            return unidadeProduto;
         }
 
-        public Task<UnidadeProdutoModel> BuscarUnidadeProdutoPorId(int id)
+
+        public async Task<bool> DeletarCategoriaProduto(int id)
         {
-            throw new NotImplementedException();
+            CategoriaProdutoModel categoriaProduto = await BuscarCategoriaProdutoPorId(id);
+            _dbContext .CategoriaProduto.Remove(categoriaProduto);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<bool> DeletarCategoriaProduto(int id)
+        public async Task<bool> DeletarFinalidadeProduto(int id)
         {
-            throw new NotImplementedException();
+            FinalidadeProdutoModel finalidadeProduto = await BuscarFinalidadeProdutoPorId(id);
+            _dbContext.FinalidadeProduto.Remove(finalidadeProduto);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<bool> DeletarFinalidadeProduto(int id)
+        public async Task<bool> DeletarMarcaProduto(int id)
         {
-            throw new NotImplementedException();
+            MarcaProdutoModel marcaProduto = await BuscarMarcaProdutoPorId(id);
+            _dbContext.MarcaProduto.Remove(marcaProduto);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<bool> DeletarMarcaProduto(int id)
+        public async Task<bool> DeletarRCMProduto(int id)
         {
-            throw new NotImplementedException();
+            RCMProdutoModel rCMProduto = await BuscarRCMProdutoPorId(id);
+            _dbContext.RCMProduto.Remove(rCMProduto);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<bool> DeletarRCMProduto(int id)
+        public async Task<bool> DeletarTipoProduto(int id)
         {
-            throw new NotImplementedException();
+            TipoProdutoModel tipoProduto = await BuscarTiposProdutoPorId(id);
+            _dbContext.TipoProduto.Remove(tipoProduto);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<bool> DeletarTipoProduto(int id)
+        public async Task<bool> DeletarUnidadeProduto(int id)
         {
-            throw new NotImplementedException();
+            UnidadeProdutoModel unidadeProduto = await BuscarUnidadeProdutoPorId(id);
+            _dbContext.UnidadeProduto.Remove(unidadeProduto);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<bool> DeletarUnidadeProduto(int id)
+        public async Task<CategoriaProdutoModel> EditarCategoriaProduto(int id, CategoriaProdutoModel categoriaProduto)
         {
-            throw new NotImplementedException();
+            CategoriaProdutoModel categoria = await BuscarCategoriaProdutoPorId(id);
+            _dbContext.Entry(categoria).CurrentValues.SetValues(categoriaProduto);
+            await _dbContext.SaveChangesAsync();
+            return categoria;
         }
 
-        public Task<CategoriaProdutoModel> EditarCategoriaProduto(int id, CategoriaProdutoModel categoriaProduto)
+        public async Task<FinalidadeProdutoModel> EditarFinalidadeProduto(int id, FinalidadeProdutoModel finalidadeProduto)
         {
-            throw new NotImplementedException();
+            FinalidadeProdutoModel finalidade = await BuscarFinalidadeProdutoPorId(id);
+            _dbContext.Entry(finalidade).CurrentValues.SetValues(finalidadeProduto);
+            await _dbContext.SaveChangesAsync();
+            return finalidade;
+
         }
 
-        public Task<FinalidadeProdutoModel> EditarFinalidadeProduto(int id, FinalidadeProdutoModel finalidadeProduto)
+        public async Task<MarcaProdutoModel> EditarMarcaProduto(int id, MarcaProdutoModel marcaProduto)
         {
-            throw new NotImplementedException();
+            MarcaProdutoModel marca = await BuscarMarcaProdutoPorId(id);
+            _dbContext.Entry(marca).CurrentValues.SetValues(marcaProduto);
+            await _dbContext.SaveChangesAsync();
+            return marca;
+
         }
 
-        public Task<MarcaProdutoModel> EditarMarcaProduto(int id, MarcaProdutoModel marcaProduto)
+        public async Task<RCMProdutoModel> EditarRCMProduto(int id, RCMProdutoModel RCMProduto)
         {
-            throw new NotImplementedException();
+            RCMProdutoModel rCMP = await BuscarRCMProdutoPorId(id);
+            _dbContext.Entry(rCMP).CurrentValues.SetValues(RCMProduto);
+            await _dbContext.SaveChangesAsync();
+            return rCMP;
+
         }
 
-        public Task<RCMProdutoModel> EditarRCMProduto(int id, RCMProdutoModel RCMProduto)
+        public async Task<TipoProdutoModel> EditarTipoProduto(int id, TipoProdutoModel tipoProduto)
         {
-            throw new NotImplementedException();
+            TipoProdutoModel tipo = await BuscarTiposProdutoPorId(id);
+            _dbContext.Entry(tipo).CurrentValues.SetValues(tipoProduto);
+            await _dbContext.SaveChangesAsync();
+            return tipo;
+
         }
 
-        public Task<TipoProdutoModel> EditarTipoProduto(int id, TipoProdutoModel tipoProduto)
+        public async Task<UnidadeProdutoModel> EditarUnidadeProduto(int id, UnidadeProdutoModel unidadeProduto)
         {
-            throw new NotImplementedException();
-        }
+            UnidadeProdutoModel unidade = await BuscarUnidadeProdutoPorId(id);
+            _dbContext.Entry(unidade).CurrentValues.SetValues(unidadeProduto);
+            await _dbContext.SaveChangesAsync();
+            return unidade;
 
-        public Task<UnidadeProdutoModel> EditarUnidadeProduto(int id, UnidadeProdutoModel unidadeProduto)
-        {
-            throw new NotImplementedException();
         }
     }
 }
