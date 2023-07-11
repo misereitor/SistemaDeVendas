@@ -1,15 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SistemaDeVendas.Data;
+﻿using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.EmpresaModels;
 using SistemaDeVendas.Models.FornecedorModels;
 using SistemaDeVendas.Models.GeralModels.Endereco;
 using SistemaDeVendas.Models.GeralModels.EnderecoModel;
-using SistemaDeVendas.Models.UsuariosModels;
+using SistemaDeVendas.Models.RepositorioModel;
 using SistemaDeVendas.Repositorios.Interfaces.InteerfaceEmpresa;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceFornecedor;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceModelsGeral;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
-using SistemaDeVendas.TratamentoDeErros;
 
 namespace SistemaDeVendas.Repositorios
 {
@@ -57,7 +55,7 @@ namespace SistemaDeVendas.Repositorios
 
         public async Task<EnderecoUsuarioModel> AdcionarEnderecoDoUsuario(int IdUsuario, EnderecoUsuarioModel endereco)
         {
-            UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
+            RetornoUsuario usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
             usuario.Endereco = endereco;
             _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
             await _dbContext.SaveChangesAsync();
@@ -111,7 +109,7 @@ namespace SistemaDeVendas.Repositorios
         }
         public async Task<EnderecoUsuarioModel> AlteraEnderecoDoUsuario(int IdUsuario, EnderecoUsuarioModel endereco)
         {
-            UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
+            RetornoUsuario usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
             usuario.Endereco = endereco;
             _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
             await _dbContext.SaveChangesAsync();
@@ -150,7 +148,7 @@ namespace SistemaDeVendas.Repositorios
 
         public async Task<EnderecoUsuarioModel> BuscaEnderecoDoUsuario(int IdUsuario)
         {
-            UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario) ?? throw new Exception("Usuário não encontrado");
+            RetornoUsuario usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario) ?? throw new Exception("Usuário não encontrado");
             if (usuario.Endereco == null)
             {
                 throw new Exception("Endereço não cadastrado");
@@ -202,7 +200,7 @@ namespace SistemaDeVendas.Repositorios
 
         public async Task<bool> DeletaEnderecoUsuario(int idUsuario)
         {
-            UsuarioModel usuario = await _usuarioRepositorio.BuscarUsuarioPorId(idUsuario) ?? throw new Exception("Usuario não encontrada");
+            RetornoUsuario usuario = await _usuarioRepositorio.BuscarUsuarioPorId(idUsuario) ?? throw new Exception("Usuario não encontrada");
             EnderecoUsuarioModel enderecoVazio = new();
             usuario.Endereco = enderecoVazio;
             _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);

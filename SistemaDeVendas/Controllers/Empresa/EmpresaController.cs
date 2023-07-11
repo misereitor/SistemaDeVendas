@@ -34,6 +34,7 @@ namespace SistemaDeVendas.Controllers.Empresa
 
 
         [Authorize(Roles = "Master")]
+        [HttpPost("criar")]
         public async Task<ActionResult<EmpresaModel>> CriarEmpresa([FromBody] EmpresaModel empresa)
         {
             if (empresa == null)

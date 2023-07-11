@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SistemaDeVendas.Models.RepositorioModel;
+using SistemaDeVendas.Models.RequestModels;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
@@ -21,18 +23,18 @@ namespace SistemaDeVendas.Controllers.Usuario
 
         [Authorize(Roles = "Master")]
         [HttpGet]
-        public async Task<ActionResult<List<UsuarioModel>>> BuscarTodosOsUsuarios()
+        public async Task<ActionResult<List<RetornoUsuario>>> BuscarTodosOsUsuarios()
         {
             Console.WriteLine("Aqui");
-            List<UsuarioModel> usuarios = await _usuariosRepositorio.BuscarTodosOsUsuarios();
+            List<RetornoUsuario> usuarios = await _usuariosRepositorio.BuscarTodosOsUsuarios();
             return Ok(usuarios);
         }
 
         [Authorize(Roles = "Master")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<UsuarioModel>> BuscarUsuarioPorID(int id)
+        public async Task<ActionResult<RetornoUsuario>> BuscarUsuarioPorID(int id)
         {
-            UsuarioModel usuario = await _usuariosRepositorio.BuscarUsuarioPorId(id);
+            RetornoUsuario usuario = await _usuariosRepositorio.BuscarUsuarioPorId(id);
             return Ok(usuario);
         }
 
@@ -50,17 +52,25 @@ namespace SistemaDeVendas.Controllers.Usuario
         }
 
         [Authorize(Roles = "Master")]
-        [HttpPut("{id}")]
-        public async Task<ActionResult<UsuarioModel>> AlterarUsuario([FromBody] UsuarioModel usuario, int id)
+        [HttpPut("alterar/{id}")]
+        public async Task<ActionResult<RetornoUsuario>> AlterarUsuario([FromBody] AlteradorUsuario usuario, int id)
         {
+            Console.WriteLine(id);
             if (usuario == null)
             {
                 Console.WriteLine("Usuário não pode ser nulo");
                 return BadRequest();
             }
-            usuario.Id = id;
-            await _usuariosRepositorio.AlterarUsuario(usuario, id);
-            return Ok();
+            RetornoUsuario editarUsaurio = await _usuariosRepositorio.AlterarUsuario(usuario, id);
+            return Ok(editarUsaurio);
+        }
+
+        [Authorize(Roles = "Master")]
+        [HttpPut("alterarsenha/{id}")]
+        public async Task<ActionResult<bool>> AlterarUsuario([FromBody] SenhaRequest senha, int id)
+        {
+            bool alterarSenha = await _usuariosRepositorio.AlterarSenha(senha, id);
+            return Ok(alterarSenha);
         }
 
         [Authorize(Roles = "Master")]

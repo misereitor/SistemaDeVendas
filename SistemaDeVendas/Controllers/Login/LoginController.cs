@@ -33,6 +33,6 @@ namespace SistemaDeVendas.Controllers.Login
                 user.Nome,
                 Token = token
             };
-        }
+        } 
     }
 }

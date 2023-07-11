@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
+using SistemaDeVendas.Models.RepositorioModel;
+using SistemaDeVendas.Models.RequestModels;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
+using SistemaDeVendas.Services;
 using SistemaDeVendas.TratamentoDeErros;
 using SistemaDeVendas.Validacoes;
 using System.Net;
 using System.Security.Cryptography;
+using System.Security.Cryptography.Xml;
 using System.Text;
 
 namespace SistemaDeVendas.Repositorios
@@ -14,16 +18,20 @@ namespace SistemaDeVendas.Repositorios
     {
         private readonly ConexaoDBContext _dbContext;
         private readonly UsuarioModelValidador _validador;
+        //private readonly ValidacoesServices _validacoesServices;
 
         public UsuarioRepositorio(ConexaoDBContext dbContext, UsuarioModelValidador validador)
         {
             _dbContext = dbContext;
-            _validador= validador;
+            _validador = validador;
+            //_validacoesServices = validacoesServices;
         }
 
-        public async Task<List<UsuarioModel>> BuscarTodosOsUsuarios()
+        public async Task<List<RetornoUsuario>> BuscarTodosOsUsuarios()
         {
             List<UsuarioModel> listaDeUsuarios;
+            List<RetornoUsuario> retornoUsuario = new();
+            
             try
             {
                 listaDeUsuarios = await _dbContext.Usuarios.ToListAsync();
@@ -33,9 +41,36 @@ namespace SistemaDeVendas.Repositorios
                 Console.WriteLine("Erro de SQL: " + ex.Message);
                 throw;
             }
-            return listaDeUsuarios;
+            foreach (UsuarioModel usuario in listaDeUsuarios)
+            {
+                RetornoUsuario _retornoUsuario = new();
+                var transformar = new TransformarObjetos<UsuarioModel, RetornoUsuario>();
+                retornoUsuario.Add(transformar.ObjetosTransoformar(usuario, _retornoUsuario));
+            }
+            return retornoUsuario;
         }
-        public async Task<UsuarioModel> BuscarUsuarioPorId(int id)
+
+        public async Task<RetornoUsuario> BuscarUsuarioPorId(int id)
+        {
+            UsuarioModel? usuarioPorId = null;
+            try
+            {
+                usuarioPorId = await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro de SQL: " + ex.Message);
+            }
+            if (usuarioPorId == null)
+            {
+                throw new ErrosException(404, "Usuário não encontrado");
+            }
+            RetornoUsuario _retornoUsuario = new();
+            var transformar = new TransformarObjetos<UsuarioModel, RetornoUsuario>();
+            RetornoUsuario retornoUsuario = transformar.ObjetosTransoformar(usuarioPorId, _retornoUsuario);
+            return retornoUsuario;
+        }
+        public async Task<UsuarioModel> BuscarUsuarioId(int id)
         {
             UsuarioModel? usuarioPorId = null;
             try
@@ -88,18 +123,36 @@ namespace SistemaDeVendas.Repositorios
             return usuario;
         }
 
-        public async Task<UsuarioModel> AlterarUsuario(UsuarioModel usuario, int id)
+        public async Task<RetornoUsuario> AlterarUsuario(AlteradorUsuario usuario, int id)
         {
-            UsuarioModel usuarioPorId = await BuscarUsuarioPorId(id) ?? throw new ErrosException(404, $"Usuario do ID: {id} não foi encontrado!");
-            _dbContext.Entry(usuarioPorId).CurrentValues.SetValues(usuario);
+            UsuarioModel usuarioPorId = await BuscarUsuarioId(id) ?? throw new ErrosException(404, $"Usuário com ID: {id} não foi encontrado!");
+
+            var properties = typeof(AlteradorUsuario).GetProperties();
+
+            foreach (var property in properties)
+            {
+                var value = property.GetValue(usuario);
+
+                if (value != null && !string.IsNullOrEmpty(value.ToString()))
+                {
+                    var usuarioProperty = usuarioPorId.GetType().GetProperty(property.Name);
+                    usuarioProperty.SetValue(usuarioPorId, value);
+                }
+            }
+            _dbContext.Entry(usuarioPorId).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
-            return usuarioPorId;
+
+            RetornoUsuario _retornoUsuario = new();
+            var transformar = new TransformarObjetos<UsuarioModel, RetornoUsuario>();
+            RetornoUsuario retornoUsuario = transformar.ObjetosTransoformar(usuarioPorId, _retornoUsuario);
+
+            return retornoUsuario;
         }
 
 
         public async Task<bool> DeletarUsuario(int id)
         {
-            UsuarioModel usuarioPorId = await BuscarUsuarioPorId(id);
+            UsuarioModel usuarioPorId = await BuscarUsuarioId(id);
             if (usuarioPorId != null)
             {
                 _dbContext.Usuarios.Remove(usuarioPorId);
@@ -107,6 +160,30 @@ namespace SistemaDeVendas.Repositorios
                 return true;
             }
             throw new Exception($"Usuario do ID: {id} não foi encontrado!");
+        }
+
+        public async Task<bool> AlterarSenha(SenhaRequest senha, int id)
+        {
+            UsuarioModel usuarioPorId = await BuscarUsuarioId(id) ?? throw new ErrosException(404, $"Usuário com ID: {id} não foi encontrado!");
+
+            string senhaCriptografada;
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytesSenha = Encoding.UTF8.GetBytes(senha.Senha); // Converte a senha em um array de bytes
+                byte[] hashBytes = sha256.ComputeHash(bytesSenha); // Calcula o hash da senha
+
+                // Converte o hash em uma string hexadecimal
+                StringBuilder builder = new();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    builder.Append(hashBytes[i].ToString("x2"));
+                }
+                senhaCriptografada = builder.ToString();
+            }
+            usuarioPorId.Senha = senhaCriptografada;
+            _dbContext.Entry(usuarioPorId).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
     }
 }

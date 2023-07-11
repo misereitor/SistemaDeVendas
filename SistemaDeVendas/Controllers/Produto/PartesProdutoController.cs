@@ -214,7 +214,7 @@ namespace SistemaDeVendas.Controllers.Produto
         }
 
 
-        [HttpGet("buscarporid/categoriaproduto/{id}")]
+        [HttpGet("Editar/categoriaproduto/{id}")]
         [Authorize(Roles = "Master")]
         public async Task<ActionResult<CategoriaProdutoModel>> EditarCategoriaProduto([FromBody] CategoriaProdutoModel categoriaProduto, int id)
         {
@@ -222,7 +222,7 @@ namespace SistemaDeVendas.Controllers.Produto
             return Ok(categoria);
         }
 
-        [HttpGet("buscarporid/finalidadeproduto/{id}")]
+        [HttpGet("Editar/finalidadeproduto/{id}")]
         [Authorize(Roles = "Master")]
         public async Task<ActionResult<FinalidadeProdutoModel>> EditarFinalidadeProduto([FromBody] FinalidadeProdutoModel finalidadeProduto, int id)
         {
@@ -230,7 +230,7 @@ namespace SistemaDeVendas.Controllers.Produto
             return Ok(finalidade);
         }
 
-        [HttpGet("buscarporid/marcaproduto/{id}")]
+        [HttpGet("Editar/marcaproduto/{id}")]
         [Authorize(Roles = "Master")]
         public async Task<ActionResult<MarcaProdutoModel>> EditarMarcaProduto([FromBody] MarcaProdutoModel marcaProduto, int id)
         {
@@ -238,7 +238,7 @@ namespace SistemaDeVendas.Controllers.Produto
             return Ok(marca);
         }
 
-        [HttpGet("buscarporid/rcmproduto/{id}")]
+        [HttpGet("Editar/rcmproduto/{id}")]
         [Authorize(Roles = "Master")]
         public async Task<ActionResult<RCMProdutoModel>> EditarRCMProduto([FromBody] RCMProdutoModel RCMProduto, int id)
         {
@@ -246,7 +246,7 @@ namespace SistemaDeVendas.Controllers.Produto
             return Ok(rCM);
         }
 
-        [HttpGet("buscarporid/tipoproduto/{id}")]
+        [HttpGet("Editar/tipoproduto/{id}")]
         [Authorize(Roles = "Master")]
         public async Task<ActionResult<TipoProdutoModel>> EditarTipoProduto([FromBody] TipoProdutoModel tipoProduto, int id)
         {
@@ -254,7 +254,7 @@ namespace SistemaDeVendas.Controllers.Produto
             return Ok(tipo);
         }
 
-        [HttpGet("buscarporid/unidadeproduto/{id}")]
+        [HttpGet("Editar/unidadeproduto/{id}")]
         [Authorize(Roles = "Master")]
         public async Task<ActionResult<UnidadeProdutoModel>> EditarUnidadeProduto([FromBody] UnidadeProdutoModel unidadeProduto, int id)
         {

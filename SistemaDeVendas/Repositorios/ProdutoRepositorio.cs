@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
-using SistemaDeVendas.Migrations;
 using SistemaDeVendas.Models.ProdutoModels;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceProduto;
 using SistemaDeVendas.TratamentoDeErros;

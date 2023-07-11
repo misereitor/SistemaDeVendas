@@ -12,8 +12,8 @@ using SistemaDeVendas.Data;
 namespace SistemaDeVendas.Migrations
 {
     [DbContext(typeof(ConexaoDBContext))]
-    [Migration("20230624143515_InitDB")]
-    partial class InitDB
+    [Migration("20230711141610_initDB")]
+    partial class initDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,14 +58,19 @@ namespace SistemaDeVendas.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTimeOffset>("DataCriacao")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("IE")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("IM")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<byte[]>("Logo")
@@ -169,6 +174,172 @@ namespace SistemaDeVendas.Migrations
                     b.ToTable("ParametrosdeVendas");
                 });
 
+            modelBuilder.Entity("SistemaDeVendas.Models.FinanceiroModel.ContasAPagarModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DatCriacao")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DataVencimento")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("EmpresaModelId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FornecedorId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Pago")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaModelId");
+
+                    b.HasIndex("FornecedorId");
+
+                    b.ToTable("ContasAPagar");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.FornecedorModels.FornecedorModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("CNPJ")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Celular")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("ContribuinteIE")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("EmpresaModelId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("EnderecoId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ExpedicaoRG")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IE")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IM")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NomeFantasia")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("ProdutorRutal")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("RG")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RazaoSocial")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Sexo")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Site")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("TipoPessoa")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Transportadora")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaModelId");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.ToTable("fornecedor");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.GeralModels.ContasAReceberModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DatCriacao")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DataVencimento")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("EmpresaModelId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Pago")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaModelId");
+
+                    b.ToTable("contasAReceber");
+                });
+
             modelBuilder.Entity("SistemaDeVendas.Models.GeralModels.DadosBancarios.DadosBancariosEmpresaModel", b =>
                 {
                     b.Property<int>("Id")
@@ -185,6 +356,9 @@ namespace SistemaDeVendas.Migrations
 
                     b.Property<decimal>("Conta")
                         .HasColumnType("numeric");
+
+                    b.Property<DateTimeOffset>("DataCriacao")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("DigitoAgencia")
                         .HasColumnType("numeric");
@@ -219,6 +393,9 @@ namespace SistemaDeVendas.Migrations
                     b.Property<decimal>("Conta")
                         .HasColumnType("numeric");
 
+                    b.Property<DateTimeOffset>("DataCriacao")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal>("DigitoAgencia")
                         .HasColumnType("numeric");
 
@@ -235,6 +412,39 @@ namespace SistemaDeVendas.Migrations
                     b.ToTable("dadosBancariosUsuario");
                 });
 
+            modelBuilder.Entity("SistemaDeVendas.Models.GeralModels.Endereco.EnderecoFornecedor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Rua")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("enderecoForecedor");
+                });
+
             modelBuilder.Entity("SistemaDeVendas.Models.GeralModels.EnderecoModel.EnderecoEmpresaCorrespondenciaModel", b =>
                 {
                     b.Property<int>("Id")
@@ -242,6 +452,10 @@ namespace SistemaDeVendas.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("CEP")
                         .IsRequired()
@@ -277,6 +491,10 @@ namespace SistemaDeVendas.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("CEP")
                         .IsRequired()
                         .HasColumnType("text");
@@ -311,6 +529,10 @@ namespace SistemaDeVendas.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("CEP")
                         .IsRequired()
                         .HasColumnType("text");
@@ -344,6 +566,10 @@ namespace SistemaDeVendas.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("CEP")
                         .IsRequired()
@@ -422,6 +648,218 @@ namespace SistemaDeVendas.Migrations
                     b.ToTable("Permissao");
                 });
 
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.CategoriaProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CategoriaProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.FinalidadeProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FinalidadeProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.MarcaProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MarcaProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.RCMProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Codigo")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RCMProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.TipoProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Codigo")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.UnidadeProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UnidadeProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.ProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("CategoriaProdutoId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("CodigoBalanca")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("CodigoDeBarras")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("CodigoInterno")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTimeOffset>("DataCriacao")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateOnly>("DataValidade")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("EmpresaModelId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("EstoqueMinimo")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FinalidadeProdutoId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FornecedorId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Garantia")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MarcaProdutoId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("MovimentaEstoque")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<float>("PrecoDeCusto")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PrecoVendaAtacado")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PrecoVendaVarejo")
+                        .HasColumnType("real");
+
+                    b.Property<int>("QuantidadeEmEstoque")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RCMId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TipoProdutoId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UnidadeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoriaProdutoId");
+
+                    b.HasIndex("EmpresaModelId");
+
+                    b.HasIndex("FinalidadeProdutoId");
+
+                    b.HasIndex("FornecedorId");
+
+                    b.HasIndex("MarcaProdutoId");
+
+                    b.HasIndex("RCMId");
+
+                    b.HasIndex("TipoProdutoId");
+
+                    b.HasIndex("UnidadeId");
+
+                    b.ToTable("produto");
+                });
+
             modelBuilder.Entity("SistemaDeVendas.Models.UsuariosModels.DocumentoUsuariosModel", b =>
                 {
                     b.Property<int>("Id")
@@ -429,6 +867,9 @@ namespace SistemaDeVendas.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTimeOffset>("DataCriacao")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<byte[]>("FotoDocumento")
                         .IsRequired()
@@ -566,7 +1007,7 @@ namespace SistemaDeVendas.Migrations
                             Celular = "",
                             Comissao = 0f,
                             Comprador = true,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 6, 24, 14, 35, 15, 484, DateTimeKind.Unspecified).AddTicks(4815), new TimeSpan(0, 0, 0, 0, 0)),
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 11, 14, 16, 10, 661, DateTimeKind.Unspecified).AddTicks(9202), new TimeSpan(0, 0, 0, 0, 0)),
                             DataNascimento = new DateOnly(2023, 6, 10),
                             Email = "teste@teste.com",
                             IE = "",
@@ -610,6 +1051,41 @@ namespace SistemaDeVendas.Migrations
                         .IsRequired();
 
                     b.Navigation("ParametroDeVenda");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.FinanceiroModel.ContasAPagarModel", b =>
+                {
+                    b.HasOne("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", null)
+                        .WithMany("ContasAPagar")
+                        .HasForeignKey("EmpresaModelId");
+
+                    b.HasOne("SistemaDeVendas.Models.FornecedorModels.FornecedorModel", "Fornecedor")
+                        .WithMany()
+                        .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Fornecedor");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.FornecedorModels.FornecedorModel", b =>
+                {
+                    b.HasOne("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", null)
+                        .WithMany("Fornecedor")
+                        .HasForeignKey("EmpresaModelId");
+
+                    b.HasOne("SistemaDeVendas.Models.GeralModels.Endereco.EnderecoFornecedor", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId");
+
+                    b.Navigation("Endereco");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.GeralModels.ContasAReceberModel", b =>
+                {
+                    b.HasOne("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", null)
+                        .WithMany("ContasAReceber")
+                        .HasForeignKey("EmpresaModelId");
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.GeralModels.DadosBancarios.DadosBancariosEmpresaModel", b =>
@@ -658,6 +1134,69 @@ namespace SistemaDeVendas.Migrations
                         .HasForeignKey("UsuarioModelId");
                 });
 
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.ProdutoModel", b =>
+                {
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.CategoriaProdutoModel", "CategoriaProduto")
+                        .WithMany()
+                        .HasForeignKey("CategoriaProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", null)
+                        .WithMany("Produtos")
+                        .HasForeignKey("EmpresaModelId");
+
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.FinalidadeProdutoModel", "FinalidadeProduto")
+                        .WithMany()
+                        .HasForeignKey("FinalidadeProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaDeVendas.Models.FornecedorModels.FornecedorModel", "Fornecedor")
+                        .WithMany()
+                        .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.MarcaProdutoModel", "MarcaProduto")
+                        .WithMany()
+                        .HasForeignKey("MarcaProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.RCMProdutoModel", "RCM")
+                        .WithMany()
+                        .HasForeignKey("RCMId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.TipoProdutoModel", "TipoProduto")
+                        .WithMany()
+                        .HasForeignKey("TipoProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.UnidadeProdutoModel", "Unidade")
+                        .WithMany()
+                        .HasForeignKey("UnidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategoriaProduto");
+
+                    b.Navigation("FinalidadeProduto");
+
+                    b.Navigation("Fornecedor");
+
+                    b.Navigation("MarcaProduto");
+
+                    b.Navigation("RCM");
+
+                    b.Navigation("TipoProduto");
+
+                    b.Navigation("Unidade");
+                });
+
             modelBuilder.Entity("SistemaDeVendas.Models.UsuariosModels.DocumentoUsuariosModel", b =>
                 {
                     b.HasOne("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", null)
@@ -676,6 +1215,10 @@ namespace SistemaDeVendas.Migrations
 
             modelBuilder.Entity("SistemaDeVendas.Models.EmpresaModels.EmpresaModel", b =>
                 {
+                    b.Navigation("ContasAPagar");
+
+                    b.Navigation("ContasAReceber");
+
                     b.Navigation("DadosBancarios");
 
                     b.Navigation("EnderecoCorrespondencia");
@@ -684,7 +1227,11 @@ namespace SistemaDeVendas.Migrations
 
                     b.Navigation("EnderecoFaturamento");
 
+                    b.Navigation("Fornecedor");
+
                     b.Navigation("GrupoPermissoes");
+
+                    b.Navigation("Produtos");
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.UsuariosModels.UsuarioModel", b =>

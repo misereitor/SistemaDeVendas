@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SistemaDeVendas.Migrations;
 using SistemaDeVendas.Models.FornecedorModels;
 using SistemaDeVendas.Models.RequestModels;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceFornecedor;

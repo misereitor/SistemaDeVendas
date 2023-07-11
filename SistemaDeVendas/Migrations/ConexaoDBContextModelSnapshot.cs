@@ -645,6 +645,114 @@ namespace SistemaDeVendas.Migrations
                     b.ToTable("Permissao");
                 });
 
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.CategoriaProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CategoriaProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.FinalidadeProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FinalidadeProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.MarcaProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MarcaProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.RCMProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Codigo")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RCMProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.TipoProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Codigo")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoProduto");
+                });
+
+            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.UnidadeProdutoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UnidadeProduto");
+                });
+
             modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.ProdutoModel", b =>
                 {
                     b.Property<int>("Id")
@@ -722,9 +830,6 @@ namespace SistemaDeVendas.Migrations
                     b.Property<int>("RCMId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("SubcategoriaProdutoId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("TipoProdutoId")
                         .HasColumnType("integer");
 
@@ -745,121 +850,11 @@ namespace SistemaDeVendas.Migrations
 
                     b.HasIndex("RCMId");
 
-                    b.HasIndex("SubcategoriaProdutoId");
-
                     b.HasIndex("TipoProdutoId");
 
                     b.HasIndex("UnidadeId");
 
                     b.ToTable("produto");
-                });
-
-            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.CategoriaProdutoModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CategoriaProdutoModel");
-                });
-
-            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.FinalidadeProdutoModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FinalidadeProdutoModel");
-                });
-
-            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.MarcaProdutoModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MarcaProdutoModel");
-                });
-
-            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.RCMProdutoModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Codigo")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RCMProdutoModel");
-                });
-
-            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.TipoProdutoModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Codigo")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TipoProdutoModel");
-                });
-
-            modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.UnidadeProdutoModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UnidadeProdutoModel");
                 });
 
             modelBuilder.Entity("SistemaDeVendas.Models.UsuariosModels.DocumentoUsuariosModel", b =>
@@ -1009,7 +1004,7 @@ namespace SistemaDeVendas.Migrations
                             Celular = "",
                             Comissao = 0f,
                             Comprador = true,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 2, 17, 17, 46, 647, DateTimeKind.Unspecified).AddTicks(8337), new TimeSpan(0, 0, 0, 0, 0)),
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 11, 14, 16, 10, 661, DateTimeKind.Unspecified).AddTicks(9202), new TimeSpan(0, 0, 0, 0, 0)),
                             DataNascimento = new DateOnly(2023, 6, 10),
                             Email = "teste@teste.com",
                             IE = "",
@@ -1138,7 +1133,7 @@ namespace SistemaDeVendas.Migrations
 
             modelBuilder.Entity("SistemaDeVendas.Models.ProdutoModels.ProdutoModel", b =>
                 {
-                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.CategoriaProdutoModel", "CategoriaProduto")
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.CategoriaProdutoModel", "CategoriaProduto")
                         .WithMany()
                         .HasForeignKey("CategoriaProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1148,7 +1143,7 @@ namespace SistemaDeVendas.Migrations
                         .WithMany("Produtos")
                         .HasForeignKey("EmpresaModelId");
 
-                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.FinalidadeProdutoModel", "FinalidadeProduto")
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.FinalidadeProdutoModel", "FinalidadeProduto")
                         .WithMany()
                         .HasForeignKey("FinalidadeProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1160,31 +1155,25 @@ namespace SistemaDeVendas.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.MarcaProdutoModel", "MarcaProduto")
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.MarcaProdutoModel", "MarcaProduto")
                         .WithMany()
                         .HasForeignKey("MarcaProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.RCMProdutoModel", "RCM")
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.RCMProdutoModel", "RCM")
                         .WithMany()
                         .HasForeignKey("RCMId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.CategoriaProdutoModel", "SubcategoriaProduto")
-                        .WithMany()
-                        .HasForeignKey("SubcategoriaProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.TipoProdutoModel", "TipoProduto")
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.TipoProdutoModel", "TipoProduto")
                         .WithMany()
                         .HasForeignKey("TipoProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.TiposProdutoModel.UnidadeProdutoModel", "Unidade")
+                    b.HasOne("SistemaDeVendas.Models.ProdutoModels.PartesProdutoModel.UnidadeProdutoModel", "Unidade")
                         .WithMany()
                         .HasForeignKey("UnidadeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1199,8 +1188,6 @@ namespace SistemaDeVendas.Migrations
                     b.Navigation("MarcaProduto");
 
                     b.Navigation("RCM");
-
-                    b.Navigation("SubcategoriaProduto");
 
                     b.Navigation("TipoProduto");
 
