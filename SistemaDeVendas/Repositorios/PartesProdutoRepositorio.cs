@@ -17,10 +17,17 @@ namespace SistemaDeVendas.Repositorios
         {
             if (categoriaProduto == null)
             {
-                throw new ErrosException(401, "A categoria do produto não pode ser vazia");
+                throw new ErrosException(402, "A categoria do produto não pode ser vazia");
             }
-            await _dbContext.CategoriaProduto.AddAsync(categoriaProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.CategoriaProduto.AddAsync(categoriaProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return categoriaProduto;
         }
 
@@ -28,10 +35,17 @@ namespace SistemaDeVendas.Repositorios
         {
             if (finalidadeProduto == null)
             {
-                throw new ErrosException(401, "A finalidade do produto não pode ser vazia");
+                throw new ErrosException(402, "A finalidade do produto não pode ser vazia");
             }
-            await _dbContext.FinalidadeProduto.AddAsync(finalidadeProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.FinalidadeProduto.AddAsync(finalidadeProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return finalidadeProduto;
         }
 
@@ -39,10 +53,17 @@ namespace SistemaDeVendas.Repositorios
         {
             if (marcaProduto == null)
             {
-                throw new ErrosException(401, "A marca do produto não pode ser vazia");
+                throw new ErrosException(402, "A marca do produto não pode ser vazia");
             }
-            await _dbContext.MarcaProduto.AddAsync(marcaProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.MarcaProduto.AddAsync(marcaProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return marcaProduto;
         }
 
@@ -50,10 +71,17 @@ namespace SistemaDeVendas.Repositorios
         {
             if (RCMProduto == null)
             {
-                throw new ErrosException(401, "o RCM do produto não pode ser vazia");
+                throw new ErrosException(402, "o RCM do produto não pode ser vazia");
             }
-            await _dbContext.RCMProduto.AddAsync(RCMProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.RCMProduto.AddAsync(RCMProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return RCMProduto;
         }
 
@@ -61,10 +89,17 @@ namespace SistemaDeVendas.Repositorios
         {
             if (tipoProduto == null)
             {
-                throw new ErrosException(401, "o tipo do produto não pode ser vazia");
+                throw new ErrosException(402, "o tipo do produto não pode ser vazia");
             }
-            await _dbContext.TipoProduto.AddAsync(tipoProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.TipoProduto.AddAsync(tipoProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return tipoProduto;
         }
 
@@ -72,82 +107,173 @@ namespace SistemaDeVendas.Repositorios
         {
             if (unidadeProduto == null)
             {
-                throw new ErrosException(401, "A unidade do produto não pode ser vazia");
+                throw new ErrosException(402, "A unidade do produto não pode ser vazia");
             }
-            await _dbContext.UnidadeProduto.AddAsync(unidadeProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.UnidadeProduto.AddAsync(unidadeProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return unidadeProduto;
         }
 
         public async Task<CategoriaProdutoModel> BuscarCategoriaProdutoPorId(int id)
         {
-            CategoriaProdutoModel? categoriaProduto = await _dbContext.CategoriaProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "A categoria do produto não foi encontrada");
+            CategoriaProdutoModel categoriaProduto;
+            try
+            {
+                categoriaProduto = await _dbContext.CategoriaProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(404, "A categoria do produto não foi encontrada");
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return categoriaProduto;
-
         }
 
         public async Task<FinalidadeProdutoModel> BuscarFinalidadeProdutoPorId(int id)
         {
-            FinalidadeProdutoModel? finalidadeProduto = await _dbContext.FinalidadeProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "A Finalidade do produto não foi encontrada");
+            FinalidadeProdutoModel finalidadeProduto;
+            try
+            {
+                finalidadeProduto = await _dbContext.FinalidadeProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(404, "A Finalidade do produto não foi encontrada");
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return finalidadeProduto;
         }
 
         public async Task<MarcaProdutoModel> BuscarMarcaProdutoPorId(int id)
         {
-            MarcaProdutoModel? marcaProduto = await _dbContext.MarcaProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "A marca do produto não foi encontrada");
+            MarcaProdutoModel marcaProduto;
+            try
+            {
+                marcaProduto = await _dbContext.MarcaProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(404, "A marca do produto não foi encontrada");
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return marcaProduto;
         }
 
         public async Task<RCMProdutoModel> BuscarRCMProdutoPorId(int id)
         {
-            RCMProdutoModel? rCMProduto = await _dbContext.RCMProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "o RCM do produto não foi encontrado");
+            RCMProdutoModel rCMProduto;
+            try
+            {
+                rCMProduto = await _dbContext.RCMProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(404, "o RCM do produto não foi encontrado");
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return rCMProduto;
         }
 
         public async Task<TipoProdutoModel> BuscarTiposProdutoPorId(int id)
         {
-            TipoProdutoModel? tipoProduto = await _dbContext.TipoProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "O tipo do produto não foi encontrado");
+            TipoProdutoModel tipoProduto;
+            try
+            {
+                tipoProduto = await _dbContext.TipoProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(404, "O tipo do produto não foi encontrado");
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return tipoProduto;
         }
         public async Task<UnidadeProdutoModel> BuscarUnidadeProdutoPorId(int id)
         {
-            UnidadeProdutoModel? unidadeProduto = await _dbContext.UnidadeProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(401, "O tipo do produto não foi encontrado");
+
+            UnidadeProdutoModel unidadeProduto;
+            try
+            {
+                unidadeProduto = await _dbContext.UnidadeProduto.FirstOrDefaultAsync(x => x.Id == id) ?? throw new ErrosException(404, "O tipo do produto não foi encontrado");
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return unidadeProduto;
         }
 
         public async Task<List<FinalidadeProdutoModel>> BuscarTodasFinalidadesProduto()
         {
-            List<FinalidadeProdutoModel> finalidadesProduto = await _dbContext.FinalidadeProduto.ToListAsync();
+            List<FinalidadeProdutoModel> finalidadesProduto;
+            try
+            {
+                finalidadesProduto = await _dbContext.FinalidadeProduto.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return finalidadesProduto;
         }
 
         public async Task<List<CategoriaProdutoModel>> BuscarTodosCategoriasProduto()
         {
-            List<CategoriaProdutoModel> categoriaProduto = await _dbContext.CategoriaProduto.ToListAsync();
+            List<CategoriaProdutoModel> categoriaProduto;
+            try
+            {
+                categoriaProduto = await _dbContext.CategoriaProduto.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return categoriaProduto;
         }
 
         public async Task<List<RCMProdutoModel>> BuscarTodosRCMProduto()
         {
-            List<RCMProdutoModel> rCMProduto = await _dbContext.RCMProduto.ToListAsync();
+            List<RCMProdutoModel> rCMProduto;
+            try
+            {
+                rCMProduto = await _dbContext.RCMProduto.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return rCMProduto;
         }
 
         public async Task<List<MarcaProdutoModel>> BuscarTodossMarcasProduto()
         {
-            List<MarcaProdutoModel> MarcaProduto = await _dbContext.MarcaProduto.ToListAsync();
+            List<MarcaProdutoModel> MarcaProduto;
+            try
+            {
+                MarcaProduto = await _dbContext.MarcaProduto.ToListAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return MarcaProduto;
         }
 
         public async Task<List<TipoProdutoModel>> BuscarTodosTiposProduto()
         {
-            List<TipoProdutoModel> tipoProduto = await _dbContext.TipoProduto.ToListAsync();
+            List<TipoProdutoModel> tipoProduto;
+            try
+            {
+                tipoProduto = await _dbContext.TipoProduto.ToListAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return tipoProduto;
         }
 
         public async Task<List<UnidadeProdutoModel>> BuscarTodosUnidadesProduto()
         {
-            List<UnidadeProdutoModel> unidadeProduto = await _dbContext.UnidadeProduto.ToListAsync();
+            List<UnidadeProdutoModel> unidadeProduto;
+            try
+            {
+                unidadeProduto = await _dbContext.UnidadeProduto.ToListAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return unidadeProduto;
         }
 
@@ -155,64 +281,105 @@ namespace SistemaDeVendas.Repositorios
         public async Task<bool> DeletarCategoriaProduto(int id)
         {
             CategoriaProdutoModel categoriaProduto = await BuscarCategoriaProdutoPorId(id);
-            _dbContext .CategoriaProduto.Remove(categoriaProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext .CategoriaProduto.Remove(categoriaProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return true;
         }
 
         public async Task<bool> DeletarFinalidadeProduto(int id)
         {
             FinalidadeProdutoModel finalidadeProduto = await BuscarFinalidadeProdutoPorId(id);
-            _dbContext.FinalidadeProduto.Remove(finalidadeProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.FinalidadeProduto.Remove(finalidadeProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return true;
         }
 
         public async Task<bool> DeletarMarcaProduto(int id)
         {
             MarcaProdutoModel marcaProduto = await BuscarMarcaProdutoPorId(id);
-            _dbContext.MarcaProduto.Remove(marcaProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.MarcaProduto.Remove(marcaProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return true;
         }
 
         public async Task<bool> DeletarRCMProduto(int id)
         {
             RCMProdutoModel rCMProduto = await BuscarRCMProdutoPorId(id);
-            _dbContext.RCMProduto.Remove(rCMProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.RCMProduto.Remove(rCMProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return true;
         }
 
         public async Task<bool> DeletarTipoProduto(int id)
         {
             TipoProdutoModel tipoProduto = await BuscarTiposProdutoPorId(id);
-            _dbContext.TipoProduto.Remove(tipoProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.TipoProduto.Remove(tipoProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return true;
         }
 
         public async Task<bool> DeletarUnidadeProduto(int id)
         {
             UnidadeProdutoModel unidadeProduto = await BuscarUnidadeProdutoPorId(id);
-            _dbContext.UnidadeProduto.Remove(unidadeProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.UnidadeProduto.Remove(unidadeProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return true;
         }
 
         public async Task<CategoriaProdutoModel> EditarCategoriaProduto(int id, CategoriaProdutoModel categoriaProduto)
         {
             CategoriaProdutoModel categoria = await BuscarCategoriaProdutoPorId(id);
-            _dbContext.Entry(categoria).CurrentValues.SetValues(categoriaProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(categoria).CurrentValues.SetValues(categoriaProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return categoria;
         }
 
         public async Task<FinalidadeProdutoModel> EditarFinalidadeProduto(int id, FinalidadeProdutoModel finalidadeProduto)
         {
             FinalidadeProdutoModel finalidade = await BuscarFinalidadeProdutoPorId(id);
-            _dbContext.Entry(finalidade).CurrentValues.SetValues(finalidadeProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(finalidade).CurrentValues.SetValues(finalidadeProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return finalidade;
 
         }
@@ -220,8 +387,12 @@ namespace SistemaDeVendas.Repositorios
         public async Task<MarcaProdutoModel> EditarMarcaProduto(int id, MarcaProdutoModel marcaProduto)
         {
             MarcaProdutoModel marca = await BuscarMarcaProdutoPorId(id);
-            _dbContext.Entry(marca).CurrentValues.SetValues(marcaProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(marca).CurrentValues.SetValues(marcaProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return marca;
 
         }
@@ -229,8 +400,12 @@ namespace SistemaDeVendas.Repositorios
         public async Task<RCMProdutoModel> EditarRCMProduto(int id, RCMProdutoModel RCMProduto)
         {
             RCMProdutoModel rCMP = await BuscarRCMProdutoPorId(id);
-            _dbContext.Entry(rCMP).CurrentValues.SetValues(RCMProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(rCMP).CurrentValues.SetValues(RCMProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return rCMP;
 
         }
@@ -238,8 +413,12 @@ namespace SistemaDeVendas.Repositorios
         public async Task<TipoProdutoModel> EditarTipoProduto(int id, TipoProdutoModel tipoProduto)
         {
             TipoProdutoModel tipo = await BuscarTiposProdutoPorId(id);
-            _dbContext.Entry(tipo).CurrentValues.SetValues(tipoProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(tipo).CurrentValues.SetValues(tipoProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return tipo;
 
         }
@@ -247,8 +426,12 @@ namespace SistemaDeVendas.Repositorios
         public async Task<UnidadeProdutoModel> EditarUnidadeProduto(int id, UnidadeProdutoModel unidadeProduto)
         {
             UnidadeProdutoModel unidade = await BuscarUnidadeProdutoPorId(id);
-            _dbContext.Entry(unidade).CurrentValues.SetValues(unidadeProduto);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(unidade).CurrentValues.SetValues(unidadeProduto);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { throw new ErrosException(500, ex.Message); }
             return unidade;
 
         }

@@ -9,7 +9,6 @@ using SistemaDeVendas.TratamentoDeErros;
 using SistemaDeVendas.Validacoes;
 using System.Net;
 using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
 using System.Text;
 
 namespace SistemaDeVendas.Repositorios
@@ -18,13 +17,13 @@ namespace SistemaDeVendas.Repositorios
     {
         private readonly ConexaoDBContext _dbContext;
         private readonly UsuarioModelValidador _validador;
-        //private readonly ValidacoesServices _validacoesServices;
+        private readonly ValidacoesServices _validacoesServices;
 
-        public UsuarioRepositorio(ConexaoDBContext dbContext, UsuarioModelValidador validador)
+        public UsuarioRepositorio(ConexaoDBContext dbContext, UsuarioModelValidador validador, ValidacoesServices validacoesServices)
         {
             _dbContext = dbContext;
             _validador = validador;
-            //_validacoesServices = validacoesServices;
+            _validacoesServices = validacoesServices;
         }
 
         public async Task<List<RetornoUsuario>> BuscarTodosOsUsuarios()
@@ -38,8 +37,7 @@ namespace SistemaDeVendas.Repositorios
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
-                throw;
+                throw new ErrosException(500, ex.Message);
             }
             foreach (UsuarioModel usuario in listaDeUsuarios)
             {
@@ -59,7 +57,7 @@ namespace SistemaDeVendas.Repositorios
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw new ErrosException(500, ex.Message);
             }
             if (usuarioPorId == null)
             {
@@ -79,7 +77,7 @@ namespace SistemaDeVendas.Repositorios
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw new ErrosException(500, ex.Message);
             }
             if (usuarioPorId == null)
             {
@@ -117,8 +115,7 @@ namespace SistemaDeVendas.Repositorios
                 await _dbContext.SaveChangesAsync();
             }catch (Exception ex)
             {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
-                throw;
+                throw new ErrosException(500, ex.Message);
             }
             return usuario;
         }
@@ -136,11 +133,17 @@ namespace SistemaDeVendas.Repositorios
                 if (value != null && !string.IsNullOrEmpty(value.ToString()))
                 {
                     var usuarioProperty = usuarioPorId.GetType().GetProperty(property.Name);
-                    usuarioProperty.SetValue(usuarioPorId, value);
+                    usuarioProperty?.SetValue(usuarioPorId, value);
                 }
             }
-            _dbContext.Entry(usuarioPorId).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(usuarioPorId).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+            }catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
 
             RetornoUsuario _retornoUsuario = new();
             var transformar = new TransformarObjetos<UsuarioModel, RetornoUsuario>();
@@ -153,19 +156,29 @@ namespace SistemaDeVendas.Repositorios
         public async Task<bool> DeletarUsuario(int id)
         {
             UsuarioModel usuarioPorId = await BuscarUsuarioId(id);
-            if (usuarioPorId != null)
+            try
             {
-                _dbContext.Usuarios.Remove(usuarioPorId);
-                await _dbContext.SaveChangesAsync();
-                return true;
+                if (usuarioPorId != null)
+                {
+                    _dbContext.Usuarios.Remove(usuarioPorId);
+                    await _dbContext.SaveChangesAsync();
+                    return true;
+                }
             }
-            throw new Exception($"Usuario do ID: {id} não foi encontrado!");
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
+            throw new ErrosException(404, $"Usuario do ID: {id} não foi encontrado!");
         }
 
         public async Task<bool> AlterarSenha(SenhaRequest senha, int id)
         {
             UsuarioModel usuarioPorId = await BuscarUsuarioId(id) ?? throw new ErrosException(404, $"Usuário com ID: {id} não foi encontrado!");
-
+            if (!_validacoesServices.ValidarSenha(senha.Senha))
+            {
+                return false;
+            }
             string senhaCriptografada;
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -181,8 +194,15 @@ namespace SistemaDeVendas.Repositorios
                 senhaCriptografada = builder.ToString();
             }
             usuarioPorId.Senha = senhaCriptografada;
-            _dbContext.Entry(usuarioPorId).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(usuarioPorId).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return true;
         }
     }

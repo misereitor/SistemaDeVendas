@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.UsuariosModels;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
+using SistemaDeVendas.TratamentoDeErros;
 
 namespace SistemaDeVendas.Repositorios
 {
@@ -17,13 +18,29 @@ namespace SistemaDeVendas.Repositorios
 
         public async Task<bool> UsuarioExclusivo(string usuario)
         {
-            bool existe = await _dbContext.Usuarios.AnyAsync(u => u.Usuario == usuario);
+            bool existe;
+            try
+            {
+                existe = await _dbContext.Usuarios.AnyAsync(u => u.Usuario == usuario);
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return !existe;
         }
 
         public async Task<bool> EmailExclusivo(string email)
         {
-            bool existe = await _dbContext.Usuarios.AnyAsync(u => u.Email == email);
+            bool existe;
+            try
+            {
+                existe = await _dbContext.Usuarios.AnyAsync(u => u.Email == email);
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return !existe;
         }
 

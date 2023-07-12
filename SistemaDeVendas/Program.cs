@@ -12,6 +12,7 @@ using SistemaDeVendas.Repositorios.Interfaces.InterfaceFornecedor;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceLogin;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceModelsGeral;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
+using SistemaDeVendas.Services;
 using SistemaDeVendas.TratamentoDeErros;
 using SistemaDeVendas.Validacoes;
 using System.Text;
@@ -51,6 +52,7 @@ namespace SistemaDeVendas
                 options.UseNpgsql(connectionString));
 
             //injeções 
+            builder.Services.AddTransient<ValidacoesServices>();
             builder.Services.AddTransient<IUsuariosRepositorio, UsuarioRepositorio>();
             builder.Services.AddTransient<ILoginRepositorio, LoginRepositorio>();
             builder.Services.AddTransient<IEmpresaRepositorio, EmpresaRepositorio>();

@@ -16,6 +16,7 @@ namespace SistemaDeVendas.Services
             }
             if (!LetrasMaiusculas(senha))
             {
+                Console.WriteLine(senha);
                 return false;
             }
             if (!LetrasMinusculas(senha))
@@ -36,41 +37,42 @@ namespace SistemaDeVendas.Services
         private static bool LetrasMaiusculas(string senha)
         {
             int rawplacar = senha.Length - Regex.Replace(senha, "[A-Z]", "").Length;
-            if (rawplacar < 0)
+            Console.WriteLine(rawplacar);
+            if (rawplacar <= 0)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         private static bool LetrasMinusculas(string senha)
         {
             int rawplacar = senha.Length - Regex.Replace(senha, "[a-z]", "").Length;
-            if (rawplacar < 0)
+            if (rawplacar <= 0)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         private static bool Numeros(string senha)
         {
             int rawplacar = senha.Length - Regex.Replace(senha, "[0-9]", "").Length;
-            if (rawplacar < 0)
+            if (rawplacar <= 0)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         private static bool Simbolos(string senha)
         {
             int rawplacar = Regex.Replace(senha, "[a-zA-Z0-9]", "").Length;
-            if (rawplacar < 0)
+            if (rawplacar <= 0)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }

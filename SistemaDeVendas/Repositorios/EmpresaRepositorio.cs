@@ -2,6 +2,7 @@
 using SistemaDeVendas.Data;
 using SistemaDeVendas.Models.EmpresaModels;
 using SistemaDeVendas.Repositorios.Interfaces.InteerfaceEmpresa;
+using SistemaDeVendas.TratamentoDeErros;
 
 namespace SistemaDeVendas.Repositorios
 {
@@ -21,20 +22,20 @@ namespace SistemaDeVendas.Repositorios
                 await _dbContext.SaveChangesAsync();
             }catch(Exception ex)
             {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw new ErrosException(500, ex.Message);
             }
             return empresa;
         }
         public async Task<List<EmpresaModel>> BuscarTodosAsEmpresas()
         {
-            List<EmpresaModel> empresas = new();
+            List<EmpresaModel> empresas;
             try
             {
                 empresas = await _dbContext.Empresas.ToListAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw new ErrosException(500, ex.Message);
             }
             return empresas;
         }
@@ -47,7 +48,7 @@ namespace SistemaDeVendas.Repositorios
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw new ErrosException(500, ex.Message);
             }
             if (empresa == null)
             {
@@ -65,7 +66,7 @@ namespace SistemaDeVendas.Repositorios
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw new ErrosException(500, ex.Message);
             }
             return empresaPorId;
         }
@@ -79,7 +80,7 @@ namespace SistemaDeVendas.Repositorios
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro de SQL: " + ex.Message);
+                throw new ErrosException(500, ex.Message);
             }
             return true;
         }

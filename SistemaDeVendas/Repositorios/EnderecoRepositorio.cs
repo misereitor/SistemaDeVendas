@@ -8,6 +8,7 @@ using SistemaDeVendas.Repositorios.Interfaces.InteerfaceEmpresa;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceFornecedor;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceModelsGeral;
 using SistemaDeVendas.Repositorios.Interfaces.InterfaceUsuario;
+using SistemaDeVendas.TratamentoDeErros;
 
 namespace SistemaDeVendas.Repositorios
 {
@@ -30,8 +31,15 @@ namespace SistemaDeVendas.Repositorios
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
             empresa.EnderecoCorrespondencia.Add(endereco);
-            _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
 
@@ -39,8 +47,15 @@ namespace SistemaDeVendas.Repositorios
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
             empresa.EnderecoEntrega.Add(endereco);
-            _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
 
@@ -48,8 +63,15 @@ namespace SistemaDeVendas.Repositorios
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
             empresa.EnderecoFaturamento.Add(endereco);
-            _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
 
@@ -57,8 +79,15 @@ namespace SistemaDeVendas.Repositorios
         {
             RetornoUsuario usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
             usuario.Endereco = endereco;
-            _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
 
@@ -66,8 +95,15 @@ namespace SistemaDeVendas.Repositorios
         {
             FornecedorModel fornecedor = await _fornecedorRepositorio.BuscarFornecedorPorId(IdFornecedor);
             fornecedor.Endereco = endereco;
-            _dbContext.Entry(fornecedor).CurrentValues.SetValues(fornecedor);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(fornecedor).CurrentValues.SetValues(fornecedor);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
 
@@ -79,7 +115,15 @@ namespace SistemaDeVendas.Repositorios
             endereco.Rua = enderecoCorrespondencia.Rua;
             endereco.Cidade = enderecoCorrespondencia.Cidade;
             endereco.Estado = enderecoCorrespondencia.Estado;
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
 
@@ -92,7 +136,15 @@ namespace SistemaDeVendas.Repositorios
             endereco.Rua = enderecoEntrega.Rua;
             endereco.Cidade = enderecoEntrega.Cidade;
             endereco.Estado = enderecoEntrega.Estado;
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
 
@@ -104,15 +156,30 @@ namespace SistemaDeVendas.Repositorios
             endereco.Rua = enderecoFaturamento.Rua;
             endereco.Cidade = enderecoFaturamento.Cidade;
             endereco.Estado = enderecoFaturamento.Estado;
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
         public async Task<EnderecoUsuarioModel> AlteraEnderecoDoUsuario(int IdUsuario, EnderecoUsuarioModel endereco)
         {
             RetornoUsuario usuario = await _usuarioRepositorio.BuscarUsuarioPorId(IdUsuario);
             usuario.Endereco = endereco;
-            _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
 
@@ -120,15 +187,22 @@ namespace SistemaDeVendas.Repositorios
         {
             FornecedorModel fornecedor = await _fornecedorRepositorio.BuscarFornecedorPorId(IdFornecedor);
             fornecedor.Endereco = endereco;
-            _dbContext.Entry(fornecedor).CurrentValues.SetValues(fornecedor);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(fornecedor).CurrentValues.SetValues(fornecedor);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return endereco;
         }
 
         public async Task<ICollection<EnderecoEmpresaCorrespondenciaModel>> BuscaEnderecoCorrespondenciaEmpresa(int idEmpresa)
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
-            ICollection<EnderecoEmpresaCorrespondenciaModel> enderecoEmpresa = empresa.EnderecoCorrespondencia ?? throw new Exception("Endereço não cadastrado");
+            ICollection<EnderecoEmpresaCorrespondenciaModel> enderecoEmpresa = empresa.EnderecoCorrespondencia;
             return enderecoEmpresa;
         }
 
@@ -136,7 +210,7 @@ namespace SistemaDeVendas.Repositorios
         {
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa);
             ICollection<EnderecoEmpresaEntregaModel> enderecoEmpresa = empresa.EnderecoEntrega;
-            return enderecoEmpresa ?? throw new Exception("Endereço não cadastrado");
+            return enderecoEmpresa;
         }
 
         public async Task<ICollection<EnderecoEmpresaFaturamentoModel>> BuscaEnderecoFaturamentoEmpresa(int idEmpresa)
@@ -173,8 +247,15 @@ namespace SistemaDeVendas.Repositorios
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa) ?? throw new Exception("Empresa não encontrada");
             EnderecoEmpresaCorrespondenciaModel? endereco = empresa.EnderecoCorrespondencia.FirstOrDefault(e => e.Id == idEmderecoCorrespondencia) ?? throw new Exception("Endereço não encontrado");
             empresa.EnderecoCorrespondencia.Remove(endereco);
-            _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return true;
         }
 
@@ -183,8 +264,15 @@ namespace SistemaDeVendas.Repositorios
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa) ?? throw new Exception("Empresa não encontrada");
             EnderecoEmpresaEntregaModel? endereco = empresa.EnderecoEntrega.FirstOrDefault(e => e.Id == idEmderecoEntrega) ?? throw new Exception("Endereço não encontrado");
             empresa.EnderecoEntrega.Remove(endereco);
-            _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return true;
         }
 
@@ -193,8 +281,15 @@ namespace SistemaDeVendas.Repositorios
             EmpresaModel empresa = await _empresaRepositorio.BuscarEmpresaPorId(idEmpresa) ?? throw new Exception("Empresa não encontrada");
             EnderecoEmpresaFaturamentoModel? endereco = empresa.EnderecoFaturamento.FirstOrDefault(e => e.Id == idEmderecoFaturamento) ?? throw new Exception("Endereço não encontrado");
             empresa.EnderecoFaturamento.Remove(endereco);
-            _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(empresa).CurrentValues.SetValues(empresa);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return true;
         }
 
@@ -203,8 +298,15 @@ namespace SistemaDeVendas.Repositorios
             RetornoUsuario usuario = await _usuarioRepositorio.BuscarUsuarioPorId(idUsuario) ?? throw new Exception("Usuario não encontrada");
             EnderecoUsuarioModel enderecoVazio = new();
             usuario.Endereco = enderecoVazio;
-            _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(usuario).CurrentValues.SetValues(usuario);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return true;
         }
 
@@ -213,8 +315,15 @@ namespace SistemaDeVendas.Repositorios
             FornecedorModel fornecedor = await _fornecedorRepositorio.BuscarFornecedorPorId(IdFornecedor) ?? throw new Exception("Usuário não encontrado");
             EnderecoFornecedor enderecoVazio = new();
             fornecedor.Endereco = enderecoVazio;
-            _dbContext.Entry(fornecedor).CurrentValues.SetValues(fornecedor);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(fornecedor).CurrentValues.SetValues(fornecedor);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ErrosException(500, ex.Message);
+            }
             return true;
         }
     }
